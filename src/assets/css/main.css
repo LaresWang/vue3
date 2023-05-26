@@ -1,0 +1,12 @@
+@import './base.css';
+@import './element/vars.css';
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: rgba(200, 200, 200, 0);
+}
+/* 滚动条上的滚动滑块 */
+::-webkit-scrollbar-thumb {
+  background-color: #f0f1f2;
+}
