@@ -1,60 +1,73 @@
 // 用户相关接口
-import { httpPost, httpGet } from "./http";
-import type {IResRegularError} from "../types/http"
-import type {THeatBeatReqParams, THeatBeatResParams} from "../types/user"
+import request from "./request"
+import type {
+  TQuickLoginReqParams,
+  TQuickLoginResParams,
+  TQuickLoginSendSMSReqParams,
+  TQuickLoginSendSMSResParams,
+  TLoginPWDReqParams,
+  TLoginPWDResParams,
+  TModifyPWDReqParams,
+  TUserInfoResParams,
+  TCaptchaInfoReqParams,
+  TCaptchaInfoResParams,
+  TLoggedSendSMSReqParams,
+  TLoggedSendSMSResParams,
+  TVerifyLoggedSMSReqParams,
+  TModifyMobileReqParams,
+  TModifyUserNameReqParams,
+  TSetPWDReqParams,
+  TResetPWDReqParams,
+  TSendSMSUnloginReqParams,
+  TSendSMSUnloginResParams,
+  TVerifyUnloginSMSReqParams,
+} from "../types/user"
 
-export const heartBeat = function (params: THeatBeatReqParams): Promise<THeatBeatResParams|undefined>{
-  return httpGet<THeatBeatResParams, IResRegularError>("instance/heartbeat", params).then((data: THeatBeatResParams|IResRegularError)=>{
-    if (!data.code) {
-      return data
-    }
-  });
-};
 // // 一键登录
 // // http://wiki.voneyun.com/pages/viewpage.action?pageId=16680340
-// export const loginBySMSCode = function (params) {
-//   return httpPost("user/quicklogin", params);
-// };
+export const loginBySMSCode = function (params: TQuickLoginReqParams) {
+  return request.post<TQuickLoginResParams>("user/quicklogin", params);
+};
 
-// // 发送一键登录手机验证码，
-// // http://wiki.voneyun.com/pages/viewpage.action?pageId=16680424
-// export const getSMSCode = function (params) {
-//   return httpPost("sms/quicklogin/send", params);
-// };
-// // 密码登录
-// // http://wiki.voneyun.com/pages/viewpage.action?pageId=16680444
-// export const loginByPassword = function (params) {
-//   return httpPost("user/login", params);
-// };
+// 发送一键登录手机验证码，
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=16680424
+export const getSMSCode = function (params:TQuickLoginSendSMSReqParams) {
+  return request.post<TQuickLoginSendSMSResParams>("sms/quicklogin/send", params)
+};
+// 密码登录
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=16680444
+export const loginByPassword = function (params:TLoginPWDReqParams) {
+  return request.post<TLoginPWDResParams>("user/login", params)
+};
 
 // // 密码设置、修改
 // // http://wiki.voneyun.com/pages/viewpage.action?pageId=16680437
-// export const modifyPassword = function (params) {
-//   return httpPost("user/password/modify", params);
-// };
+export const modifyPassword = function (params: TModifyPWDReqParams) {
+  return request.post("user/password/modify", params)
+};
 
-// // 退出
-// // http://wiki.voneyun.com/pages/viewpage.action?pageId=16680442
-// export const logout = function (params) {
-//   return httpPost("user/logout", params);
-// };
+// 退出
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=16680442
+export const logout = function () {
+  return request.post("user/logout")
+};
 
-// // 获取登录人基本信息
-// // http://wiki.voneyun.com/pages/viewpage.action?pageId=16680434
-// export const getUserInfo = function (params) {
-//   return httpPost("user/info", params);
-// };
+// 获取登录人基本信息
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=16680434
+export const getUserInfo = function () {
+  return request.post<TUserInfoResParams>("user/info")
+};
 
 // // 稍后设置密码
 // // http://wiki.voneyun.com/pages/viewpage.action?pageId=22511729
-// export const setPasswordLater = function (params) {
-//   return httpPost("user/password/laterSetting", params);
-// };
+export const setPasswordLater = function () {
+  return request.post("user/password/laterSetting")
+};
 
 // // 获取极验ID
-// export const getCaptchaInfo = function (params) {
-//   return httpPost("user/login/getCaptchaInfo", params);
-// };
+export const getCaptchaInfo = function (params:TCaptchaInfoReqParams) {
+  return request.post<TCaptchaInfoResParams>("user/login/getCaptchaInfo", params)
+};
 
 // // 上传用户头像
 // export const uploadAvatar = function (params) {
@@ -65,43 +78,53 @@ export const heartBeat = function (params: THeatBeatReqParams): Promise<THeatBea
 //   });
 // };
 
-// // 登录后在设置页面设置前需要手机短信验证码
-// export const getLoggedSMSCode = function (params) {
-//   return httpPost("sms/sendOnLogged", params);
-// };
+// 登录后在设置页面设置前需要手机短信验证码
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=22515701
+export const getLoggedSMSCode = function (params: TLoggedSendSMSReqParams) {
+  return request.post<TLoggedSendSMSResParams>("sms/sendOnLogged", params)
+};
 
-// // 登录后在设置页面设置前进行当前手机号验证码校验
-// export const verifyLoggedSMSCode = function (params) {
-//   return httpPost("sms/verifyOnLogged", params);
-// };
+// 登录后在设置页面设置前进行当前手机号验证码校验
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=22515707
+export const verifyLoggedSMSCode = function (params:TVerifyLoggedSMSReqParams) {
+  return request.post("sms/verifyOnLogged", params)
+};
 
-// // 更换新手机号
-// export const changeUserMobile = function (params) {
-//   return httpPost("user/mobile/modify", params);
-// };
+// 更换新手机号
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=22515716
+export const changeUserMobile = function (params: TModifyMobileReqParams) {
+  return request.post("user/mobile/modify", params)
+};
 
-// // 更新用户名
-// export const changeUserName = function (params) {
-//   return httpPost("user/name/modify", params);
-// };
+// 更新用户名
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=22515720
+export const changeUserName = function (params: TModifyUserNameReqParams) {
+  return request.post("user/name/modify", params)
+};
 
-// // 更新密码
-// export const changeUserPassword = function (params) {
-//   return httpPost("user/password/setting", params);
-// };
+// 更新密码
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=22517384
+export const changeUserPassword = function (params: TSetPWDReqParams) {
+  return request.post("user/password/setting", params)
+};
 
-// // 找回密码
-// export const pwdReset = function (params) {
-//   return httpPost("user/password/reset", params);
-// };
-// // 发送手机验证码（未登录）
-// export const sendSMSCode = function (params) {
-//   return httpPost("sms/send", params);
-// };
-// // 验证手机验证码（未登录）
-// export const smsVerify = function (params) {
-//   return httpPost("sms/verify", params);
-// };
+// 找回密码
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=22515816
+export const pwdReset = function (params: TResetPWDReqParams) {
+  return request.post("user/password/reset", params)
+};
+
+// 发送手机验证码（未登录）
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=22515699
+export const sendSMSCode = function (params: TSendSMSUnloginReqParams) {
+  return request.post<TSendSMSUnloginResParams>("sms/send", params)
+};
+
+// 验证手机验证码（未登录）
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=22515705
+export const smsVerify = function (params: TVerifyUnloginSMSReqParams) {
+  return request.post("sms/verify", params)
+};
 // // 获取服务区存储信息
 // export const serverregionGet = function (params) {
 //   return httpPost("serverregion/get", params);

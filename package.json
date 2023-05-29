@@ -1,5 +1,5 @@
 {
-  "name": "vue-latest",
+  "name": "digital-human-web",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -48,6 +48,7 @@
     "unplugin-auto-import": "0.16.2",
     "unplugin-vue-components": "0.24.1",
     "vite": "4.3.5",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "1.6.4"
   }
 }

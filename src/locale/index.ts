@@ -8,7 +8,7 @@ import zhLocale from "./lang/zh-cn"
 
 export type TLangs = "en"|"zh"
 export const defaultLang = "zh"
-const langKey = "current-lang"
+export const langKey = "current-lang"
 
 const messages = {
   en: {

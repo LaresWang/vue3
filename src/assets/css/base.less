@@ -478,3 +478,172 @@ input,
 .lh0 {
 	line-height: 0;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: rgba(200, 200, 200, 0);
+}
+/* 滚动条上的滚动滑块 */
+::-webkit-scrollbar-thumb {
+  background-color: #f0f1f2;
+}
+// 表格头部修改
+.el-table__header-wrapper {
+  height: 40px;
+}
+.el-table__header {
+  height: 40px !important;
+}
+.el-table__header tr,
+  .el-table__header th {
+    padding: 0;
+    height: 40px !important;
+    .cell {
+      position: relative;
+      bottom: 4px;
+      color: #222;
+    }
+  }
+// .el-table_1_column_1{
+//   .cell {
+//     padding-left:24px !important;
+//   }
+// }
+.el-table tr {
+  .el-table__cell:first-child{
+    .cell{
+      padding-left:24px !important;
+    }
+  }
+}
+// 改变表格悬停背景颜色
+.el-table--enable-row-hover .el-table__body tr:hover>td{
+  background-color: @MainBgA005 !important;
+}
+
+
+  // 输入框修改
+.el-input {
+  input {
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    height: 32px;
+    line-height: 32px;
+    font-family: 'PingFang SC';
+    &:hover{
+      border-color: rgba(98, 93, 245,0.2);
+    }
+    &:focus {
+      border-color: @MainColor;
+    }
+  }
+  input::placeholder {
+    color: #999 !important;
+  }
+}
+
+// 选择框箭头颜色修改
+.el-select .el-input .el-select__caret{
+  color: #333 !important;
+}
+
+
+.nt-input-item {
+  .el-input {
+		.el-input__wrapper {
+			padding: 0;
+		}
+    input {
+      height: 36px;
+      padding-left: 28px;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #333;
+      font-family: 'PingFang SC';
+    }
+  }
+  .prefix-input-icon-wrapper {
+    position: absolute;
+    width: 28px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    padding-bottom: 20px;
+    &.without-padding {
+      padding: 0;
+    }
+    img {
+      width: 12px;
+    }
+  }
+  .icon-error, .icon-success {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    background-size: 100% 100%;
+  }
+  .icon-error {
+    background-image: url(../imgs/icon_cross.png);
+  }
+  .icon-success {
+    background-image: url(../imgs/icon_tick.png);
+  }
+}
+
+.el-input__inner:hover {
+  border-color: rgba(98, 93, 245,0.2);
+}
+
+.el-button.is-disabled {
+  background: #E8E8E8;
+  border-radius: 4px;
+  border-color: #E8E8E8;
+  &:hover {
+    background: #E8E8E8;
+    border-color: #E8E8E8;
+  }
+}
+
+input::-ms-clear, input::-ms-reveal {
+  display: none;
+}
+
+input::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute; 
+  right: 0;
+}
+input:focus::-webkit-contacts-auto-fill-button{
+  opacity: 0;
+}
+
+input::-webkit-input-placeholder {
+  color: #999 !important;
+  font-size: 14px;
+}
+input::-moz-placeholder {
+  color: #999 !important;
+  font-size: 14px;
+}
+input:-moz-placeholder {
+  color: #999 !important;
+  font-size: 14px;
+}
+input::-ms-input-placeholder, 
+input:-ms-input-placeholder {
+  color: #999 !important;
+  font-size: 14px;
+}
+
+.el-textarea__inner {
+  color: #333;
+  font-size: 14px;
+  font-weight: 500 !important;
+  font-family: 'PingFang SC';
+  font-style: normal;
+}

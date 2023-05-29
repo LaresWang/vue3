@@ -7,6 +7,7 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons"
 
 
 // https://vitejs.dev/config/
@@ -22,6 +23,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 export default defineConfig((params)=>{
   console.log(params)
   console.log(111,import.meta.url)
+  console.log(path.resolve(process.cwd(), "src/assets/svgs"))
   // console.log(222,import.meta.env.mode)
   // console.log(process.env)
   // 根据启动命令行参数process.env 设置特定的配置
@@ -47,11 +49,16 @@ export default defineConfig((params)=>{
     plugins: [
       AutoImport({
         resolvers: [ElementPlusResolver()],
+        // imports: ["vue", "vue-router"]
       }),
       Components({
         resolvers: [ElementPlusResolver()],
       }),
       vue(),
+      createSvgIconsPlugin({
+        iconDirs: [path.resolve(process.cwd(), "src/assets/svgs")],
+        // symbolId: "[name]"
+      }),
     ],
     resolve: {
       alias: {
@@ -68,6 +75,7 @@ export default defineConfig((params)=>{
           modifyVars: {
             // hack: `true; @import (reference) "${path.resolve('src/assets/css/theme.less')}"`,
             "@MainColor": "#625DF5",
+            "@MainBgA005": "rgba(86,90,221,0.05)"
           },
           // javascriptEnabled: true,
         }

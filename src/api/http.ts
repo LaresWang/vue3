@@ -1,7 +1,7 @@
-import axios, { type CreateAxiosDefaults, type AxiosRequestConfig } from "axios";
+import axios, { type CreateAxiosDefaults, type AxiosRequestConfig } from "axios"
 import type { IGenUrlOpts, IGetParams, IPostParams, IReqConfig } from "../types/http"
-import { ElMessage } from "element-plus";
-import { t } from "../locale";
+import message from "../utils/message"
+import { t } from "../locale"
 
 const config: CreateAxiosDefaults = {
   timeout: 3000,
@@ -49,7 +49,7 @@ instance.interceptors.response.use(
     // console.log(i18n.global.t("test"))
 
     console.log(t("test"))
-    const errFun = ElMessage.error;
+    // const errFun = ElMessage.error;
     const code = response.data?.code;
     if (code === "200") {
       response.data.sincereConnection && localStorage.setItem("sincereConnection", response.data.sincereConnection);
@@ -74,7 +74,8 @@ instance.interceptors.response.use(
         break;
 
       default:
-        errFun(response.data.msg);
+        // errFun(response.data.msg);
+        message(response.data.msg, "error")
     }
     return Promise.reject(response.data);
     // return new Error(response.data.msg);
@@ -141,26 +142,49 @@ const postHandler = async (url: string, data:IPostParams = {}, options: AxiosReq
   return instance.request(params);
 };
 
-export const httpGet = async <T, K>(path: string, data:IGetParams = {}, options: IReqConfig = {}): Promise<T|K> => {
+export const httpGet = async <T, K>(path: string, data:IGetParams = {}, options: IReqConfig = {}): Promise<T|K|undefined> => {
   try {
     const url = genUrl(path, options)
     delete options.host
     delete options.prefix
     const res = await getHandler(url, data, options)
     return res as T
-  } catch (e) {
-    return e as K
+  } catch (e:any) {
+    if (e?.code) {
+      return e as K
+    }
+    return;
   }
 }
 
-export const httpPost = async <T, K>(path: string, data:IPostParams = {}, options: IReqConfig = {}): Promise<T|K> => {
+export const httpPost = async <T, K>(path: string, data:IPostParams = {}, options: IReqConfig = {}): Promise<T|K|undefined> => {
   try {
     const url = genUrl(path, options)
     delete options.host
     delete options.prefix
     const res = await postHandler(url, data, options)
     return res as T
-  } catch (e) {
-    return e as K
+  } catch (e: any) {
+    if (e?.code) {
+      return e as K
+    }
+    return;
+  }
+}
+
+export const getResData = <T>(data: any, prop?: string, isFalsy = false): T|undefined => {
+  if (data) {
+    if (prop) {
+      const hasProp = prop in data
+      if (isFalsy) {
+        if (!hasProp) {
+          return data as T
+        }
+        return
+      } else if (hasProp) {
+        return data as T
+      }
+    }
+    return data as T
   }
 }

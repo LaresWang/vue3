@@ -3,6 +3,7 @@ import './assets/css/base.less'
 import "element-plus/theme-chalk/el-message.css"
 
 import "./utils/setRootSize"
+import "virtual:svg-icons-register"
 
 import { createApp } from 'vue'
 import store from "./stores"
