@@ -1,12 +1,11 @@
 import { ref } from "vue"
 
-import { loginByPassword, getSMSCode } from "../../api/user";
+import { loginByPassword, getSMSCode } from "../../api/user"
 import type { TPWDInputValues } from "../../types/user"
 import { computedPosition } from "./index"
-import { loginDone } from "../../utils/jump";
+import { loginDone } from "../../utils/jump"
 import message from "../../utils/message"
 import { t } from "../../locale"
-
 
 export const useCaptchaInitSMS = () => {
   let captchaObj: any
@@ -24,7 +23,7 @@ export const useCaptchaInitSMS = () => {
     window.initGeetest4(
       {
         captchaId,
-        product: "bind",
+        product: "bind"
       },
       (captcha) => {
         // captcha为验证码实例
@@ -32,28 +31,28 @@ export const useCaptchaInitSMS = () => {
         captcha
           .onReady(() => {
             //验证码ready之后才能调用showCaptcha方法显示验证码
-            captchaObj = captcha;
+            captchaObj = captcha
           })
           .onSuccess(() => {
-            const result = captcha.getValidate();
-            console.log(result);
+            const result = captcha.getValidate()
+            console.log(result)
             getSMSCode({
               lotNumber: result.lot_number,
               captchaOutput: result.captcha_output,
               passToken: result.pass_token,
               genTime: result.gen_time,
-              mobile,
+              mobile
             }).then((data) => {
               // 待接口成功调用后显示提示语和执行倒计时操作
-              captchaNo.value = data.captchaNo;
+              captchaNo.value = data.captchaNo
               message(t("user.t19", { value: data.captchaNo }))
-            });
+            })
           })
           .onError(() => {
             //重置验证码
-            console.log("errr");
-            captcha.reset();
-          });
+            console.log("errr")
+            captcha.reset()
+          })
       }
     )
   }
@@ -66,7 +65,7 @@ export const useCaptchaInitPWD = () => {
   const isLoging = ref(false)
 
   let pwdLoginPartialParams: TPWDInputValues
- 
+
   const loginByPwd = (options: TPWDInputValues) => {
     pwdLoginPartialParams = options
     captchaObj.showCaptcha()
@@ -81,7 +80,7 @@ export const useCaptchaInitPWD = () => {
     window.initGeetest4(
       {
         captchaId,
-        product: "bind",
+        product: "bind"
       },
       (captcha) => {
         // captcha为验证码实例
@@ -89,30 +88,31 @@ export const useCaptchaInitPWD = () => {
         captcha
           .onReady(() => {
             //验证码ready之后才能调用showCaptcha方法显示验证码
-            captchaObj = captcha;
+            captchaObj = captcha
           })
           .onSuccess(() => {
-            isLoging.value = true;
-            const result = captcha.getValidate();
+            isLoging.value = true
+            const result = captcha.getValidate()
             loginByPassword({
               lotNumber: result.lot_number,
               captchaOutput: result.captcha_output,
               passToken: result.pass_token,
               genTime: result.gen_time,
-              ...pwdLoginPartialParams,
+              ...pwdLoginPartialParams
             })
               .then((data) => {
-                loginDone(data);
+                loginDone(data)
               })
-              .catch(() => {
-                isLoging.value = false;
-              });
+              .catch((e) => {
+                console.log(e)
+                isLoging.value = false
+              })
           })
           .onError(() => {
             //重置验证码
-            console.log("errr");
-            captcha.reset();
-          });
+            console.log("errr")
+            captcha.reset()
+          })
       }
     )
   }

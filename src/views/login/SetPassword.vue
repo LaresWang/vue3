@@ -23,21 +23,14 @@
           <!-- 密码 -->
           <div class="label">{{ $t("user.t11") }}</div>
           <div class="input-wrapper">
-            <PasswordInput
-              from="2"
-              @validate="validatePwd"
-            />
+            <PasswordInput from="2" @validate="validatePwd" />
           </div>
         </div>
         <div class="nt-input-item">
           <!-- 确认密码 -->
           <div class="label">{{ $t("user.t12") }}</div>
           <div class="input-wrapper">
-            <PasswordInput
-              from="3"
-              :compared-value="rdata.pwd"
-              @validate="validateRepwd"
-            />
+            <PasswordInput from="3" :compared-value="rdata.pwd" @validate="validateRepwd" />
           </div>
         </div>
       </div>
@@ -53,10 +46,7 @@
         </el-button>
         <span></span>
         <!-- 稍后设置 -->
-        <div
-          class="mt15 pointer later-set"
-          @click="setLater"
-        >
+        <div class="mt15 pointer later-set" @click="setLater">
           {{ $t("user.t15") }}
         </div>
       </div>
@@ -65,12 +55,12 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue"
-import { debounce } from "lodash";
-import { modifyPassword, setPasswordLater } from "../../api/user";
+import { debounce } from "lodash"
+import { modifyPassword, setPasswordLater } from "../../api/user"
 import message from "../../utils/message"
 import { t } from "../../locale"
 
-import PasswordInput from "../../components/PasswordInput.vue";
+import PasswordInput from "../../components/PasswordInput.vue"
 
 type TRdata = {
   showDialog: boolean
@@ -97,29 +87,35 @@ const rdata = reactive<TRdata>({
   showRepwdTip: false,
 })
 
-const props = withDefaults(defineProps<{
-  show: boolean
-}>(), {
-  show: false
-})
+const props = withDefaults(
+  defineProps<{
+    show: boolean
+  }>(),
+  {
+    show: false,
+  },
+)
 
 rdata.showDialog = ref(props.show).value
 
-watch(()=> props.show, val=>{
-  rdata.showDialog = val
-})
+watch(
+  () => props.show,
+  (val) => {
+    rdata.showDialog = val
+  },
+)
 
 const setPassword = debounce(function () {
-  console.log(rdata.pwd);
+  console.log(rdata.pwd)
   if (!rdata.pwdInfos.ok) {
     // 高亮密码输入框
 
-    return;
+    return
   }
   if (!rdata.repwdInfos.ok) {
     // 高亮确认密码输入框
 
-    return;
+    return
   }
 
   if (rdata.pwdInfos.ok && rdata.repwdInfos.ok) {
@@ -128,52 +124,52 @@ const setPassword = debounce(function () {
       confirmPassword: rdata.repwd,
     })
       .then(() => {
-        message(t("user.t26"));
-        rdata.showDialog = false;
+        message(t("user.t26"))
+        rdata.showDialog = false
       })
       .catch((e) => {
-        console.log(e);
+        console.log(e)
         if (e.code === "20001") {
-          rdata.showDialog = false;
+          rdata.showDialog = false
         }
-      });
+      })
   }
 }, 300)
 
 const setLater = debounce(function () {
   setPasswordLater().then(() => {
-    rdata.showDialog = false;
-  });
+    rdata.showDialog = false
+  })
 }, 300)
 
 const updateConfirmBtnStatus = () => {
   if (rdata.pwdInfos.ok && rdata.repwdInfos.ok) {
-    rdata.disabled = false;
+    rdata.disabled = false
   } else {
-    rdata.disabled = true;
+    rdata.disabled = true
   }
 }
 
 const validatePwd = (valid: boolean, value: string) => {
   if (valid) {
-    rdata.pwd = value;
-    rdata.pwdInfos.ok = true;
+    rdata.pwd = value
+    rdata.pwdInfos.ok = true
   } else {
-    rdata.pwd = "";
-    rdata.pwdInfos.ok = false;
+    rdata.pwd = ""
+    rdata.pwdInfos.ok = false
   }
-  updateConfirmBtnStatus();
+  updateConfirmBtnStatus()
 }
 
 const validateRepwd = (valid: boolean, value: string) => {
   if (valid) {
-    rdata.repwd = value;
-    rdata.repwdInfos.ok = true;
+    rdata.repwd = value
+    rdata.repwdInfos.ok = true
   } else {
-    rdata.repwd = "";
-    rdata.repwdInfos.ok = false;
+    rdata.repwd = ""
+    rdata.repwdInfos.ok = false
   }
-  updateConfirmBtnStatus();
+  updateConfirmBtnStatus()
 }
 </script>
 <style lang="less">
