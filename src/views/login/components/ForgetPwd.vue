@@ -21,7 +21,7 @@
               @blur="blur('mobile')"
             />
             <div class="prefix-input-icon-wrapper flex-center">
-              <img src="../../assets/imgs/icon_account_a.svg" />
+              <img src="@/assets/imgs/icon_account_a.svg" />
             </div>
             <span
               v-if="rdata.mobileInfos.error"
@@ -58,7 +58,7 @@
               </el-button>
             </div>
             <div class="prefix-input-icon-wrapper flex-center">
-              <img src="../../assets/imgs/icon_verify.svg" />
+              <img src="@/assets/imgs/icon_verify.svg" />
             </div>
 
             <span
@@ -168,9 +168,9 @@
 <script setup lang="ts">
   import { reactive, watch, onBeforeUnmount } from "vue"
   import { useRouter } from "vue-router"
-  import { pwdReset, smsVerify } from "../../api/user"
-  import { useCaptchaInit } from "../../hooks/user/forgetPassword"
-  import { useCountDownStatus, useGetCaptchaId } from "../../hooks/user"
+  import { pwdReset, smsVerify } from "@/api/user"
+  import { useCaptchaInit } from "@/hooks/user/forgetPassword"
+  import { useCountDownStatus, useGetCaptchaId } from "@/hooks/user"
   import {
     validateMobileChange,
     validateMobileBlur,
@@ -178,9 +178,9 @@
     validateEmptyForMsgCodeChange
     // validateEmptyForPasswordBlur,
     // validateEmptyForPasswordChange,
-  } from "../../utils/validate"
-  import PasswordInput from "../../components/PasswordInput.vue"
-  import CountDown from "../../components/CountDown.vue"
+  } from "@/utils/validate"
+  import PasswordInput from "./PasswordInput.vue"
+  import CountDown from "@/components/CountDown.vue"
 
   import { debounce } from "lodash"
 

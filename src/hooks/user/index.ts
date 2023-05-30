@@ -1,6 +1,7 @@
 import { ref } from "vue"
-import { getCaptchaInfo } from "../../api/user"
-import type { TOptBizType } from "../../types/user"
+import { getCaptchaInfo, getUserInfo } from "../../api/user"
+import type { TOptBizType, TUserInfoResParams } from "../../types/user"
+import useUserInfo from "../../stores/user"
 
 export const useCountDownStatus = () => {
   const isCountingDown = ref(false)
@@ -52,4 +53,24 @@ export const computedPosition = (selector: string) => {
   } catch (e) {
     console.log(e)
   }
+}
+
+export const useGetUserInfo = () => {
+  const userInfo = ref<TUserInfoResParams>()
+  const { setUserInfo } = useUserInfo()
+
+  const excute = async () => {
+    try {
+      const res = await getUserInfo()
+      userInfo.value = res
+      setUserInfo(res)
+      localStorage.setItem("userInfo", JSON.stringify(res))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  excute()
+
+  return { userInfo }
 }

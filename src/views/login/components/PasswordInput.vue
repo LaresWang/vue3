@@ -6,7 +6,7 @@
     >
       <div class="icon-wrapper flex-center">
         <img
-          src="../assets/imgs/icon_lock.svg"
+          src="@/assets/imgs/icon_lock.svg"
           alt=""
         />
       </div>
@@ -36,12 +36,12 @@
         >
           <img
             v-if="data.showOriginText"
-            src="../assets/imgs/icon_see.svg"
+            src="@/assets/imgs/icon_see.svg"
             alt=""
           />
           <img
             v-else
-            src="../assets/imgs/icon_see_no.svg"
+            src="@/assets/imgs/icon_see_no.svg"
             alt=""
           />
         </div>
@@ -115,9 +115,9 @@
 
 <script setup lang="ts">
   import { ref, reactive, watch, nextTick } from "vue"
-  import { validatePasswordChange, validatePasswordBlur, validateSetPassword, validateSetConfirmPassword } from "../utils/validate"
+  import { validatePasswordChange, validatePasswordBlur, validateSetPassword, validateSetConfirmPassword } from "@/utils/validate"
 
-  import type { IValidateResult, IValidateSetPWDResult } from "../types/login"
+  import type { IValidateResult, IValidateSetPWDResult } from "@/types/login"
 
   const props = withDefaults(
     defineProps<{

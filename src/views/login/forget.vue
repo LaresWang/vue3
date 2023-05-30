@@ -7,11 +7,11 @@
       <div class="login-home-body flex-v">
         <img
           class="login-main-pic"
-          src="../../assets/imgs/login_main_pic.png"
+          src="@/assets/imgs/login_main_pic.png"
         />
         <div class="login-frame">
           <img
-            src="../../assets/imgs/frame.png"
+            src="@/assets/imgs/frame.png"
             alt=""
             class="login-frame-pic"
           />
@@ -24,7 +24,7 @@
             <img
               class="response-img"
               style="width: 15px"
-              src="../../assets/imgs/beianlogo.png"
+              src="@/assets/imgs/beianlogo.png"
               alt=""
             />
             <span
@@ -47,8 +47,8 @@
 </template>
 <script setup lang="ts">
   // import { ref } from "vue"
-  import ForgetPwd from "./ForgetPwd.vue"
-  import { ICPBeianGov, PublicBeianGov } from "../../utils/jump"
+  import ForgetPwd from "./components/ForgetPwd.vue"
+  import { ICPBeianGov, PublicBeianGov } from "@/utils/jump"
 
   // const forgetPwd = ref(false)
 

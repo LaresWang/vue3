@@ -66,11 +66,11 @@
 <script setup lang="ts">
   import { ref, reactive, watch } from "vue"
   import { debounce } from "lodash"
-  import { modifyPassword, setPasswordLater } from "../../api/user"
-  import message from "../../utils/message"
-  import { t } from "../../locale"
+  import { modifyPassword, setPasswordLater } from "@/api/user"
+  import message from "@/utils/message"
+  import { t } from "@/locale"
 
-  import PasswordInput from "../../components/PasswordInput.vue"
+  import PasswordInput from "./PasswordInput.vue"
 
   type TRdata = {
     showDialog: boolean

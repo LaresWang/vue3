@@ -109,16 +109,24 @@ const defaultInterceptor: InterceptorHooks = {
     //   [500, '服务器出错']
     // ])
     // const message = mapErrorStatus.get(err.response.status) || t("test")
-    if (err.response.status > 400 && err.response.status < 500) {
-      // error.message: "Request failed with status code 404"
-      // error.response.statusText: "Not Found"
-      // msgError(error.message || error.response.statusText);
-    } else if (err.response.status >= 500) {
-      message(t("common.res_5xx"), "error")
+    const isGlobal = err.config.requestOptions?.globalErrorMessage
+    if (err.response) {
+      if (err.response.status > 400 && err.response.status < 500) {
+        // error.message: "Request failed with status code 404"
+        // error.response.statusText: "Not Found"
+        // msgError(error.message || error.response.statusText);
+      } else if (err.response.status >= 500) {
+        isGlobal && message(t("common.res_5xx"), "error")
+      }
+      return Promise.reject(err.response)
     }
-    // 此处全局报错
-    console.error(message)
-    return Promise.reject(err.response)
+
+    if (err.message) {
+      isGlobal && message(err.message, "error")
+      return Promise.reject(err.message)
+    }
+
+    return Promise.reject(err)
   }
 }
 
@@ -188,7 +196,7 @@ export class Request {
   public get<T>(url: string | IGenUrlOpts, config?: ExpandAxiosRequestConfig): Promise<AxiosResponse<BaseApiResponse<T>>> {
     return this._instance.get(genUrl(url), config)
   }
-  public post<T>(url: string | IGenUrlOpts, data?: any, config?: ExpandAxiosRequestConfig): Promise<T> {
+  public post<T>(url: string | IGenUrlOpts, data: any = {}, config?: ExpandAxiosRequestConfig): Promise<T> {
     return this._instance.post(genUrl(url), data, config)
   }
   public put<T>(url: string | IGenUrlOpts, data?: any, config?: ExpandAxiosRequestConfig): Promise<T> {

@@ -8,7 +8,7 @@ export const goLoginPage = () => {
 }
 
 export const loginFinished = function () {
-  router.push("/metahuman")
+  router.push("/human/home")
 }
 
 export const loginDone = (data: TLoginPWDResParams) => {

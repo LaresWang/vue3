@@ -36,7 +36,7 @@
           />
           <div class="prefix-input-icon-wrapper flex-center">
             <!-- <svg-icon name="icon_verify" /> -->
-            <img src="../../assets/imgs/icon_account_a.svg" />
+            <img src="@/assets/imgs/icon_account_a.svg" />
           </div>
           <span
             v-if="rdata.mobileInfos.error"
@@ -74,7 +74,7 @@
             </el-button>
           </div>
           <div class="prefix-input-icon-wrapper flex-center">
-            <img src="../../assets/imgs/icon_verify.svg" />
+            <img src="@/assets/imgs/icon_verify.svg" />
             <!-- <svg-icon
             /> -->
           </div>
@@ -132,9 +132,9 @@
 <script setup lang="ts">
   import { watch, reactive, onMounted } from "vue"
   import { useRouter } from "vue-router"
-  import { loginBySMSCode } from "../../api/user"
-  import { useCaptchaInitPWD, useCaptchaInitSMS } from "../../hooks/user/login"
-  import { useCountDownStatus, useGetCaptchaId } from "../../hooks/user"
+  import { loginBySMSCode } from "@/api/user"
+  import { useCaptchaInitPWD, useCaptchaInitSMS } from "@/hooks/user/login"
+  import { useCountDownStatus, useGetCaptchaId } from "@/hooks/user"
 
   import {
     validateMobileChange,
@@ -143,13 +143,13 @@
     validateEmptyForMsgCodeChange
     // validateEmptyForPasswordBlur,
     // validateEmptyForPasswordChange,
-  } from "../../utils/validate"
+  } from "@/utils/validate"
 
-  import { openUrlWithAElement } from "../../utils/jump"
-  import { loginDone } from "../../utils/jump"
+  import { openUrlWithAElement } from "@/utils/jump"
+  import { loginDone } from "@/utils/jump"
 
-  import PasswordInput from "../../components/PasswordInput.vue"
-  import CountDown from "../../components/CountDown.vue"
+  import PasswordInput from "./PasswordInput.vue"
+  import CountDown from "@/components/CountDown.vue"
 
   type TLoginInfoProps = "mobile" | "msgcode"
   type TRdata = {
