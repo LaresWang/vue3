@@ -1,4 +1,3 @@
-
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=16680340
 export type TQuickLoginReqParams = {
   mobile: string
@@ -14,9 +13,9 @@ export type TQuickLoginResParams = {
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=16680424
 export type TQuickLoginSendSMSReqParams = {
   mobile: string
-  lotNumber: string  
-  captchaOutput: string   
-  passToken: string   
+  lotNumber: string
+  captchaOutput: string
+  passToken: string
   genTime: string
 }
 export type TQuickLoginSendSMSResParams = {
@@ -27,9 +26,9 @@ export type TQuickLoginSendSMSResParams = {
 export type TLoginPWDReqParams = {
   mobile: string
   password: string
-  lotNumber: string    
-  captchaOutput: string   
-  passToken: string  
+  lotNumber: string
+  captchaOutput: string
+  passToken: string
   genTime: string
 }
 export type TLoginPWDResParams = {
@@ -38,17 +37,15 @@ export type TLoginPWDResParams = {
   userId: string
 }
 
-export type TPWDInputValues = Pick<TLoginPWDReqParams, "mobile"|"password">
+export type TPWDInputValues = Pick<TLoginPWDReqParams, "mobile" | "password">
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=16680437
 export type TModifyPWDReqParams = {
   password: string
-  confirmPassword: string	
+  confirmPassword: string
 }
 
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=16680434
-export type TUserInfoReqParams = {
-  
-}
+export type TUserInfoReqParams = {}
 export type TCapitalDetail = {
   type: number
   name: string
@@ -64,20 +61,20 @@ export type TAssetsStoreDetail = {
 export type TUserInfoResParams = {
   userName: string
   passwordStatus: number
-  mobile:	string
-  userAvatar:	string
+  mobile: string
+  userAvatar: string
   capitalDetailList: Array<TCapitalDetail>
   assetsStoreDetail: TAssetsStoreDetail
 }
 
-export type TOptBizType = 0|1|2|3
+export type TOptBizType = 0 | 1 | 2 | 3
 
 export type TCaptchaInfoReqParams = {
   optBizType: TOptBizType
 }
 export type TCaptchaInfoResParams = {
   captchaChannel: string
-	captchaId: string
+  captchaId: string
 }
 
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=22515701
@@ -90,7 +87,7 @@ export type TLoggedSendSMSReqParams = {
   genTime: string
   extend?: {
     sourceMobileCaptcha: string
-  }  
+  }
 }
 export type TLoggedSendSMSResParams = {
   captchaNo: stirng
@@ -99,7 +96,7 @@ export type TLoggedSendSMSResParams = {
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=22515707
 export type TVerifyLoggedSMSReqParams = {
   mobile: string
-  smsBizType:	number
+  smsBizType: number
   mobileCaptcha: string
 }
 
@@ -133,9 +130,9 @@ export type TResetPWDReqParams = {
 export type TSendSMSUnloginReqParams = {
   mobile: string
   smsBizType: number
-  lotNumber: string  
-  captchaOutput: string   
-  passToken: string   
+  lotNumber: string
+  captchaOutput: string
+  passToken: string
   genTime: string
 }
 export type TSendSMSUnloginResParams = {
@@ -153,25 +150,23 @@ export type TVerifyUnloginSMSReqParams = {
   mobileCaptcha: string
 }
 
-
-
 // export type TReqParams = {
-  
+
 // }
 // export type TResParams = {
-  
+
 // }
 
 // export type TReqParams = {
-  
+
 // }
 // export type TResParams = {
-  
+
 // }
 
 // export type TReqParams = {
-  
+
 // }
 // export type TResParams = {
-  
+
 // }

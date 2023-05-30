@@ -29,7 +29,8 @@
   --el-transition-function-fast-bezier: cubic-bezier(0.23, 1, 0.32, 1);
   --el-transition-all: all var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier);
   --el-transition-fade: opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
-  --el-transition-md-fade: transform var(--el-transition-duration) var(--el-transition-function-fast-bezier), opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+  --el-transition-md-fade: transform var(--el-transition-duration) var(--el-transition-function-fast-bezier),
+    opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
   --el-transition-fade-linear: opacity var(--el-transition-duration-fast) linear;
   --el-transition-border: border-color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
   --el-transition-box-shadow: box-shadow var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
@@ -402,5 +403,3 @@
   --el-statistic-title-font-weight: 400;
   --el-statistic-content-font-weight: 400;
 } */
-
-

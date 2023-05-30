@@ -1,5 +1,5 @@
 import { ref } from "vue"
-import { getCaptchaInfo } from "../../api/user";
+import { getCaptchaInfo } from "../../api/user"
 import type { TOptBizType } from "../../types/user"
 
 export const useCountDownStatus = () => {
@@ -14,9 +14,9 @@ export const useCountDownStatus = () => {
   return { isCountingDown, startCountDown, stopCountDown }
 }
 
-const getCaptchaId = async (optBizType:TOptBizType, cb: Function) => {
+const getCaptchaId = async (optBizType: TOptBizType, cb: Function) => {
   try {
-    const res = await getCaptchaInfo({ optBizType});
+    const res = await getCaptchaInfo({ optBizType })
     cb(res.captchaId)
   } catch (e) {
     console.log(e)
@@ -25,7 +25,7 @@ const getCaptchaId = async (optBizType:TOptBizType, cb: Function) => {
 
 export const useGetCaptchaId = (num: TOptBizType) => {
   const captchaId = ref("")
-  getCaptchaId(num, (captchId: string)=>{
+  getCaptchaId(num, (captchId: string) => {
     captchaId.value = captchId
   })
   return { captchaId }
@@ -33,23 +33,23 @@ export const useGetCaptchaId = (num: TOptBizType) => {
 
 export const computedPosition = (selector: string) => {
   try {
-    const loginEle = document.querySelector<HTMLElement>(selector);
+    const loginEle = document.querySelector<HTMLElement>(selector)
     if (!loginEle) {
       return
     }
-    const position = loginEle.getBoundingClientRect();
-    const { top, left } = position;
-    let geetestEles = document.querySelectorAll<HTMLElement>(".geetest_box_wrapV4");
+    const position = loginEle.getBoundingClientRect()
+    const { top, left } = position
+    let geetestEles = document.querySelectorAll<HTMLElement>(".geetest_box_wrapV4")
     if (!geetestEles.length) {
-      geetestEles = document.querySelectorAll<HTMLElement>(".geetest_box_wrap");
+      geetestEles = document.querySelectorAll<HTMLElement>(".geetest_box_wrap")
     }
     geetestEles.forEach((ele) => {
-      ele.style.top = top + "px";
-      ele.style.left = left + "px";
-      ele.style.transform = "none";
-      ele.style.minHeight = "380px";
-    });
+      ele.style.top = top + "px"
+      ele.style.left = left + "px"
+      ele.style.transform = "none"
+      ele.style.minHeight = "380px"
+    })
   } catch (e) {
-    console.log(e);
+    console.log(e)
   }
 }

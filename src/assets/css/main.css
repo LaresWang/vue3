@@ -1,5 +1,5 @@
-@import './base.css';
-@import './element/vars.css';
+@import "./base.css";
+@import "./element/vars.css";
 
 ::-webkit-scrollbar {
   width: 8px;

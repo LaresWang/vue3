@@ -1,5 +1,5 @@
 <template>
-  <div class="forget-pwd">
+  <div class="nt-forget-pwd">
     <div class="forget-pwd-inner">
       <div v-if="rdata.step === 1">
         <div class="login-type-btns-group flex-start">
@@ -52,7 +52,7 @@
               <el-button
                 v-else
                 :disabled="!rdata.mobileInfos.ok"
-                @click="getMsgCode({mobile: rdata.loginInfo.mobile})"
+                @click="getMsgCode({ mobile: rdata.loginInfo.mobile })"
               >
                 <span>{{ $t("user.t7") }}</span>
               </el-button>
@@ -166,55 +166,55 @@
   </div>
 </template>
 <script setup lang="ts">
-import { reactive, watch, onBeforeUnmount } from "vue"
-import { useRouter } from "vue-router" 
-import { pwdReset, smsVerify } from "../../api/user";
-import { useCaptchaInit } from "../../hooks/user/forgetPassword"
-import { useCountDownStatus, useGetCaptchaId } from "../../hooks/user"
-import {
-  validateMobileChange,
-  validateMobileBlur,
-  validateEmptyForMsgCodeBlur,
-  validateEmptyForMsgCodeChange,
-  // validateEmptyForPasswordBlur,
-  // validateEmptyForPasswordChange,
-} from "../../utils/validate";
-import PasswordInput from "../../components/PasswordInput.vue";
-import CountDown from "../../components/CountDown.vue";
+  import { reactive, watch, onBeforeUnmount } from "vue"
+  import { useRouter } from "vue-router"
+  import { pwdReset, smsVerify } from "../../api/user"
+  import { useCaptchaInit } from "../../hooks/user/forgetPassword"
+  import { useCountDownStatus, useGetCaptchaId } from "../../hooks/user"
+  import {
+    validateMobileChange,
+    validateMobileBlur,
+    validateEmptyForMsgCodeBlur,
+    validateEmptyForMsgCodeChange
+    // validateEmptyForPasswordBlur,
+    // validateEmptyForPasswordChange,
+  } from "../../utils/validate"
+  import PasswordInput from "../../components/PasswordInput.vue"
+  import CountDown from "../../components/CountDown.vue"
 
-import { debounce } from "lodash";
+  import { debounce } from "lodash"
 
-type TLoginInfoProps = "mobile"|"msgcode"
-type TRdata = {
-  loginType: number // 1-短信验证码登录 2-密码登录
-  loginInfo: {
-    mobile?: string
-    msgcode?: string
+  type TLoginInfoProps = "mobile" | "msgcode"
+  type TRdata = {
+    loginType: number // 1-短信验证码登录 2-密码登录
+    loginInfo: {
+      mobile?: string
+      msgcode?: string
+    }
+    mobileInfos: {
+      ok?: boolean
+      error?: string
+    }
+    repwdInfos: {
+      ok?: boolean
+    }
+    pwdInfos: {
+      ok?: boolean
+    }
+    msgcodeInfos: {
+      ok?: boolean
+      error?: string
+    }
+    nextBtnDisabled: boolean
+    disabled: boolean
+    step: number
+    pwd: string
+    repwd: string
+    startNum: number
+    backCountingDown: boolean
   }
-  mobileInfos: {
-    ok?: boolean
-    error?: string
-  }
-  repwdInfos: {
-    ok?: boolean
-  }
-  pwdInfos: {
-    ok?: boolean
-  }
-  msgcodeInfos: {
-    ok?: boolean
-    error?: string
-  }
-  nextBtnDisabled: boolean
-  disabled: boolean
-  step: number
-  pwd: string
-  repwd: string
-  startNum: number
-  backCountingDown: boolean
-}
 
-const rdata = reactive<TRdata>({
+  const rdata = reactive<TRdata>({
     loginType: 1, // 1-短信验证码登录 2-密码登录
     loginInfo: {},
     mobileInfos: {},
@@ -227,361 +227,358 @@ const rdata = reactive<TRdata>({
     pwd: "",
     repwd: "",
     startNum: 3,
-    backCountingDown: false,
-})
-
-const router = useRouter()
-const { captchaId } = useGetCaptchaId(1)
-const { captchaNo, startInitGeetest, getMsgCode } = useCaptchaInit()
-const { isCountingDown, startCountDown, stopCountDown } = useCountDownStatus()
-
-watch(captchaId, (val)=>{
-  if (val) {
-    startInitGeetest(val)
-  }
-})
-
-watch(captchaNo, val => {
-  if (val) {
-    startCountDown()
-  }
-})
-
-const nextStep = async ()=>{
-  if (!rdata.loginInfo.mobile || !rdata.loginInfo.msgcode) {
-    return
-  }
-  const params = {
-    mobile: rdata.loginInfo.mobile,
-    smsBizType: 1,
-    mobileCaptcha: rdata.loginInfo.msgcode,
-  };
-  // 验证手机验证码
-  try {
-    await smsVerify(params);
-    rdata.step = 2;
-  } catch (e) {
-    console.log(e)
-  }
-  
-}
-
-const focus = (prop: TLoginInfoProps) => {
-  const fullProp = prop + "Infos" as "msgcodeInfos"|"mobileInfos"
-  rdata[fullProp].error = ""
-}
-
-const change = (prop: TLoginInfoProps) => {
-  if (prop === "mobile") {
-    validateAndSetInfos(validateMobileChange, prop);
-  } else if (prop === "msgcode") {
-    validateAndSetInfos(validateEmptyForMsgCodeChange, prop);
-  }
-  // else if (prop === "pwd") {
-    // this.validateAndSetInfos(validateEmptyForPasswordChange, prop);
-  // } 
-}
-
-const blur = (prop: TLoginInfoProps) => {
-  if (prop === "mobile") {
-    validateAndSetInfos(validateMobileBlur, prop);
-  }else if (prop === "msgcode") {
-    validateAndSetInfos(validateEmptyForMsgCodeBlur, prop);
-  } 
-  // else if (prop === "pwd") {
-  //   // this.validateAndSetInfos(validateEmptyForPasswordBlur, prop);
-  // }
-}
-
-const setPasswordHandler = ()=>{
-// 开始调设置密码接口
-if (!rdata.pwdInfos.ok) {
-  // 高亮密码输入框
-
-  return;
-}
-if (!rdata.repwdInfos.ok) {
-  // 高亮确认密码输入框
-
-  return;
-}
-
-if (rdata.pwdInfos.ok && rdata.repwdInfos.ok) {
-  pwdReset({
-    password: rdata.pwd,
-    confirmPassword: rdata.repwd,
-    mobileCaptcha: rdata.loginInfo.msgcode!,
-    mobile: rdata.loginInfo.mobile!,
+    backCountingDown: false
   })
-    .then(() => {
-      rdata.step = 3;
-      rdata.backCountingDown = true;
-    })
-    .catch((e) => {
+
+  const router = useRouter()
+  const { captchaId } = useGetCaptchaId(1)
+  const { captchaNo, startInitGeetest, getMsgCode } = useCaptchaInit()
+  const { isCountingDown, startCountDown, stopCountDown } = useCountDownStatus()
+
+  watch(captchaId, (val) => {
+    if (val) {
+      startInitGeetest(val)
+    }
+  })
+
+  watch(captchaNo, (val) => {
+    if (val) {
+      startCountDown()
+    }
+  })
+
+  const nextStep = async () => {
+    if (!rdata.loginInfo.mobile || !rdata.loginInfo.msgcode) {
+      return
+    }
+    const params = {
+      mobile: rdata.loginInfo.mobile,
+      smsBizType: 1,
+      mobileCaptcha: rdata.loginInfo.msgcode
+    }
+    // 验证手机验证码
+    try {
+      await smsVerify(params)
+      rdata.step = 2
+    } catch (e) {
       console.log(e)
-    });
-}
-}
-const setPassword = debounce(setPasswordHandler, 300)
-
-const updateConfirmBtnStatus = () => {
-  if (rdata.pwdInfos.ok && rdata.repwdInfos.ok) {
-    rdata.disabled = false;
-  } else {
-    rdata.disabled = true;
+    }
   }
-}
 
-const validateAndSetInfos = (validate: Function, prop: TLoginInfoProps) => {
-  const ret = validate(rdata.loginInfo[prop]);
-  const fullProp = prop + "Infos" as "msgcodeInfos"|"mobileInfos"
-  rdata[fullProp] = {
-    error: ret.error,
-    ok: ret.ok,
-  };
-  if (ret.reviseValue) {
-    rdata.loginInfo[prop] = ret.reviseValue;
+  const focus = (prop: TLoginInfoProps) => {
+    const fullProp = (prop + "Infos") as "msgcodeInfos" | "mobileInfos"
+    rdata[fullProp].error = ""
   }
-  if (ret.clear) {
-    rdata.loginInfo[prop] = undefined;
+
+  const change = (prop: TLoginInfoProps) => {
+    if (prop === "mobile") {
+      validateAndSetInfos(validateMobileChange, prop)
+    } else if (prop === "msgcode") {
+      validateAndSetInfos(validateEmptyForMsgCodeChange, prop)
+    }
+    // else if (prop === "pwd") {
+    // this.validateAndSetInfos(validateEmptyForPasswordChange, prop);
+    // }
   }
-  updateLoginBtnStatus();
-}
 
-const validatePwd = (valid:boolean, val:string) => {
-  if (valid) {
-    rdata.pwd = val;
-    rdata.pwdInfos.ok = true;
-  } else {
-    rdata.pwdInfos.ok = false;
+  const blur = (prop: TLoginInfoProps) => {
+    if (prop === "mobile") {
+      validateAndSetInfos(validateMobileBlur, prop)
+    } else if (prop === "msgcode") {
+      validateAndSetInfos(validateEmptyForMsgCodeBlur, prop)
+    }
+    // else if (prop === "pwd") {
+    //   // this.validateAndSetInfos(validateEmptyForPasswordBlur, prop);
+    // }
   }
-  updateConfirmBtnStatus();
-}
 
-const validateRepwd = (valid: boolean, value: string) => {
-  if (valid) {
-    rdata.repwd = value;
-    rdata.repwdInfos.ok = true;
-  } else {
-    rdata.repwdInfos.ok = false;
+  const setPasswordHandler = () => {
+    // 开始调设置密码接口
+    if (!rdata.pwdInfos.ok) {
+      // 高亮密码输入框
+
+      return
+    }
+    if (!rdata.repwdInfos.ok) {
+      // 高亮确认密码输入框
+
+      return
+    }
+
+    if (rdata.pwdInfos.ok && rdata.repwdInfos.ok) {
+      pwdReset({
+        password: rdata.pwd,
+        confirmPassword: rdata.repwd,
+        mobileCaptcha: rdata.loginInfo.msgcode!,
+        mobile: rdata.loginInfo.mobile!
+      })
+        .then(() => {
+          rdata.step = 3
+          rdata.backCountingDown = true
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    }
   }
-  updateConfirmBtnStatus();
-}
+  const setPassword = debounce(setPasswordHandler, 300)
 
-const updateLoginBtnStatus = () => {
-  if (rdata.mobileInfos.ok && rdata.msgcodeInfos.ok) {
-    rdata.nextBtnDisabled = false;
-  } else {
-    rdata.nextBtnDisabled = true;
+  const updateConfirmBtnStatus = () => {
+    if (rdata.pwdInfos.ok && rdata.repwdInfos.ok) {
+      rdata.disabled = false
+    } else {
+      rdata.disabled = true
+    }
   }
-}
 
-const logout = () => {
-  router.push("/login");
-  localStorage.setItem("loginType", "2");
-}
+  const validateAndSetInfos = (validate: Function, prop: TLoginInfoProps) => {
+    const ret = validate(rdata.loginInfo[prop])
+    const fullProp = (prop + "Infos") as "msgcodeInfos" | "mobileInfos"
+    rdata[fullProp] = {
+      error: ret.error,
+      ok: ret.ok
+    }
+    if (ret.reviseValue) {
+      rdata.loginInfo[prop] = ret.reviseValue
+    }
+    if (ret.clear) {
+      rdata.loginInfo[prop] = undefined
+    }
+    updateLoginBtnStatus()
+  }
 
-const backCountDownFinished = () => {
-  router.push("/login");
-  localStorage.setItem("loginType", "2");
-}
+  const validatePwd = (valid: boolean, val: string) => {
+    if (valid) {
+      rdata.pwd = val
+      rdata.pwdInfos.ok = true
+    } else {
+      rdata.pwdInfos.ok = false
+    }
+    updateConfirmBtnStatus()
+  }
 
-const countDownFinished = () => {
-  stopCountDown()
-}
+  const validateRepwd = (valid: boolean, value: string) => {
+    if (valid) {
+      rdata.repwd = value
+      rdata.repwdInfos.ok = true
+    } else {
+      rdata.repwdInfos.ok = false
+    }
+    updateConfirmBtnStatus()
+  }
 
-onBeforeUnmount(()=>{
-  setPassword.cancel()
-})
+  const updateLoginBtnStatus = () => {
+    if (rdata.mobileInfos.ok && rdata.msgcodeInfos.ok) {
+      rdata.nextBtnDisabled = false
+    } else {
+      rdata.nextBtnDisabled = true
+    }
+  }
 
+  const logout = () => {
+    router.push("/login")
+    localStorage.setItem("loginType", "2")
+  }
 
+  const backCountDownFinished = () => {
+    router.push("/login")
+    localStorage.setItem("loginType", "2")
+  }
+
+  const countDownFinished = () => {
+    stopCountDown()
+  }
+
+  onBeforeUnmount(() => {
+    setPassword.cancel()
+  })
 </script>
 <style lang="less">
-.forget-pwd {
-  margin-top: 24px;
-  width: 400px;
+  .nt-forget-pwd {
+    margin-top: 24px;
+    width: 400px;
 
-  .forget-pwd-inner {
-    margin: 0 auto;
-    text-align: center;
-    color: #333333;
-    .login-type-btns-group {
-      font-size: 16px;
-      color: #999999;
-      letter-spacing: 0;
-      .login-type-btn {
-        font-family: PingFangSC-Regular;
-        font-weight: 400;
+    .forget-pwd-inner {
+      margin: 0 auto;
+      text-align: center;
+      color: #333333;
+      .login-type-btns-group {
         font-size: 16px;
         color: #999999;
-        margin-right: 28px;
-        padding-bottom: 4px;
-        border-bottom: 2px solid @MainColor;
-        .title {
+        letter-spacing: 0;
+        .login-type-btn {
           font-family: PingFangSC-Regular;
           font-weight: 400;
           font-size: 16px;
-          color: #333333;
-        }
-        .line {
-          width: 24px;
-          height: 2px;
-          margin-top: 2px;
-          background: @MainColor;
-          border-radius: 2px;
+          color: #999999;
+          margin-right: 28px;
+          padding-bottom: 4px;
+          border-bottom: 2px solid @MainColor;
+          .title {
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            font-size: 16px;
+            color: #333333;
+          }
+          .line {
+            width: 24px;
+            height: 2px;
+            margin-top: 2px;
+            background: @MainColor;
+            border-radius: 2px;
+          }
         }
       }
-    }
-    .login-inputs-area {
-      .nt-input-item {
-        position: relative;
-        padding: 0 0 20px 0;
-        &.without-status-icon {
-          // padding-right: 32px;
-        }
-        &.without-pb {
-          padding-bottom: 0;
-        }
-        &.with-button {
-          .el-input__inner {
-            padding-right: 100px;
+      .login-inputs-area {
+        .nt-input-item {
+          position: relative;
+          padding: 0 0 20px 0;
+          &.without-status-icon {
+            // padding-right: 32px;
           }
-        }
-        &.is-error {
-          .el-input__inner {
-            border-color: #f56c6c;
+          &.without-pb {
+            padding-bottom: 0;
           }
-          .err-msg {
+          &.with-button {
+            .el-input__inner {
+              padding-right: 100px;
+            }
+          }
+          &.is-error {
+            .el-input__inner {
+              border-color: #f56c6c;
+            }
+            .err-msg {
+              position: absolute;
+              left: 0;
+              bottom: 4px;
+              line-height: 1;
+              font-size: 12px;
+              color: #f5222d;
+              letter-spacing: 0;
+            }
+          }
+          .el-input {
+            flex: 1;
+            input {
+              height: 40px;
+            }
+          }
+          .msg-code-btn {
             position: absolute;
-            left: 0;
-            bottom: 4px;
-            line-height: 1;
-            font-size: 12px;
-            color: #f5222d;
-            letter-spacing: 0;
+            right: 1px;
+            top: 1px;
+            width: 86px;
+            height: 38px;
+            background: rgba(98, 93, 245, 0.1);
+            border-radius: 4px;
+            color: @MainColor;
+            font-family: PingFangSC-Regular;
+            font-weight: 400;
+            font-size: 14px;
+            .el-button {
+              border: none;
+              background: transparent;
+              font-size: 14px;
+              color: @MainColor;
+              letter-spacing: 0;
+              padding: 0;
+              height: 38px;
+              line-height: 38px;
+              text-align: center;
+              span {
+                font-weight: 400;
+              }
+            }
+          }
+          .icons-group {
+            width: 32px;
           }
         }
+      }
+      .set-pwd-inputs {
         .el-input {
           flex: 1;
           input {
             height: 40px;
           }
         }
-        .msg-code-btn {
-          position: absolute;
-          right: 1px;
-          top: 1px;
-          width: 86px;
-          height: 38px;
-          background: rgba(98, 93, 245, 0.1);
-          border-radius: 4px;
-          color: @MainColor;
-          font-family: PingFangSC-Regular;
-          font-weight: 400;
-          font-size: 14px;
-          .el-button {
-            border: none;
-            background: transparent;
-            font-size: 14px;
-            color: @MainColor;
-            letter-spacing: 0;
-            padding: 0;
+        .pwd-input {
+          .pwd-input-inner {
+            width: calc(100% - 2px);
             height: 38px;
-            line-height: 38px;
-            text-align: center;
-            span {
-              font-weight: 400;
+            .input-ele {
+              height: 36px;
             }
           }
         }
-        .icons-group {
-          width: 32px;
-        }
       }
-    }
-    .set-pwd-inputs {
-      .el-input {
-        flex: 1;
-        input {
-          height: 40px;
-        }
+      .to-login {
+        font-family: "PingFang SC";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        color: @MainColor;
+        padding-top: 16px;
+        width: 60px;
       }
-      .pwd-input {
-        .pwd-input-inner {
-          width: calc(100% - 2px);
-          height: 38px;
-          .input-ele {
-            height: 36px;
+      .step3 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding-right: 32px;
+        .svg-icon {
+          width: 36px;
+          height: 36px;
+        }
+        .desc {
+          font-family: PingFangSC-Regular;
+          font-weight: 400;
+          font-size: 16px;
+          color: #333333;
+          padding: 16px 0 16px;
+        }
+        .goLogin {
+          display: flex;
+          align-items: center;
+          padding-bottom: 40px;
+          font-family: PingFangSC-Regular;
+          font-weight: 400;
+          font-size: 14px;
+          color: @MainColor;
+          cursor: pointer;
+          .count-down {
+            padding-left: 8px;
+            font-family: "PingFang SC";
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 22px;
+            color: #000000;
           }
         }
       }
-    }
-    .to-login {
-      font-family: "PingFang SC";
-      font-style: normal;
-      font-weight: 500;
-      font-size: 14px;
-      color: @MainColor;
-      padding-top: 16px;
-      width: 60px;
-    }
-    .step3 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      padding-right: 32px;
-      .svg-icon {
-        width: 36px;
-        height: 36px;
+      .set-btns {
+        .el-button {
+          height: 40px;
+          width: 400px;
+          padding: 0;
+        }
+        .btn {
+          background: @MainColor;
+        }
+        .later-set {
+          font-size: 12px;
+        }
       }
-      .desc {
-        font-family: PingFangSC-Regular;
-        font-weight: 400;
-        font-size: 16px;
-        color: #333333;
-        padding: 16px 0 16px;
-      }
-      .goLogin {
-        display: flex;
-        align-items: center;
-        padding-bottom: 40px;
-        font-family: PingFangSC-Regular;
-        font-weight: 400;
-        font-size: 14px;
-        color: @MainColor;
-        cursor: pointer;
-        .count-down {
-          padding-left: 8px;
-          font-family: "PingFang SC";
-          font-style: normal;
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 22px;
-          color: #000000;
+      .login-btn {
+        .el-button {
+          width: 100%;
+          height: 36px;
+          padding: 0;
         }
       }
     }
-    .set-btns {
-      .el-button {
-        height: 40px;
-        width: 400px;
-        padding: 0;
-      }
-      .btn {
-        background: @MainColor;
-      }
-      .later-set {
-        font-size: 12px;
-      }
-    }
-    .login-btn {
-      .el-button {
-        width: 100%;
-        height: 36px;
-        padding: 0;
-      }
-    }
   }
-}
 </style>

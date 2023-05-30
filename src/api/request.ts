@@ -1,5 +1,5 @@
-import axios from 'axios'
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import axios from "axios"
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from "axios"
 import type { IGenUrlOpts } from "../types/http"
 import message from "../utils/message"
 import { t, langKey } from "../locale"
@@ -41,11 +41,11 @@ export interface InterceptorHooks {
   responseInterceptorCatch?: (error: any) => any
 }
 
-const defaultInterceptor:InterceptorHooks = {
+const defaultInterceptor: InterceptorHooks = {
   requestInterceptor(config) {
-    localStorage.getItem("token") && (config.headers["Authorization"] = localStorage.getItem("token"));
-    localStorage.getItem("sincereConnection") && (config.headers["Sincere-Connection"] = localStorage.getItem("sincereConnection"));
-    
+    localStorage.getItem("token") && (config.headers["Authorization"] = localStorage.getItem("token"))
+    localStorage.getItem("sincereConnection") && (config.headers["Sincere-Connection"] = localStorage.getItem("sincereConnection"))
+
     let lang = localStorage.getItem(langKey)
     if (!lang || lang.includes("zh")) {
       lang = "zh-cn"
@@ -55,10 +55,10 @@ const defaultInterceptor:InterceptorHooks = {
       // 暂时只支持中英文
       lang = "en-us"
     }
-    config.headers["Content-Language"] = lang;
-    config.headers["Accept-Language"] = lang;
+    config.headers["Content-Language"] = lang
+    config.headers["Accept-Language"] = lang
 
-    return config;
+    return config
   },
   requestInterceptorCatch(err) {
     // 请求错误，这里可以用全局提示框进行提示
@@ -71,10 +71,10 @@ const defaultInterceptor:InterceptorHooks = {
 
     if (res.config.requestOptions?.responseType === "blob") {
       // 文件下载接口，data类型为blob类型
-        return {
-          contentDisposition: decodeURIComponent(res.headers["content-disposition"] || ""),
-          data: res.data,
-        }
+      return {
+        contentDisposition: decodeURIComponent(res.headers["content-disposition"] || ""),
+        data: res.data
+      }
     }
 
     if (res.data.code !== "200") {
@@ -82,17 +82,17 @@ const defaultInterceptor:InterceptorHooks = {
         case "50006": // 无效的访问令牌	token不合法
         case "50007": // 访问令牌已过期 token已过期
           goLoginPage()
-          break;
+          break
         default:
           if (res.config.requestOptions?.globalErrorMessage) {
             message(res.data.msg, "error")
           }
       }
-      
+
       return Promise.reject(res.data)
     }
 
-    res.data.sincereConnection && localStorage.setItem("sincereConnection", res.data.sincereConnection);
+    res.data.sincereConnection && localStorage.setItem("sincereConnection", res.data.sincereConnection)
     if (res.config.requestOptions?.globalSuccessMessage) {
       message(res.data.msg)
     }
@@ -114,7 +114,7 @@ const defaultInterceptor:InterceptorHooks = {
       // error.response.statusText: "Not Found"
       // msgError(error.message || error.response.statusText);
     } else if (err.response.status >= 500) {
-      message(t("common.res_5xx"), "error");
+      message(t("common.res_5xx"), "error")
     }
     // 此处全局报错
     console.error(message)
@@ -122,16 +122,16 @@ const defaultInterceptor:InterceptorHooks = {
   }
 }
 
-export const genUrl = function (options:string|IGenUrlOpts): string {
+export const genUrl = function (options: string | IGenUrlOpts): string {
   if (typeof options === "string") {
     let url = options
     if (url.startsWith("http")) {
-      return url;
+      return url
     }
     if (url.startsWith("/")) {
       url = url.slice(1)
     }
-    return (import.meta.env.VITE_API_HOST || "") + "/api/realtime/" + url;
+    return (import.meta.env.VITE_API_HOST || "") + "/api/realtime/" + url
   } else {
     if (!options.path) {
       return ""
@@ -144,12 +144,11 @@ export const genUrl = function (options:string|IGenUrlOpts): string {
       url = url.slice(1)
     }
     if (options.host) {
-      return `${options.host}${options.prefix || "/"}${url}`;
+      return `${options.host}${options.prefix || "/"}${url}`
     }
-    return (import.meta.env.VITE_API_HOST || "") + (options.prefix || "/api/realtime/") + url;
+    return (import.meta.env.VITE_API_HOST || "") + (options.prefix || "/api/realtime/") + url
   }
-  
-};
+}
 
 // 导出Request类，可以用来自定义传递配置来创建实例
 export class Request {
@@ -160,7 +159,7 @@ export class Request {
     // baseURL: '',
     timeout: 3000,
     headers: {
-      "Source-Client": "sincere.web",
+      "Source-Client": "sincere.web"
       // "Source-Site": "sincere.realtime", // 走nginx配置的时候不需要这个头  走本地需要加上这个头
     },
     requestOptions: {
@@ -186,21 +185,20 @@ export class Request {
     // 这里直接返回，不需要我们再使用 promise 封装一层
     return this._instance.request(config)
   }
-  public get<T = any>(url: string|IGenUrlOpts, config?: ExpandAxiosRequestConfig): Promise<AxiosResponse<BaseApiResponse<T>>> {
+  public get<T>(url: string | IGenUrlOpts, config?: ExpandAxiosRequestConfig): Promise<AxiosResponse<BaseApiResponse<T>>> {
     return this._instance.get(genUrl(url), config)
   }
-  public post<T = any>(url: string|IGenUrlOpts, data?: any, config?: ExpandAxiosRequestConfig): Promise<T> {
+  public post<T>(url: string | IGenUrlOpts, data?: any, config?: ExpandAxiosRequestConfig): Promise<T> {
     return this._instance.post(genUrl(url), data, config)
   }
-  public put<T = any>(url: string|IGenUrlOpts, data?: any, config?: ExpandAxiosRequestConfig): Promise<T> {
+  public put<T>(url: string | IGenUrlOpts, data?: any, config?: ExpandAxiosRequestConfig): Promise<T> {
     return this._instance.put(genUrl(url), data, config)
   }
-  public delete<T = any>(url: string|IGenUrlOpts, config?: ExpandAxiosRequestConfig): Promise<T> {
+  public delete<T>(url: string | IGenUrlOpts, config?: ExpandAxiosRequestConfig): Promise<T> {
     return this._instance.delete(genUrl(url), config)
   }
 }
 
 const defaultRequest = new Request()
-
 
 export default defaultRequest

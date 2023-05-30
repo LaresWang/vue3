@@ -1,4 +1,4 @@
-import type { AxiosRequestConfig } from "axios";
+import type { AxiosRequestConfig } from "axios"
 
 export interface IGenUrlOpts {
   path?: string
@@ -6,22 +6,20 @@ export interface IGenUrlOpts {
   prefix?: string
 }
 
-export interface IReqConfig extends AxiosRequestConfig, IGenUrlOpts {
-
-}
+export interface IReqConfig extends AxiosRequestConfig, IGenUrlOpts {}
 
 export interface IGetParams {
-  [x: string]: string|number
+  [x: string]: string | number
 }
 export interface IPostParams {
   [x: string]: any
 }
 
-export interface IReqGetFun<T, K>{
-  (url: string, data:IGetParams, options: AxiosRequestConfig): T|K
+export interface IReqGetFun<T, K> {
+  (url: string, data: IGetParams, options: AxiosRequestConfig): T | K
 }
 
-export type IReqPostFun<T, K> = (url: string, data:IGetParams, options: AxiosRequestConfig) => T|K;
+export type IReqPostFun<T, K> = (url: string, data: IGetParams, options: AxiosRequestConfig) => T | K
 
 export type TResRegularError = {
   code: string

@@ -9,14 +9,14 @@ export const goLoginPage = () => {
 
 export const loginFinished = function () {
   router.push("/metahuman")
-};
+}
 
 export const loginDone = (data: TLoginPWDResParams) => {
   if (data.token) {
-    message(t("user.t25"));
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("userkey", data.userKey);
-    loginFinished();
+    message(t("user.t25"))
+    localStorage.setItem("token", data.token)
+    localStorage.setItem("userkey", data.userKey)
+    loginFinished()
   }
 }
 /**
@@ -30,38 +30,38 @@ export const loginDone = (data: TLoginPWDResParams) => {
  *      _parent	在父框架集中打开被链接文档。
  *      _top	在整个窗口中打开被链接文档。
  */
-type TAOpenType = "_blank"|"_self"|"_parent"|"_top";
+type TAOpenType = "_blank" | "_self" | "_parent" | "_top"
 type TAOpenOptions = {
   downLoad?: boolean
   name?: string
 }
-export const openUrlWithAElement = function (url: string, type:TAOpenType="_self", options:TAOpenOptions = {}) {
-  const start = url.slice(0, 4);
+export const openUrlWithAElement = function (url: string, type: TAOpenType = "_self", options: TAOpenOptions = {}) {
+  const start = url.slice(0, 4)
   if (start !== "http" && start !== "blob") {
-    return;
+    return
   }
-  const a = document.createElement("a");
-  a.style.display = "none";
-  a.setAttribute("href", url);
-  a.setAttribute("target", type);
-  a.setAttribute("id", "a_jump");
+  const a = document.createElement("a")
+  a.style.display = "none"
+  a.setAttribute("href", url)
+  a.setAttribute("target", type)
+  a.setAttribute("id", "a_jump")
   if (options.downLoad) {
-    a.setAttribute("download", options.name||"");
+    a.setAttribute("download", options.name || "")
   }
   //防止反复添加
-  const current = document.getElementById("a_jump");
+  const current = document.getElementById("a_jump")
   if (current) {
-    document.body.removeChild(current);
+    document.body.removeChild(current)
   }
 
-  document.body.appendChild(a);
-  a.click();
-};
+  document.body.appendChild(a)
+  a.click()
+}
 
 export const ICPBeianGov = function () {
-  openUrlWithAElement("https://beian.miit.gov.cn/", "_blank");
-};
+  openUrlWithAElement("https://beian.miit.gov.cn/", "_blank")
+}
 
 export const PublicBeianGov = function () {
-  openUrlWithAElement("https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011302007203", "_blank");
-};
+  openUrlWithAElement("https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011302007203", "_blank")
+}

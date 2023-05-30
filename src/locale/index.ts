@@ -6,18 +6,18 @@ import elementZhLocale from "element-plus/lib/locale/lang/zh-cn"
 import enLocale from "./lang/en"
 import zhLocale from "./lang/zh-cn"
 
-export type TLangs = "en"|"zh"
+export type TLangs = "en" | "zh"
 export const defaultLang = "zh"
 export const langKey = "current-lang"
 
 const messages = {
   en: {
     ...elementEnLocale,
-    ...enLocale,
+    ...enLocale
   },
   zh: {
     ...elementZhLocale,
-    ...zhLocale,
+    ...zhLocale
   }
 }
 
@@ -26,15 +26,15 @@ export const setCurrentLang = (lang: TLangs) => {
   localStorage.setItem(langKey, lang)
 }
 
-export const getCurrentLang = (): TLangs =>{
+export const getCurrentLang = (): TLangs => {
   const storeLang = localStorage.getItem(langKey)
   if (storeLang) {
     return storeLang as TLangs
   }
   const browserLang = navigator.language.toLowerCase()
   const supportLangs = Object.keys(messages)
-  supportLangs.forEach((lang:string)=>{
-    if (browserLang.includes(lang)){
+  supportLangs.forEach((lang: string) => {
+    if (browserLang.includes(lang)) {
       return lang as TLangs
     }
   })
@@ -44,7 +44,7 @@ export const getCurrentLang = (): TLangs =>{
 const i18n = createI18n({
   locale: getCurrentLang(),
   fallbackLocale: defaultLang,
-  messages,
+  messages
 })
 
 export default i18n

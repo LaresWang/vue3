@@ -6,12 +6,12 @@ import { t } from "../locale"
 const config: CreateAxiosDefaults = {
   timeout: 3000,
   headers: {
-    "Source-Client": "sincere.web",
+    "Source-Client": "sincere.web"
     // "Source-Site": "sincere.realtime", // 走nginx配置的时候不需要这个头  走本地需要加上这个头
   }
 }
 
-const instance = axios.create(config);
+const instance = axios.create(config)
 
 instance.interceptors.request.use(
   //这里添加token
@@ -21,39 +21,39 @@ instance.interceptors.request.use(
     //   config.headers["Source-Site"] = "sincere.realtime"; // 走nginx配置的时候不需要这个头  走本地需要加上这个头
     // }
 
-    localStorage.getItem("token") && (config.headers["Authorization"] = localStorage.getItem("token"));
-    localStorage.getItem("sincereConnection") && (config.headers["Sincere-Connection"] = localStorage.getItem("sincereConnection"));
-    config.headers["Content-Language"] = localStorage.getItem("lang") || "zh-cn";
-    return config;
+    localStorage.getItem("token") && (config.headers["Authorization"] = localStorage.getItem("token"))
+    localStorage.getItem("sincereConnection") && (config.headers["Sincere-Connection"] = localStorage.getItem("sincereConnection"))
+    config.headers["Content-Language"] = localStorage.getItem("lang") || "zh-cn"
+    return config
   },
   (error) => {
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 // 添加响应拦截器
 instance.interceptors.response.use(
   function (response) {
-    console.log(response);
+    console.log(response)
 
     if (response.config.responseType === "blob") {
       // 文件下载接口，data类型为blob类型
       if (response.status === 200) {
         return {
           contentDisposition: decodeURIComponent(response.headers["content-disposition"] || ""),
-          data: response.data,
-        };
+          data: response.data
+        }
       } else {
-        return Promise.reject(response);
+        return Promise.reject(response)
       }
     }
     // console.log(i18n.global.t("test"))
 
     console.log(t("test"))
     // const errFun = ElMessage.error;
-    const code = response.data?.code;
+    const code = response.data?.code
     if (code === "200") {
-      response.data.sincereConnection && localStorage.setItem("sincereConnection", response.data.sincereConnection);
-      return response.data.data;
+      response.data.sincereConnection && localStorage.setItem("sincereConnection", response.data.sincereConnection)
+      return response.data.data
     }
     // http://wiki.voneyun.com/pages/viewpage.action?pageId=16680308
 
@@ -71,13 +71,13 @@ instance.interceptors.response.use(
           //   goToLoginPage();
           // }
         }
-        break;
+        break
 
       default:
         // errFun(response.data.msg);
         message(response.data.msg, "error")
     }
-    return Promise.reject(response.data);
+    return Promise.reject(response.data)
     // return new Error(response.data.msg);
 
     // 对响应数据做点什
@@ -89,9 +89,9 @@ instance.interceptors.response.use(
 
   function (error) {
     if (error.config.params?.fallback) {
-      return Promise.reject(error);
+      return Promise.reject(error)
     }
-    console.log(error);
+    console.log(error)
     if (error.response.status > 400 && error.response.status < 500) {
       // error.message: "Request failed with status code 404"
       // error.response.statusText: "Not Found"
@@ -100,25 +100,23 @@ instance.interceptors.response.use(
       // msgError(t(""));
     }
 
-    return Promise.reject(new Error(error));
+    return Promise.reject(new Error(error))
   }
-);
+)
 
-export const httpInstance = instance;
+export const httpInstance = instance
 
-
-
-const genUrl = function (path = "", options:IGenUrlOpts = {}): string {
+const genUrl = function (path = "", options: IGenUrlOpts = {}): string {
   if (path.startsWith("http")) {
-    return path;
+    return path
   }
   if (options.host) {
-    return `${options.host}${options.prefix || "/"}${path}`;
+    return `${options.host}${options.prefix || "/"}${path}`
   }
-  return (import.meta.env.VITE_API_HOST || "") + (options.prefix || "/api/realtime/") + path;
+  return (import.meta.env.VITE_API_HOST || "") + (options.prefix || "/api/realtime/") + path
   // 调试
   // return (process.env.VUE_APP_LANUCH ? "" : process.env.VUE_APP_API_HOST) + "/realtime/" + path;
-};
+}
 
 const getHandler = async (url: string, params: IGetParams = {}, options: AxiosRequestConfig = {}) => {
   return instance.request({
@@ -126,38 +124,38 @@ const getHandler = async (url: string, params: IGetParams = {}, options: AxiosRe
     method: "get",
     params: {
       ...params,
-      t: Date.now(),
+      t: Date.now()
     },
-    ...options,
-  });
-};
+    ...options
+  })
+}
 
-const postHandler = async (url: string, data:IPostParams = {}, options: AxiosRequestConfig = {}) => {
+const postHandler = async (url: string, data: IPostParams = {}, options: AxiosRequestConfig = {}) => {
   const params = {
     url: url,
     method: "post",
     data,
-    ...options,
-  };
-  return instance.request(params);
-};
+    ...options
+  }
+  return instance.request(params)
+}
 
-export const httpGet = async <T, K>(path: string, data:IGetParams = {}, options: IReqConfig = {}): Promise<T|K|undefined> => {
+export const httpGet = async <T, K>(path: string, data: IGetParams = {}, options: IReqConfig = {}): Promise<T | K | undefined> => {
   try {
     const url = genUrl(path, options)
     delete options.host
     delete options.prefix
     const res = await getHandler(url, data, options)
     return res as T
-  } catch (e:any) {
+  } catch (e: any) {
     if (e?.code) {
       return e as K
     }
-    return;
+    return
   }
 }
 
-export const httpPost = async <T, K>(path: string, data:IPostParams = {}, options: IReqConfig = {}): Promise<T|K|undefined> => {
+export const httpPost = async <T, K>(path: string, data: IPostParams = {}, options: IReqConfig = {}): Promise<T | K | undefined> => {
   try {
     const url = genUrl(path, options)
     delete options.host
@@ -168,11 +166,11 @@ export const httpPost = async <T, K>(path: string, data:IPostParams = {}, option
     if (e?.code) {
       return e as K
     }
-    return;
+    return
   }
 }
 
-export const getResData = <T>(data: any, prop?: string, isFalsy = false): T|undefined => {
+export const getResData = <T>(data: any, prop?: string, isFalsy = false): T | undefined => {
   if (data) {
     if (prop) {
       const hasProp = prop in data

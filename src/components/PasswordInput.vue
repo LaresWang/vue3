@@ -114,285 +114,293 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, nextTick } from "vue" 
-import { validatePasswordChange, validatePasswordBlur, validateSetPassword, validateSetConfirmPassword } from "../utils/validate";
+  import { ref, reactive, watch, nextTick } from "vue"
+  import { validatePasswordChange, validatePasswordBlur, validateSetPassword, validateSetConfirmPassword } from "../utils/validate"
 
-import type { IValidateResult, IValidateSetPWDResult } from "../types/login"
+  import type { IValidateResult, IValidateSetPWDResult } from "../types/login"
 
-const props = withDefaults(defineProps<{
-  placeholder?: string // 定义组建接收绑定的传参
-  comparedValue?: string
-  from?: string 
-  // @from
-  // 1-实时校验，不符合密码规则的不让输入 登录场景
-  // 2-实时校验规则，给出浮层提示 设置密码 填写密码场景
-  // 3-不校验规则，确认密码
-  // 2, 3 都需要勾号叉号显示
-}>(), {
-  comparedValue: "",
-  from: "1"
-})
-
-const emits = defineEmits(["validate", "enterPress"])
-
-const data = reactive({
-  errText: "",
-  errTipContent: "",
-  inputType: "password",
-  showOriginText: false,
-  value: "",
-  isOk: false,
-  iconOk: false,
-  showPwdTipPanel: false,
-  showPasteTip: false,
-})
-const pwdInfos = reactive<{value: IValidateSetPWDResult}>({value: {}})
-const pwdInput = ref()
-
-type TTimout = ReturnType<typeof setTimeout>
-let errTimmer: TTimout
-let okTimmer: TTimout
-
-let isSwitchInputType = false;
-let isFromPaste = false;
-
-
-watch(()=>props.comparedValue, (val)=>{
-  if (props.from === "3") {
-    if (val) {
-      startCompare();
-    } else {
-      data.iconOk = false;
-      data.errText = "";
+  const props = withDefaults(
+    defineProps<{
+      placeholder?: string // 定义组建接收绑定的传参
+      comparedValue?: string
+      from?: string
+      // @from
+      // 1-实时校验，不符合密码规则的不让输入 登录场景
+      // 2-实时校验规则，给出浮层提示 设置密码 填写密码场景
+      // 3-不校验规则，确认密码
+      // 2, 3 都需要勾号叉号显示
+    }>(),
+    {
+      comparedValue: "",
+      from: "1"
     }
-  }
-})
+  )
 
-watch(()=>data.errText, (val)=>{
-  if (errTimmer) {
-    clearTimeout(errTimmer);
-  }
-  errTimmer = setTimeout(() => {
-    data.errTipContent = val;
-  }, 300);
-})
+  const emits = defineEmits(["validate", "enterPress"])
 
-watch(pwdInfos.value, (val)=>{
-  if (okTimmer) {
-    clearTimeout(okTimmer);
-  }
-  okTimmer = setTimeout(() => {
-    data.iconOk = val.ok||false;
-  }, 300);
-})
+  const data = reactive({
+    errText: "",
+    errTipContent: "",
+    inputType: "password",
+    showOriginText: false,
+    value: "",
+    isOk: false,
+    iconOk: false,
+    showPwdTipPanel: false,
+    showPasteTip: false
+  })
+  const pwdInfos = reactive<{ value: IValidateSetPWDResult }>({ value: {} })
+  const pwdInput = ref()
 
-const toggleShowType = () => {
-    data.showOriginText = !data.showOriginText;
-    isSwitchInputType = true;
+  type TTimout = ReturnType<typeof setTimeout>
+  let errTimmer: TTimout
+  let okTimmer: TTimout
+
+  let isSwitchInputType = false
+  let isFromPaste = false
+
+  watch(
+    () => props.comparedValue,
+    (val) => {
+      if (props.from === "3") {
+        if (val) {
+          startCompare()
+        } else {
+          data.iconOk = false
+          data.errText = ""
+        }
+      }
+    }
+  )
+
+  watch(
+    () => data.errText,
+    (val) => {
+      if (errTimmer) {
+        clearTimeout(errTimmer)
+      }
+      errTimmer = setTimeout(() => {
+        data.errTipContent = val
+      }, 300)
+    }
+  )
+
+  watch(pwdInfos.value, (val) => {
+    if (okTimmer) {
+      clearTimeout(okTimmer)
+    }
+    okTimmer = setTimeout(() => {
+      data.iconOk = val.ok || false
+    }, 300)
+  })
+
+  const toggleShowType = () => {
+    data.showOriginText = !data.showOriginText
+    isSwitchInputType = true
     if (data.showOriginText) {
-      data.inputType = "text";
+      data.inputType = "text"
     } else {
-      data.inputType = "password";
+      data.inputType = "password"
     }
     nextTick(() => {
-      pwdInput.value.focus();
-    });
+      pwdInput.value.focus()
+    })
   }
 
   const onFocus = () => {
-    data.errText = "";
+    data.errText = ""
     if (props.from === "2") {
-      data.showPwdTipPanel = true;
+      data.showPwdTipPanel = true
     }
-    isSwitchInputType = false;
+    isSwitchInputType = false
   }
-  
+
   const onInput = () => {
-    let ret: IValidateResult|IValidateSetPWDResult = {};
+    let ret: IValidateResult | IValidateSetPWDResult = {}
 
     if (props.from === "1") {
-      console.log("input", data.value);
-      ret = validatePasswordChange(data.value, isFromPaste);
+      console.log("input", data.value)
+      ret = validatePasswordChange(data.value, isFromPaste)
     } else if (props.from === "2" || props.from === "3") {
-      const ret1 = validateSetPassword(data.value, isFromPaste);
+      const ret1 = validateSetPassword(data.value, isFromPaste)
       ret = ret1
       if (props.from === "2") {
-        pwdInfos.value = ret1;
+        pwdInfos.value = ret1
         // 如果粘贴了包含非规定的字符，浮窗“密码只能包含字母、数字、符号”的提示，显示错误。光标从输入框中移除，提示“密码不符合设置规则”
         if (isFromPaste && ret1.illigal) {
-          data.showPasteTip = true;
+          data.showPasteTip = true
         } else {
-          data.showPasteTip = false;
+          data.showPasteTip = false
         }
       } else {
-        data.errText = "";
+        data.errText = ""
         // 再次输入密码的密码框勾号图标及时显示
         if (props.from === "3" && props.comparedValue) {
-          startCompare("input");
+          startCompare("input")
         }
       }
     }
 
-    isFromPaste = false;
+    isFromPaste = false
     if (ret.reviseValue) {
-      data.value = ret.reviseValue;
+      data.value = ret.reviseValue
     }
     if (ret.clear) {
-      data.iconOk = false;
-      data.value = "";
+      data.iconOk = false
+      data.value = ""
     }
     if (props.from === "1") {
       // 登录时密码输入框只要有值就可点击登录
       if (data.value) {
-        emits("validate", true, data.value);
+        emits("validate", true, data.value)
       } else {
-        emits("validate", false);
+        emits("validate", false)
       }
     } else if (props.from !== "3" || !props.comparedValue) {
       if (ret.ok) {
-        emits("validate", true, data.value);
+        emits("validate", true, data.value)
       } else {
-        emits("validate", false);
+        emits("validate", false)
       }
     } else {
-      emits("validate", data.value === props.comparedValue, data.value);
+      emits("validate", data.value === props.comparedValue, data.value)
     }
   }
 
   const onBlur = () => {
     if (isSwitchInputType) {
       // 在切换明文密文时不校验规则
-      isSwitchInputType = false;
-      return;
+      isSwitchInputType = false
+      return
     }
-    data.showPwdTipPanel = false;
+    data.showPwdTipPanel = false
 
-    let ret = null;
+    let ret = null
 
-    ret = validatePasswordBlur(data.value);
+    ret = validatePasswordBlur(data.value)
 
     if (props.from === "1") {
       // 登录时密码输入框只要有值就可点击登录
       if (data.value) {
-        emits("validate", true, data.value);
+        emits("validate", true, data.value)
       } else {
-        data.errText = ret.error||"";
-        emits("validate", false);
+        data.errText = ret.error || ""
+        emits("validate", false)
       }
-      return;
+      return
     }
     if (props.from === "3" && data.value && props.comparedValue) {
-      startCompare();
-      return;
+      startCompare()
+      return
     }
 
     if (ret.ok) {
-      data.isOk = true;
-      emits("validate", true, data.value);
+      data.isOk = true
+      emits("validate", true, data.value)
     } else if (ret.error) {
-      emits("validate", false);
+      emits("validate", false)
       if (props.from === "3" && data.value && !props.comparedValue) {
-        return;
+        return
       }
-      data.errText = ret.error;
+      data.errText = ret.error
     }
   }
 
   const onPaste = () => {
     // 内容粘贴过来的也会触发input事件
-    isFromPaste = true;
+    isFromPaste = true
   }
 
   const pressEnterKey = () => {
-    emits("enterPress");
+    emits("enterPress")
   }
 
   const startCompare = (type?: string) => {
-    const ret = validateSetConfirmPassword(data.value, props.comparedValue);
+    const ret = validateSetConfirmPassword(data.value, props.comparedValue)
     if (ret.ok) {
-      data.errText = "";
+      data.errText = ""
       pwdInfos.value = {
-        ok: true,
-      };
-      emits("validate", true, data.value);
+        ok: true
+      }
+      emits("validate", true, data.value)
     } else if (ret.error) {
-      data.iconOk = false;
-      type !== "input" && (data.errText = ret.error);
+      data.iconOk = false
+      type !== "input" && (data.errText = ret.error)
       pwdInfos.value = {
-        ok: false,
-      };
-      emits("validate", false);
+        ok: false
+      }
+      emits("validate", false)
     }
   }
 </script>
 
 <style lang="less">
-.nt-pwd-input {
-  width: 100%;
-  padding-bottom: 20px;
-  .pwd-input-inner {
-    position: relative;
+  .nt-pwd-input {
     width: 100%;
-    height: 36px;
-    padding: 0;
-    background: #fff;
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    .input-ele {
-      flex: 1;
-      height: 32px;
-      border: none;
-      outline: none;
-      font-size: 14px;
-      color: #333;
-    }
-    .icon-wrapper {
-      width: 28px;
-      height: 100%;
-      img {
-        width: 12px;
-      }
-    }
-    &.is-error {
-      border-color: #f56c6c;
-    }
-    .err-msg {
-      position: absolute;
-      left: 0;
-      top: calc(100% + 4px);
-      line-height: 1;
-      font-size: 12px;
-      color: #f5222d;
-      letter-spacing: 0;
-    }
-    .pwd-tip-panel {
-      position: absolute;
+    padding-bottom: 20px;
+    .pwd-input-inner {
+      position: relative;
       width: 100%;
-      top: calc(100% + 4px);
-      // padding-right: 20px;
-      z-index: 10;
-      .tip-panel-inner {
-        padding: 4px 13px;
-        border-radius: 5px;
-        background: #ffffff;
-        box-shadow: 0 0 10px 0 rgba(155, 174, 201, 0.4);
-        border-radius: 6px 0 0 0 6px 6px 6px;
-        border-radius: 6px 0 0 0 6px 6px 6px;
-        font-size: 12px;
-        color: #999;
-        > div {
-          padding: 4px 0;
-        }
-        .active {
-          color: #333;
+      height: 36px;
+      padding: 0;
+      background: #fff;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      .input-ele {
+        flex: 1;
+        height: 32px;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        color: #333;
+      }
+      .icon-wrapper {
+        width: 28px;
+        height: 100%;
+        img {
+          width: 12px;
         }
       }
-    }
-    .icons-group {
-      position: absolute;
-      right: -25px;
-      top: 8px;
+      &.is-error {
+        border-color: #f56c6c;
+      }
+      .err-msg {
+        position: absolute;
+        left: 0;
+        top: calc(100% + 4px);
+        line-height: 1;
+        font-size: 12px;
+        color: #f5222d;
+        letter-spacing: 0;
+      }
+      .pwd-tip-panel {
+        position: absolute;
+        width: 100%;
+        top: calc(100% + 4px);
+        // padding-right: 20px;
+        z-index: 10;
+        .tip-panel-inner {
+          padding: 4px 13px;
+          border-radius: 5px;
+          background: #ffffff;
+          box-shadow: 0 0 10px 0 rgba(155, 174, 201, 0.4);
+          border-radius: 6px 0 0 0 6px 6px 6px;
+          border-radius: 6px 0 0 0 6px 6px 6px;
+          font-size: 12px;
+          color: #999;
+          > div {
+            padding: 4px 0;
+          }
+          .active {
+            color: #333;
+          }
+        }
+      }
+      .icons-group {
+        position: absolute;
+        right: -25px;
+        top: 8px;
+      }
     }
   }
-}
 </style>
