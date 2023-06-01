@@ -1,14 +1,15 @@
 import path from "node:path"
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from "node:url"
 
-import { defineConfig, loadEnv } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig, loadEnv } from "vite"
+import vue from "@vitejs/plugin-vue"
 
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import AutoImport from "unplugin-auto-import/vite"
+import Components from "unplugin-vue-components/vite"
+import Icons from "unplugin-icons/vite"
+import IconsResolver from "unplugin-icons/resolver"
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons"
-
 
 // https://vitejs.dev/config/
 // export default defineConfig({
@@ -20,16 +21,18 @@ import { createSvgIconsPlugin } from "vite-plugin-svg-icons"
 //   },
 //   envDir: "./envs"
 // })
-export default defineConfig((params)=>{
+export default defineConfig((params) => {
   console.log(params)
-  console.log(111,import.meta.url)
-  console.log(path.resolve(process.cwd(), "src/assets/svgs"))
+  console.log(111, import.meta.url)
+  const rootPath = process.cwd()
+  console.log(path.resolve(rootPath, "src/assets/svgs"))
   // console.log(222,import.meta.env.mode)
   // console.log(process.env)
   // 根据启动命令行参数process.env 设置特定的配置
+
   const app_env = process.env.NODE_ENV
-  const dir = path.join(process.cwd(), "envs")
-  const env = loadEnv(params.mode, dir, 'VITE_')
+  const dir = path.join(rootPath, "envs")
+  const env = loadEnv(params.mode, dir, "VITE_")
   let buildOpts = {}
   if (app_env && ["production", "uat"].includes(app_env)) {
     buildOpts = {
@@ -39,7 +42,7 @@ export default defineConfig((params)=>{
         compress: {
           // drop_console: true,
           pure_funcs: ["console.log", "console.info", "console.warn"],
-          drop_debugger: true,
+          drop_debugger: true
         }
       }
     }
@@ -48,26 +51,41 @@ export default defineConfig((params)=>{
   return {
     plugins: [
       AutoImport({
-        resolvers: [ElementPlusResolver()],
+        resolvers: [
+          ElementPlusResolver(),
+          IconsResolver({
+            prefix: "Icon"
+          })
+        ],
         // imports: ["vue", "vue-router"]
+        dts: path.resolve(rootPath, "auto-imports.d.ts")
       }),
       Components({
-        resolvers: [ElementPlusResolver()],
+        resolvers: [
+          ElementPlusResolver(),
+          IconsResolver({
+            enabledCollections: ["ep"]
+          })
+        ],
+        dts: path.resolve(rootPath, "components.d.ts")
+      }),
+      Icons({
+        autoInstall: true
       }),
       vue(),
       createSvgIconsPlugin({
-        iconDirs: [path.resolve(process.cwd(), "src/assets/svgs")],
+        iconDirs: [path.resolve(rootPath, "src/assets/svgs")]
         // symbolId: "[name]"
-      }),
+      })
     ],
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url))
+        "@": fileURLToPath(new URL("./src", import.meta.url))
       }
     },
     envDir: "./envs",
     define: {
-      "APP_ENV": JSON.stringify(process.env.NODE_ENV)
+      APP_ENV: JSON.stringify(process.env.NODE_ENV)
     },
     css: {
       preprocessorOptions: {
@@ -76,10 +94,10 @@ export default defineConfig((params)=>{
             // hack: `true; @import (reference) "${path.resolve('src/assets/css/theme.less')}"`,
             "@MainColor": "#625DF5",
             "@MainBgA005": "rgba(86,90,221,0.05)"
-          },
+          }
           // javascriptEnabled: true,
         }
-      },
+      }
     },
     server: {
       port: 8888,
@@ -88,15 +106,14 @@ export default defineConfig((params)=>{
         "/api/realtime": {
           target: env.VITE_API_HOST,
           // ws: true,
-          changeOrigin: true,
-        },
+          changeOrigin: true
+        }
       }
     },
     build: {
       cssCodeSplit: true,
       sourcemap: true,
-      ...buildOpts,
+      ...buildOpts
     }
   }
-  
 })

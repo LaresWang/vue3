@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 import TestView from "../views/TestView.vue"
 import Login from "../views/login/index.vue"
+import Set from "../views/user/set.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
           component: () => import("../views/human/home.vue")
         }
       ]
+    },
+    {
+      path: "/set",
+      name: "set",
+      component: Set
     }
   ]
 })

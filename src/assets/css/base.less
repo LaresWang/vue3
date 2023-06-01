@@ -643,3 +643,38 @@ input:-ms-input-placeholder {
   font-family: "PingFang SC";
   font-style: normal;
 }
+
+.el-dialog__wrapper {
+  .el-dialog {
+    transform: translateY(-50%);
+    border-radius: 6px;
+
+    .el-dialog__header {
+      height: 40px;
+      padding: 20px 24px 10px;
+
+      .el-dialog__title {
+        font-size: 14px;
+        position: relative;
+        bottom: 10px;
+      }
+
+      .el-dialog__headerbtn {
+        top: 11px;
+
+        .el-dialog__close {
+          color: #343f67;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .el-dialog__body {
+      padding: 0px 0px 12px 0px;
+    }
+  }
+
+  .el-button--default {
+    color: #333;
+  }
+}

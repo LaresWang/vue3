@@ -2,14 +2,14 @@
   <div class="human-home">
     human home
     <div>
-      {{ info }}
+      {{ userInfo }}
     </div>
   </div>
 </template>
 <script setup lang="ts">
   // import { unref, watch } from "vue"
   import useUserInfo from "@/stores/user"
-  const { info } = useUserInfo()
+  const { userInfo } = useUserInfo()
   // console.log(unref(info.value))
   // watch(info, (val) => {
   //   console.log("-=======", val)

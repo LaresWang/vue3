@@ -179,7 +179,7 @@
     // validateEmptyForPasswordBlur,
     // validateEmptyForPasswordChange,
   } from "@/utils/validate"
-  import PasswordInput from "./PasswordInput.vue"
+  import PasswordInput from "@/components/PasswordInput.vue"
   import CountDown from "@/components/CountDown.vue"
 
   import { debounce } from "lodash"

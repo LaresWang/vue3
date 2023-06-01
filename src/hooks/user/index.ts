@@ -17,6 +17,7 @@ export const useCountDownStatus = () => {
 
 const getCaptchaId = async (optBizType: TOptBizType, cb: Function) => {
   try {
+    // optBizType: 0-登录 1-找回密码 2-修改密码 3-修改手机号
     const res = await getCaptchaInfo({ optBizType })
     cb(res.captchaId)
   } catch (e) {
@@ -55,11 +56,11 @@ export const computedPosition = (selector: string) => {
   }
 }
 
-export const useGetUserInfo = () => {
+export const useGetUserInfo = (immediate = false) => {
   const userInfo = ref<TUserInfoResParams>()
   const { setUserInfo } = useUserInfo()
 
-  const excute = async () => {
+  const getUser = async () => {
     try {
       const res = await getUserInfo()
       userInfo.value = res
@@ -69,8 +70,9 @@ export const useGetUserInfo = () => {
       console.log(e)
     }
   }
+  if (immediate) {
+    getUser()
+  }
 
-  excute()
-
-  return { userInfo }
+  return { userInfo, getUser }
 }

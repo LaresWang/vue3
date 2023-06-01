@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { RouterView } from "vue-router"
   // import HelloWorld from './components/HelloWorld.vue'
-  document.body.addEventListener("keydown", function (event: KeyboardEvent) {
-    console.log("app evemt", event)
-  })
+  // document.body.addEventListener("keydown", function (event: KeyboardEvent) {
+  //   console.log("app evemt", event)
+  // })
 </script>
 
 <template>

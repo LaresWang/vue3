@@ -17,10 +17,13 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "axios": "1.4.0",
     "element-plus": "2.3.5",
     "pinia": "2.0.36",
+    "unplugin-icons": "^0.16.1",
     "vue": "3.3.2",
+    "vue-cropper": "^1.0.9",
     "vue-i18n": "9.2.2",
     "vue-router": "4.2.0",
     "webrtcsdk_new": "^1.5.21"

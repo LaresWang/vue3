@@ -148,7 +148,7 @@
   import { openUrlWithAElement } from "@/utils/jump"
   import { loginDone } from "@/utils/jump"
 
-  import PasswordInput from "./PasswordInput.vue"
+  import PasswordInput from "@/components/PasswordInput.vue"
   import CountDown from "@/components/CountDown.vue"
 
   type TLoginInfoProps = "mobile" | "msgcode"

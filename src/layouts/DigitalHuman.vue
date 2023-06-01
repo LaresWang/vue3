@@ -17,10 +17,10 @@
 
   import { useGetUserInfo } from "../hooks/user"
 
-  import SetPassword from "../views/login/components/SetPassword.vue"
+  import SetPassword from "@/components/SetPassword.vue"
 
   const showSetPwdPanel = ref(false)
-  const { userInfo } = useGetUserInfo()
+  const { userInfo } = useGetUserInfo(true)
 
   watch(userInfo, (val) => {
     if (val) {

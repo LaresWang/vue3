@@ -20,7 +20,8 @@ import type {
   TResetPWDReqParams,
   TSendSMSUnloginReqParams,
   TSendSMSUnloginResParams,
-  TVerifyUnloginSMSReqParams
+  TVerifyUnloginSMSReqParams,
+  TAvatarReqParams
 } from "../types/user"
 
 // // 一键登录
@@ -69,14 +70,14 @@ export const getCaptchaInfo = function (params: TCaptchaInfoReqParams) {
   return request.post<TCaptchaInfoResParams>("user/login/getCaptchaInfo", params)
 }
 
-// // 上传用户头像
-// export const uploadAvatar = function (params) {
-//   return httpPost("user/avatar/setting", params, {
-//     headers: {
-//       "content-type": "multipart/form-data",
-//     },
-//   });
-// };
+// 上传用户头像
+export const uploadAvatar = function (params: TAvatarReqParams) {
+  return request.post("user/avatar/setting", params, {
+    headers: {
+      "content-type": "multipart/form-data"
+    }
+  })
+}
 
 // 登录后在设置页面设置前需要手机短信验证码
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=22515701

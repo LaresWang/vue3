@@ -1,3 +1,5 @@
+import type { UploadRawFile } from "element-plus"
+
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=16680340
 export type TQuickLoginReqParams = {
   mobile: string
@@ -59,12 +61,12 @@ export type TAssetsStoreDetail = {
 }
 
 export type TUserInfoResParams = {
-  userName: string
-  passwordStatus: number
-  mobile: string
-  userAvatar: string
-  capitalDetailList: Array<TCapitalDetail>
-  assetsStoreDetail: TAssetsStoreDetail
+  userName?: string
+  passwordStatus?: number
+  mobile?: string
+  userAvatar?: string
+  capitalDetailList?: Array<TCapitalDetail>
+  assetsStoreDetail?: TAssetsStoreDetail
 }
 
 export type TOptBizType = 0 | 1 | 2 | 3
@@ -95,7 +97,7 @@ export type TLoggedSendSMSResParams = {
 
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=22515707
 export type TVerifyLoggedSMSReqParams = {
-  mobile: string
+  mobile?: string
   smsBizType: number
   mobileCaptcha: string
 }
@@ -150,9 +152,9 @@ export type TVerifyUnloginSMSReqParams = {
   mobileCaptcha: string
 }
 
-// export type TReqParams = {
-
-// }
+export type TAvatarReqParams = {
+  avatarFile: UploadRawFile | FormData
+}
 // export type TResParams = {
 
 // }
