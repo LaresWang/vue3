@@ -1,14 +1,39 @@
-import router from "../router"
+// import router from "../router"
 import type { TLoginPWDResParams } from "../types/user"
 import message from "./message"
 import { t } from "../locale"
 
+let router: any
+export const loadRouter = async () => {
+  if (!router) {
+    try {
+      const r = await import("../router")
+      router = r.default
+      // return r
+    } catch (e) {
+      console.error("动态导入路由异常", e)
+      // return null
+    }
+  }
+}
+
+const jump = async (path: string) => {
+  if (router) {
+    router.push(path)
+  } else {
+    await loadRouter()
+    if (router) {
+      router.push(path)
+    }
+  }
+}
+
 export const goLoginPage = () => {
-  router.push("/login")
+  jump("/login")
 }
 
 export const loginFinished = function () {
-  router.push("/human/home")
+  jump("/human/home")
 }
 
 export const loginDone = (data: TLoginPWDResParams) => {
