@@ -65,6 +65,7 @@ export default {
   upload: {
     t1: "上传头像",
     t2: "上传",
-    t3: "头像不大于5M，支持jpg、jpeg、png、bmp格式"
+    t3: "头像不大于5M，支持jpg、jpeg、png、bmp格式",
+    t4: "文件过大"
   }
 }

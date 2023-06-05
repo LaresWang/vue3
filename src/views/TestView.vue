@@ -4,11 +4,10 @@
   import { useRouter } from "vue-router"
   // import { useI18n } from "vue-i18n"
   // import router from "../router"
-  // import { heartBeat } from "../api/player"
-  import { getCaptchaInfo, setPasswordLater } from "../api/user"
 
   import ThemeColor from "../components/ThemeColorsTest.vue"
   import Language from "../components/Languge.vue"
+  import CodeEditor from "@/components/CodeEditor.vue"
 
   console.log(import.meta)
   console.log(import.meta.env)
@@ -26,18 +25,7 @@
   )
   // const { t } = useI18n()
   // console.log(t("test"))
-  onMounted(async () => {
-    // const res = await heartBeat({
-    //   instanceId: '111'
-    // })
-    // const res = await getCaptchaInfo({
-    //   optBizType: 0
-    // })
-    // console.log(res)
-
-    const res1 = await setPasswordLater()
-    console.log(res1)
-  })
+  onMounted(async () => {})
   // const jump = function(){
   //   router.push("/about")
   // }
@@ -62,6 +50,7 @@
         @click="jump2"
         >tiaozhuan2</ElButton
       >
+      <CodeEditor />
     </main>
   </ThemeColor>
 </template>

@@ -70,7 +70,7 @@
   import { VueCropper } from "vue-cropper"
 
   import message from "@/utils/message"
-  // import { t } from "@/locale"
+  import { t } from "@/locale"
 
   type TCropperOptions = {
     img?: string //裁剪图片的地址
@@ -148,7 +148,7 @@
   const beforeUpload = (file: UploadRawFile) => {
     console.log(file)
     if (props.limitSize && props.limitSize < file.size) {
-      message("文件过大", "warning")
+      message(t("upload.t4"), "warning")
       return false
     }
     if (props.forbidCropper) {
