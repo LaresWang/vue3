@@ -1,12 +1,12 @@
 <template>
   <el-dialog
-    v-model:visible="rdata.showDialog"
+    v-model="rdata.showDialog"
     width="334px"
     :show-close="false"
     :modal-append-to-body="false"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
-    custom-class="set-password"
+    class="nt-set-password"
     top="50vh"
   >
     <div class="set-password-inner">
@@ -64,7 +64,7 @@
   </el-dialog>
 </template>
 <script setup lang="ts">
-  import { ref, reactive, watch } from "vue"
+  import { reactive, watchEffect } from "vue"
   import { debounce } from "lodash"
   import { modifyPassword, setPasswordLater } from "@/api/user"
   import message from "@/utils/message"
@@ -106,14 +106,9 @@
     }
   )
 
-  rdata.showDialog = ref(props.show).value
-
-  watch(
-    () => props.show,
-    (val) => {
-      rdata.showDialog = val
-    }
-  )
+  watchEffect(() => {
+    rdata.showDialog = props.show
+  })
 
   const setPassword = debounce(function () {
     console.log(rdata.pwd)
@@ -183,12 +178,7 @@
   }
 </script>
 <style lang="less">
-  .el-dialog__wrapper,
-  .v-modal {
-    background: rgba(47, 61, 105, 0.1);
-  }
-
-  .set-password {
+  .nt-set-password {
     height: 390px;
     color: #333;
     .el-dialog__header {
