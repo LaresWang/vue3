@@ -6,7 +6,6 @@ const setRootSize = () => {
   const scale = Math.max(900, document.documentElement.clientWidth) / baseWidth
   const size = baseSize * Math.min(scale, 2)
   document.documentElement.style.fontSize = size + "px"
-  document.body.style.fontSize = size + "px"
 }
 setRootSize()
 

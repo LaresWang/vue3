@@ -1,7 +1,7 @@
 <template>
   <DigitalHuman>
     <template #header>
-      <div>header 1111</div>
+      <HumanHeader />
     </template>
     <template #body>
       <RouterView />
@@ -10,5 +10,6 @@
 </template>
 <script setup lang="ts">
   import DigitalHuman from "@/layouts/DigitalHuman.vue"
+  import HumanHeader from "@/components/HumanHeader.vue"
 </script>
 <style lang="less"></style>

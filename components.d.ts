@@ -19,6 +19,7 @@ declare module '@vue/runtime-core' {
     ElOption: typeof import('element-plus/es')['ElOption']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    HumanHeader: typeof import('./src/components/HumanHeader.vue')['default']
     Languge: typeof import('./src/components/Languge.vue')['default']
     PasswordInput: typeof import('./src/components/PasswordInput.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

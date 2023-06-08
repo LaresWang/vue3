@@ -64,7 +64,7 @@
 </template>
 <script setup lang="ts">
   import { reactive, watchEffect } from "vue"
-  import { debounce } from "lodash"
+  import { debounce } from "lodash-es"
   import { modifyPassword, setPasswordLater } from "@/api/user"
   import message from "@/utils/message"
   import { t } from "@/locale"

@@ -84,6 +84,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#app {
+  min-width: 900px;
+}
+
 :root {
   --theme-color: #ff0;
   --text-color: #0f0;

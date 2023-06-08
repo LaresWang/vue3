@@ -52,9 +52,16 @@ const router = createRouter({
       ]
     },
     {
-      path: "/set",
-      name: "set",
-      component: () => import("../views/user/set.vue")
+      path: "/user",
+      name: "user",
+      component: () => import("../views/user/index.vue"),
+      children: [
+        {
+          path: "set",
+          name: "set",
+          component: () => import("../views/user/set.vue")
+        }
+      ]
     }
   ]
 })

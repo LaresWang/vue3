@@ -1,6 +1,6 @@
 <template>
   <div class="human-layout flex-v">
-    <div class="nav-area">
+    <div class="fix-nav-area">
       <slot name="header">header</slot>
     </div>
     <div class="body-area">
@@ -33,10 +33,14 @@
   .human-layout {
     width: 100%;
     height: 100vh;
-    .nav-area {
-      height: 40px;
+    background: var(--c-black-1);
+    .fix-nav-area {
+      width: 100%;
+      height: 50px;
+      background: var(--c-black-5);
     }
     .body-area {
+      width: 100%;
       flex: 1;
     }
   }

@@ -181,7 +181,7 @@
   import PasswordInput from "@/components/PasswordInput.vue"
   import CountDown from "@/components/CountDown.vue"
 
-  import { debounce } from "lodash"
+  import { debounce } from "lodash-es"
 
   type TLoginInfoProps = "mobile" | "msgcode"
   type TRdata = {

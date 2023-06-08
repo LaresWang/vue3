@@ -10,6 +10,7 @@ module.exports = () => {
       "postcss-pxtorem": {
         rootValue,
         propList: ["*"],
+        selectorBlackList: [".fix-", "#app"],
         // selectorBlackList: [".el-", ".nt-"], // 这里要不要把element组建过滤掉根据需要吧
         minPixelValue: 3, // 3px以下就不用转了
         exclude: "node_module" // 根据需要吧

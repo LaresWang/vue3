@@ -36,6 +36,10 @@ export const loginFinished = function () {
   jump("/human/home")
 }
 
+export const goUserCenter = function () {
+  jump("/user/set")
+}
+
 export const loginDone = (data: TLoginPWDResParams) => {
   if (data.token) {
     message(t("user.t25"))
