@@ -19,7 +19,8 @@
   <RouterView />
 </template>
 
-<style>
+<style lang="less">
+  @import url(@/assets/css/base.less);
   header {
     line-height: 1.5;
     max-height: 100vh;

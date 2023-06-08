@@ -339,7 +339,7 @@
       font-weight: 600;
       font-size: 40px;
       line-height: 56px;
-      color: #222222;
+      color: var(--c-black-2);
       padding-bottom: 64px;
     }
     .login-register-inner {
@@ -348,13 +348,13 @@
       color: #333;
       .login-type-btns-group {
         font-size: 16px;
-        color: #999;
+        color: var(--c-gray-1);
         letter-spacing: 0;
         .login-type-btn {
           margin-right: 28px;
           &.active {
-            color: #333;
-            border-bottom: 2px solid @MainColor;
+            color: var(--c-black-2);
+            border-bottom: 2px solid var(--c-blue-1);
           }
         }
       }
@@ -380,15 +380,15 @@
           }
           &.is-error {
             .el-input__inner {
-              border-color: #f56c6c;
+              border-color: var(--c-red-1);
             }
             .err-msg {
               position: absolute;
               left: 0;
-              bottom: 4px;
+              bottom: 2px;
               line-height: 1;
               font-size: 12px;
-              color: #f5222d;
+              color: var(--c-red-2);
               letter-spacing: 0;
             }
           }
@@ -410,17 +410,17 @@
             position: absolute;
             right: 1px;
             top: 1px;
-            width: 86px;
+            min-width: 86px;
             height: 38px;
-            background: rgba(98, 93, 245, 0.1);
+            background: var(--c-blue-1-light-1);
             border-radius: 4px;
             font-size: 14px;
-            color: @MainColor;
+            color: var(--c-blue-2);
             .el-button {
               border: none;
               background: transparent;
               font-size: 14px;
-              color: @MainColor;
+              color: var(--c-blue-2);
               letter-spacing: 0;
               padding: 0;
               height: 38px;
@@ -432,12 +432,11 @@
             }
           }
           .forget-p {
-            color: @MainColor;
+            color: var(--c-blue-1);
             font-family: "PingFang SC";
             font-style: normal;
             font-weight: 500;
             font-size: 14px;
-            width: 60px;
           }
         }
       }
@@ -480,8 +479,9 @@
         padding-top: 20px;
         display: flex;
         justify-content: flex-end;
+        color: var(--c-gray-1);
         .blue-font {
-          color: @MainColor;
+          color: var(--c-blue-2);
         }
       }
     }

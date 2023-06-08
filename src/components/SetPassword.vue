@@ -46,7 +46,6 @@
         <el-button
           type="primary"
           :disabled="rdata.disabled"
-          :class="{ btn: !rdata.disabled }"
           @click="setPassword"
         >
           {{ $t("user.t14") }}
@@ -179,8 +178,8 @@
 </script>
 <style lang="less">
   .nt-set-password {
-    height: 390px;
-    color: #333;
+    min-height: 390px;
+    color: var(--c-black-2);
     .el-dialog__header {
       display: none;
     }
@@ -210,7 +209,7 @@
               left: 0;
               top: calc(100% + 4px);
               line-height: 1;
-              color: #f5222d;
+              color: var(--c-red-2);
               font-size: 12px;
             }
           }
@@ -237,9 +236,6 @@
           height: 36px;
           width: 120px;
           padding: 0;
-        }
-        .btn {
-          background: @MainColor;
         }
         .later-set {
           font-size: 12px;

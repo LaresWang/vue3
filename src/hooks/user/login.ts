@@ -1,6 +1,6 @@
 import { ref } from "vue"
 
-import { loginByPassword, getSMSCode } from "../../api/user"
+import { loginByPassword, sendSMSCode } from "../../api/user"
 import type { TPWDInputValues } from "../../types/user"
 import { computedPosition } from "./index"
 import { loginDone } from "../../utils/jump"
@@ -36,12 +36,13 @@ export const useCaptchaInitSMS = () => {
           .onSuccess(() => {
             const result = captcha.getValidate()
             console.log(result)
-            getSMSCode({
+            sendSMSCode({
               lotNumber: result.lot_number,
               captchaOutput: result.captcha_output,
               passToken: result.pass_token,
               genTime: result.gen_time,
-              mobile
+              mobile,
+              smsBizType: 0
             }).then((data) => {
               // 待接口成功调用后显示提示语和执行倒计时操作
               captchaNo.value = data.captchaNo

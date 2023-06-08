@@ -341,10 +341,10 @@
     .pwd-input-inner {
       position: relative;
       width: 100%;
-      height: 36px;
+      height: 40px;
       padding: 0;
-      background: #fff;
-      border: 1px solid #d9d9d9;
+      background: var(--c-white-1);
+      border: 1px solid var(--c-gray-2);
       border-radius: 4px;
       .input-ele {
         flex: 1;
@@ -352,7 +352,7 @@
         border: none;
         outline: none;
         font-size: 14px;
-        color: #333;
+        color: var(--c-black-2);
       }
       .icon-wrapper {
         width: 28px;
@@ -362,7 +362,10 @@
         }
       }
       &.is-error {
-        border-color: #f56c6c;
+        border-color: var(--c-red-1);
+        &:hover {
+          border-color: var(--c-red-1);
+        }
       }
       .err-msg {
         position: absolute;
@@ -370,7 +373,7 @@
         top: calc(100% + 4px);
         line-height: 1;
         font-size: 12px;
-        color: #f5222d;
+        color: var(--c-red-2);
         letter-spacing: 0;
       }
       .pwd-tip-panel {
@@ -382,17 +385,17 @@
         .tip-panel-inner {
           padding: 4px 13px;
           border-radius: 5px;
-          background: #ffffff;
+          background: var(--c-white-1);
           box-shadow: 0 0 10px 0 rgba(155, 174, 201, 0.4);
           border-radius: 6px 0 0 0 6px 6px 6px;
           border-radius: 6px 0 0 0 6px 6px 6px;
           font-size: 12px;
-          color: #999;
+          color: var(--c-gray-1);
           > div {
             padding: 4px 0;
           }
           .active {
-            color: #333;
+            color: var(--c-black-2);
           }
         }
       }
@@ -400,6 +403,12 @@
         position: absolute;
         right: -25px;
         top: 8px;
+      }
+      &:hover {
+        border-color: #adb1d4;
+      }
+      &:focus-within {
+        border: 1px solid var(--c-blue-1);
       }
     }
   }

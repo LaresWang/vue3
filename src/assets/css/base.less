@@ -330,49 +330,6 @@ input,
   color: #333;
 }
 
-.el-button--primary {
-  background: @MainColor;
-  border-color: transparent;
-}
-
-.el-button--primary:focus {
-  background: @MainColor;
-}
-
-.el-button--primary:hover {
-  background: #817df7;
-}
-
-.el-button--primary:active {
-  background: #565add;
-}
-
-.el-button--primary.is-plain {
-  color: @MainColor;
-}
-
-.el-button--primary.is-plain:focus {
-  color: @MainColor;
-  background: rgb(237, 242, 254);
-  border-color: rgb(184, 203, 251);
-}
-
-.el-button--primary.is-plain:hover {
-  color: #ffffff;
-  background: #817df7;
-  border-color: rgba(184, 203, 251, 0.8);
-}
-
-.el-button--primary.is-plain:active {
-  color: #ffffff;
-  background: @MainColor;
-  border-color: rgb(184, 203, 251);
-}
-
-.el-button--default {
-  color: #333;
-}
-
 /* 输入框修改 */
 .el-input__inner {
   color: #333;
@@ -528,7 +485,7 @@ input,
       border-color: rgba(98, 93, 245, 0.2);
     }
     &:focus {
-      border-color: @MainColor;
+      border-color: var(--c-blue-1);
     }
   }
   input::placeholder {
@@ -588,16 +545,6 @@ input,
 
 .el-input__inner:hover {
   border-color: rgba(98, 93, 245, 0.2);
-}
-
-.el-button.is-disabled {
-  background: #e8e8e8;
-  border-radius: 4px;
-  border-color: #e8e8e8;
-  &:hover {
-    background: #e8e8e8;
-    border-color: #e8e8e8;
-  }
 }
 
 input::-ms-clear,

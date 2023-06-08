@@ -45,12 +45,25 @@ export const computedPosition = (selector: string) => {
     if (!geetestEles.length) {
       geetestEles = document.querySelectorAll<HTMLElement>(".geetest_box_wrap")
     }
-    geetestEles.forEach((ele) => {
-      ele.style.top = top + "px"
-      ele.style.left = left + "px"
-      ele.style.transform = "none"
-      ele.style.minHeight = "380px"
-    })
+    // 极验弹窗宽度340px  left+340<width-50
+    const width = document.documentElement.clientWidth
+    if (left + 340 + 50 < width) {
+      geetestEles.forEach((ele) => {
+        ele.style.right = "inherit"
+        ele.style.top = top + "px"
+        ele.style.left = left + "px"
+        ele.style.transform = "none"
+        ele.style.minHeight = "380px"
+      })
+    } else {
+      geetestEles.forEach((ele) => {
+        ele.style.left = "inherit"
+        ele.style.top = top + "px"
+        ele.style.right = "50px"
+        ele.style.transform = "none"
+        ele.style.minHeight = "380px"
+      })
+    }
   } catch (e) {
     console.log(e)
   }

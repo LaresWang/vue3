@@ -128,7 +128,7 @@ export type TResetPWDReqParams = {
   mobileCaptcha: string
 }
 
-// http://wiki.voneyun.com/pages/viewpage.action?pageId=22515699
+// http://wiki.voneyun.com/pages/viewpage.action?pageId=61802514
 export type TSendSMSUnloginReqParams = {
   mobile: string
   smsBizType: number

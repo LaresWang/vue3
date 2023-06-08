@@ -59,7 +59,7 @@ export default {
   common: {
     beian_public: "沪公网安备 31011302007203号",
     beian_icp: "备案号：沪ICP备2021033122号",
-    welcome_text: "欢迎使用全真云",
+    welcome_text: "开启虚拟人时代",
     res_5xx: "请求服务器无响应！"
   },
   upload: {

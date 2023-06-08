@@ -125,7 +125,6 @@
           <el-button
             type="primary"
             :disabled="rdata.disabled"
-            :class="{ btn: !rdata.disabled }"
             @click="setPassword"
           >
             {{ $t("user.t14") }}
@@ -401,7 +400,7 @@
     .forget-pwd-inner {
       margin: 0 auto;
       text-align: center;
-      color: #333333;
+      color: var(--c-black-2);
       .login-type-btns-group {
         font-size: 16px;
         color: #999999;
@@ -410,22 +409,15 @@
           font-family: PingFangSC-Regular;
           font-weight: 400;
           font-size: 16px;
-          color: #999999;
+          color: var(--c-gray-1);
           margin-right: 28px;
           padding-bottom: 4px;
-          border-bottom: 2px solid @MainColor;
+          border-bottom: 2px solid var(--c-blue-1);
           .title {
             font-family: PingFangSC-Regular;
             font-weight: 400;
             font-size: 16px;
-            color: #333333;
-          }
-          .line {
-            width: 24px;
-            height: 2px;
-            margin-top: 2px;
-            background: @MainColor;
-            border-radius: 2px;
+            color: var(--c-black-2);
           }
         }
       }
@@ -446,7 +438,7 @@
           }
           &.is-error {
             .el-input__inner {
-              border-color: #f56c6c;
+              border-color: var(--c-red-1);
             }
             .err-msg {
               position: absolute;
@@ -454,7 +446,7 @@
               bottom: 4px;
               line-height: 1;
               font-size: 12px;
-              color: #f5222d;
+              color: var(--c-red-2);
               letter-spacing: 0;
             }
           }
@@ -462,17 +454,23 @@
             flex: 1;
             input {
               height: 40px;
+              &:hover {
+                border-color: rgba(98, 93, 245, 0.2);
+              }
+              &:focus {
+                border-color: var(--c-blue-1);
+              }
             }
           }
           .msg-code-btn {
             position: absolute;
             right: 1px;
             top: 1px;
-            width: 86px;
+            min-width: 86px;
             height: 38px;
-            background: rgba(98, 93, 245, 0.1);
+            background: var(--c-blue-1-light-1);
             border-radius: 4px;
-            color: @MainColor;
+            color: var(--c-blue-2);
             font-family: PingFangSC-Regular;
             font-weight: 400;
             font-size: 14px;
@@ -480,7 +478,7 @@
               border: none;
               background: transparent;
               font-size: 14px;
-              color: @MainColor;
+              color: var(--c-blue-2);
               letter-spacing: 0;
               padding: 0;
               height: 38px;
@@ -518,9 +516,8 @@
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
-        color: @MainColor;
+        color: var(--c-blue-2);
         padding-top: 16px;
-        width: 60px;
       }
       .step3 {
         display: flex;
@@ -533,20 +530,18 @@
           height: 36px;
         }
         .desc {
-          font-family: PingFangSC-Regular;
           font-weight: 400;
           font-size: 16px;
-          color: #333333;
+          color: var(--c-black-2);
           padding: 16px 0 16px;
         }
         .goLogin {
           display: flex;
           align-items: center;
           padding-bottom: 40px;
-          font-family: PingFangSC-Regular;
           font-weight: 400;
           font-size: 14px;
-          color: @MainColor;
+          color: var(--c-blue-1);
           cursor: pointer;
           .count-down {
             padding-left: 8px;
@@ -555,7 +550,7 @@
             font-weight: 500;
             font-size: 16px;
             line-height: 22px;
-            color: #000000;
+            color: var(--c-black-0);
           }
         }
       }
@@ -564,9 +559,6 @@
           height: 40px;
           width: 400px;
           padding: 0;
-        }
-        .btn {
-          background: @MainColor;
         }
         .later-set {
           font-size: 12px;

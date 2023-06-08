@@ -67,7 +67,7 @@ export const setPasswordLater = function () {
 
 // // 获取极验ID
 export const getCaptchaInfo = function (params: TCaptchaInfoReqParams) {
-  return request.post<TCaptchaInfoResParams>("user/login/getCaptchaInfo", params)
+  return request.post<TCaptchaInfoResParams>("common/getCaptchaInfo", params)
 }
 
 // 上传用户头像

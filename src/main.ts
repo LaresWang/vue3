@@ -1,5 +1,4 @@
 import "./assets/css/main.css"
-import "./assets/css/base.less"
 import "element-plus/theme-chalk/el-message.css"
 
 import "./utils/setRootSize"

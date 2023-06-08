@@ -818,7 +818,7 @@
             }
             &.is-error {
               .el-input__inner {
-                border-color: #f56c6c;
+                border-color: var(--c-red-1);
               }
               .err-msg {
                 position: absolute;
@@ -826,7 +826,7 @@
                 bottom: 4px;
                 line-height: 1;
                 font-size: 12px;
-                color: #f5222d;
+                color: var(--c-red-2);
                 letter-spacing: 0;
               }
             }
@@ -837,7 +837,7 @@
               position: absolute;
               right: 1px;
               top: 1px;
-              width: 86px;
+              min-width: 86px;
               height: 34px;
               background: #f0f5ff;
               border-radius: 4px;
@@ -872,7 +872,7 @@
                   left: 0;
                   top: calc(100% + 4px);
                   line-height: 1;
-                  color: #f5222d;
+                  color: var(--c-red-2);
                   font-size: 12px;
                 }
                 .icons-group {
