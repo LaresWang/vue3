@@ -82,7 +82,7 @@ export type TCaptchaInfoResParams = {
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=22515701
 export type TLoggedSendSMSReqParams = {
   mobile: string
-  smsBizType: int
+  smsBizType: number
   lotNumber: string
   captchaOutput: string
   passToken: string
@@ -92,7 +92,7 @@ export type TLoggedSendSMSReqParams = {
   }
 }
 export type TLoggedSendSMSResParams = {
-  captchaNo: stirng
+  captchaNo: string
 }
 
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=22515707

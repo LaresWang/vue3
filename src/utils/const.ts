@@ -42,3 +42,14 @@ export const START_NUMBER_OR_LETTER_REG = /^([0-9a-zA-Z]+)/
 export const AMOUNT_INPUT_REG = /^(\d+(\.(\d{0,2})?)?)/
 // 金额失焦时校验
 export const AMOUNT_REG = /^\d+(\.(\d{0,2})?)?$/
+
+export const HumanCatgs = [
+  {
+    value: "00",
+    label: t("edit.t1")
+  },
+  {
+    value: "01",
+    label: t("edit.t2")
+  }
+]

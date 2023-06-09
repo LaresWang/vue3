@@ -1,6 +1,6 @@
-import { reactive } from "vue"
+import { reactive, ref } from "vue"
 import { defineStore } from "pinia"
-import type { TBreadcrumbMenu, TEditHumanMenu } from "../types/menus"
+import type { TBreadcrumbMenu, TEditHumanMenu, EEditCompName } from "../types/menus"
 import { v4 as uuid } from "uuid"
 
 const useBreadcrumbMenus = defineStore("breadcrumbMenus", () => {
@@ -9,9 +9,9 @@ const useBreadcrumbMenus = defineStore("breadcrumbMenus", () => {
     if (!menu.id) {
       menu.id = uuid()
     }
-    if (!breadMenus.length) {
-      breadMenus.push(menu)
-    }
+    // if (!breadMenus.length) {
+    //   breadMenus.push(menu)
+    // }
     // else {
     //   let parent = ""
     //   breadMenus.forEach((item) => (parent += item.value + "-"))
@@ -28,8 +28,9 @@ const useBreadcrumbMenus = defineStore("breadcrumbMenus", () => {
   }
 
   const jumpPrevMenu = (idx: number) => {
-    if (idx < breadMenus.length - 1) {
-      breadMenus.splice(0, idx)
+    const len = breadMenus.length
+    if (idx < len - 1) {
+      breadMenus.splice(idx + 1, len - (idx + 1))
     }
   }
 
@@ -61,4 +62,13 @@ const useEidtHumanMenus = defineStore("editHumanMenus", () => {
   return { editMenus, addEditMenus, clearEditMenus }
 })
 
-export { useBreadcrumbMenus, useEidtHumanMenus }
+const useSelectedEditCompId = defineStore("editCompId", () => {
+  const selectedCompId = ref<EEditCompName>()
+  const setSelectId = (id: EEditCompName) => {
+    selectedCompId.value = id
+  }
+
+  return { selectedCompId, setSelectId }
+})
+
+export { useBreadcrumbMenus, useEidtHumanMenus, useSelectedEditCompId }

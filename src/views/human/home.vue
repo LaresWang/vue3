@@ -12,7 +12,26 @@
     <div class="human-player-area">video</div>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { watchEffect } from "vue"
+  import { storeToRefs } from "pinia"
+  import { useBreadcrumbMenus, useSelectedEditCompId } from "@/stores/menus"
+  import { HumanCatgs } from "@/utils/const"
+  import { EEditCompName } from "@/types/menus.d"
+  import type { TEditHumanMenu } from "@/types/menus.d"
+
+  const { breadMenus, addBreadMenu } = useBreadcrumbMenus()
+  const selectedEditCompId = useSelectedEditCompId()
+
+  // const { breadMenus } = storeToRefs(breadcrumbMenus)
+  const { selectedCompId } = storeToRefs(selectedEditCompId)
+
+  watchEffect(() => {
+    if (!breadMenus.length) {
+      addBreadMenu(HumanCatgs[0])
+    }
+  })
+</script>
 <style lang="less">
   .human-home {
     width: 100%;
