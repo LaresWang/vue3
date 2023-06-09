@@ -14,7 +14,8 @@
     "preview": "vite preview",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "svg": "node removeSvgColorProperties.js"
   },
   "dependencies": {
     "@codemirror/lang-html": "^6.4.3",
@@ -28,6 +29,7 @@
     "element-plus": "2.3.5",
     "pinia": "2.0.36",
     "unplugin-icons": "^0.16.1",
+    "uuid": "^9.0.0",
     "vue": "3.3.2",
     "vue-codemirror": "^6.1.1",
     "vue-cropper": "^1.0.9",
@@ -40,6 +42,7 @@
     "@tsconfig/node18": "2.0.1",
     "@types/node": "18.16.8",
     "@types/postcss-less": "4.0.2",
+    "@types/uuid": "^9.0.2",
     "@vitejs/plugin-vue": "4.2.3",
     "@vue/eslint-config-prettier": "7.1.0",
     "@vue/eslint-config-typescript": "11.0.3",
