@@ -10,7 +10,7 @@ import type {
   TEditHumanConfigResParams
 } from "../types/human"
 
-import { buildinModels, userModels } from "./mock"
+import { buildinModels, userModels, editModelConfig } from "./mock"
 
 // 平台数字人模版列表
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=61802669
@@ -56,5 +56,6 @@ export const getHumanActionLists = function () {
 // 数字人捏脸配置
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=61803609
 export const getHumanHeaderEditConfig = function () {
-  return request.post<TEditHumanConfigResParams>("user/human/edit/config")
+  return Promise.resolve(editModelConfig)
+  // return request.post<TEditHumanConfigResParams>("user/human/edit/config")
 }

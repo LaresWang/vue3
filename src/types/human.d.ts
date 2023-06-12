@@ -65,54 +65,283 @@ export type TActionParams = {
 
 /**编辑数字人配置 VVVVV*/
 /*
-  "body_parts":[
+ const demo = {
+  body_parts: [
     {
-        "name":"头型",
-        "code":"001",
-        "position":[
+      name: "捏脸",
+      code: "001",
+      detail: [
+        {
+          name: "头型",
+          code: "001-001",
+          detail: [
             {
-                "name":"整体",
-                "code":"001-001",
-                "detail":[
-                    {
-                        "name":"",
-                        "code":"001-001-001",
-                        "detail":[
-                            {
-                                "name":"扁头",
-                                "setting_mode":0,
-                                "code":"001-001-001-001",
-                                "range":{
-                                    "value":[-1,1],
-                                    "scale":8
-                                }
-                            },
-                            {
-                                "name":"高度",
-                                "setting_mode":0,
-                                "code":"001-001-001-002",
-                                "range":{
-                                    "value":[-1,1],
-                                    "scale":8
-                                }
-                            },
-                            {
-                                "name":"宽度",
-                                "code":"001-001-001-003",
-                                "setting_mode":0,
-                                "range":{
-                                    "value":[-1,1],
-                                    "scale":8
-                                }
-                            }
-                        ]
-                    }
-                ]
+              name: "整体",
+              code: "001-001-001",
+              detail: [
+                {
+                  name: "高度",
+                  code: "001-001-001-002",
+                  setting_mode: 0,
+                  cmd_code: "CMD01002",
+                  range: {
+                    left_value: "-1",
+                    right_value: "1",
+                    inclusive_left_range: "1",
+                    inclusive_right_range: "1",
+                    scale: 8
+                  }
+                }
+              ]
             }
-        ]
+          ]
+        },
+        {
+          name: "面部",
+          code: "001-002",
+          detail: [
+            {
+              name: "眼睛",
+              code: "001-002-011",
+              detail: [
+                {
+                  name: "整体",
+                  code: "001-002-011-001",
+                  detail: [
+                    {
+                      name: "眼睛大小",
+                      code: "001-002-011-001-005",
+                      setting_mode: 0,
+                      cmd_code: "CMD01061",
+                      range: {
+                        left_value: "-1",
+                        right_value: "1",
+                        inclusive_left_range: "",
+                        inclusive_right_range: "",
+                        scale: 8
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              name: "耳朵",
+              code: "001-002-012",
+              detail: [
+                {
+                  name: "整体",
+                  code: "001-002-012-001",
+                  detail: [
+                    {
+                      name: "耳朵大小",
+                      code: "001-002-012-001-001",
+                      setting_mode: 0,
+                      cmd_code: "CMD01083",
+                      range: {
+                        left_value: "-1",
+                        right_value: "1",
+                        inclusive_left_range: "1",
+                        inclusive_right_range: "1",
+                        scale: 8
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              name: "鼻子",
+              code: "001-002-013",
+              detail: [
+                {
+                  name: "鼻翼",
+                  code: "001-002-013-004",
+                  detail: [
+                    {
+                      name: "宽度",
+                      code: "001-002-013-004-003",
+                      setting_mode: 0,
+                      cmd_code: "CMD01105",
+                      range: {
+                        left_value: "-1",
+                        right_value: "1",
+                        inclusive_left_range: "1",
+                        inclusive_right_range: "1",
+                        scale: 8
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              name: "嘴巴",
+              code: "001-002-014",
+              detail: [
+                {
+                  name: "整体",
+                  code: "001-002-014-001",
+                  detail: [
+                    {
+                      name: "嘴巴大小",
+                      code: "001-002-014-001-001",
+                      setting_mode: 0,
+                      cmd_code: "CMD01106",
+                      range: {
+                        left_value: "-1",
+                        right_value: "1",
+                        inclusive_left_range: "1",
+                        inclusive_right_range: "1",
+                        scale: 8
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: "静态表情",
+      code: "010",
+      detail: [
+        {
+          name: "快乐的",
+          code: "010-001",
+          setting_mode: 0,
+          cmd_code: "CMD10001",
+          range: {
+            left_value: "0",
+            right_value: "1",
+            inclusive_left_range: "1",
+            inclusive_right_range: "1",
+            scale: 8
+          }
+        },
+        {
+          name: "悲哀的",
+          code: "010-002",
+          setting_mode: 0,
+          cmd_code: "CMD10002",
+          range: {
+            left_value: "0",
+            right_value: "1",
+            inclusive_left_range: "1",
+            inclusive_right_range: "1",
+            scale: 8
+          }
+        },
+        {
+          name: "发怒的",
+          code: "010-003",
+          setting_mode: 0,
+          cmd_code: "CMD10003",
+          range: {
+            left_value: "0",
+            right_value: "1",
+            inclusive_left_range: "1",
+            inclusive_right_range: "1",
+            scale: 8
+          }
+        },
+        {
+          name: "笑",
+          code: "010-004",
+          setting_mode: 0,
+          cmd_code: "CMD10004",
+          range: {
+            left_value: "0",
+            right_value: "1",
+            inclusive_left_range: "1",
+            inclusive_right_range: "1",
+            scale: 8
+          }
+        },
+        {
+          name: "好奇的",
+          code: "010-005",
+          setting_mode: 0,
+          cmd_code: "CMD10005",
+          range: {
+            left_value: "0",
+            right_value: "1",
+            inclusive_left_range: "1",
+            inclusive_right_range: "1",
+            scale: 8
+          }
+        },
+        {
+          name: "害怕的",
+          code: "010-006",
+          setting_mode: 0,
+          cmd_code: "CMD10006",
+          range: {
+            left_value: "0",
+            right_value: "1",
+            inclusive_left_range: "1",
+            inclusive_right_range: "1",
+            scale: 8
+          }
+        },
+        {
+          name: "困惑的",
+          code: "010-007",
+          setting_mode: 0,
+          cmd_code: "CMD10007",
+          range: {
+            left_value: "0",
+            right_value: "1",
+            inclusive_left_range: "1",
+            inclusive_right_range: "1",
+            scale: 8
+          }
+        },
+        {
+          name: "固执的",
+          code: "010-008",
+          setting_mode: 0,
+          cmd_code: "CMD10008",
+          range: {
+            left_value: "0",
+            right_value: "1",
+            inclusive_left_range: "1",
+            inclusive_right_range: "1",
+            scale: 8
+          }
+        },
+        {
+          name: "无聊的",
+          code: "010-009",
+          setting_mode: 0,
+          cmd_code: "CMD10009",
+          range: {
+            left_value: "0",
+            right_value: "1",
+            inclusive_left_range: "1",
+            inclusive_right_range: "1",
+            scale: 8
+          }
+        },
+        {
+          name: "自信的",
+          code: "010-010",
+          setting_mode: 0,
+          cmd_code: "CMD10010",
+          range: {
+            left_value: "0",
+            right_value: "1",
+            inclusive_left_range: "1",
+            inclusive_right_range: "1",
+            scale: 8
+          }
+        }
+      ]
     }
   ]
-  }
+}
 
   返回参数说明              
 body_parts	Array	身体部位
@@ -130,38 +359,49 @@ body_parts.positon.detail下字段说明
 Name	String	名称
 detail	array	详情
 detail.setting_mode	int	设置方式 0-区间设置 1-下拉框
-detail.range.value	Array	区间值，如： [-1,1] setting_mode为0 时使用 以指令文档为准
-detail.range.scale	int	小数位最大支持位数 setting_mode为0 时使用
+detail.cmd_code	String	指令编号
+detail.range.left_value  	String	左区间值，如： -1 setting_mode为0 时使用 以指令文档为准
+detail.range.right_value  	String	右间值，如： 1 setting_mode为0 时使用 以指令文档为准
+detail.range.inclusive_left_range  	String	是否包含左区间值，如： 1.包含，0.不包含 setting_mode为0 时使用 以指令文档为准
+detail.range.inclusive_right_range  	String	是否包含右区间值，如： 1.包含，0.不含包 setting_mode为0 时使用 以指令文档为准
 detail.select	array	下拉选项 setting_mode为1 时使用
 detail.select.option		选项值（具体待定）
 */
 export type TBodyPartPositionDetailInfo = {
-  name: string
+  name: string // 高度
   setting_mode: 0 | 1
   code: string
+  cmd_code: string
   range: {
-    value: [number, number]
-    scale: number
+    left_value: string
+    right_value: string
+    inclusive_left_range: string
+    inclusive_right_range: string
+    scale: bumber
   }
 }
 export type TBodyPartPositionDetail = {
-  name: string
+  name: string // 整体
   code: string
   detail: TBodyPartPositionDetailInfo[]
 }
 export type TBodyPartPosition = {
-  name: string
+  name: string // 头型
   code: string
   detail: TBodyPartPositionDetail[]
 }
 export type TBodyPart = {
-  name: string
+  name: string // 捏脸
   code: string
-  position: TBodyPartPosition[]
+  detail: TBodyPartPosition[]
 }
 
+// export type TEditHumanConfigResParams = {
+//   body_parts: TBodyPart[]
+// }
+
 export type TEditHumanConfigResParams = {
-  body_parts: TBodyPart[]
+  body_parts: TBodyPartPosition[]
 }
 
 /**编辑数字人配置 ^^^^^ */

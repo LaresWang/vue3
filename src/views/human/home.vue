@@ -65,6 +65,8 @@
       .edit-right-area {
         flex: 1;
         height: 100%;
+        min-width: 0;
+        overflow: hidden;
       }
     }
     .human-player-area {
