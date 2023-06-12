@@ -11,9 +11,7 @@
         <Modeltem
           :infos="model"
           :type="EModelCatg.Buildin"
-          :isSelected="selectedModeId === model.humanId"
           :isEditName="editModelId === model.humanId"
-          @select="onSelectModel"
           @editName="onEditName"
         />
       </template>
@@ -34,9 +32,6 @@
     show: boolean
   }>()
 
-  const emits = defineEmits(["select"])
-
-  const selectedModeId = ref("")
   const editModelId = ref("")
   const buildinModels = ref<THumanModelInfos[]>([])
 
@@ -47,11 +42,6 @@
       buildinModels.value = res
     }
   })
-
-  const onSelectModel = (infos: THumanModelInfos) => {
-    selectedModeId.value = infos.humanId
-    emits("select", infos, EModelCatg.Buildin)
-  }
 
   const onEditName = (humanId: string) => {
     editModelId.value = humanId

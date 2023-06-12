@@ -63,7 +63,7 @@ export type TActionParams = {
   name: string
 }
 
-/**编辑数字人配置 */
+/**编辑数字人配置 VVVVV*/
 /*
   "body_parts":[
     {
@@ -162,4 +162,12 @@ export type TBodyPart = {
 
 export type TEditHumanConfigResParams = {
   body_parts: TBodyPart[]
+}
+
+/**编辑数字人配置 ^^^^^ */
+
+export type TSelectedHumanModelInfo = {
+  humanName: string
+  humanId: string
+  humanCatg?: EModelCatg
 }

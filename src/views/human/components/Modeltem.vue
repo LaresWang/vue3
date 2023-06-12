@@ -1,9 +1,11 @@
 <template>
-  <div class="model-item flex-v">
+  <div
+    class="model-item flex-v"
+    @click="onSelect(props.infos)"
+  >
     <div
       class="model-pic-frame"
-      :class="isSelected ? 'selected' : ''"
-      @click="onSelect(props.infos)"
+      :class="selectedModelInfoStore.selectedHumanModelId === props.infos.humanId ? 'selected' : ''"
     >
       <img
         v-if="loadNetPic"
@@ -45,13 +47,13 @@
 </template>
 <script setup lang="ts">
   import { ref, watchEffect, onMounted, onUpdated } from "vue"
+  import { useSelectedModelInfoStore } from "@/stores/human"
   import { EModelCatg } from "@/types/human.d"
   import type { THumanModelInfos } from "@/types/human"
 
   type TModelItemProps = {
     infos: THumanModelInfos
     type: EModelCatg
-    isSelected: boolean
     isEditName: boolean
   }
   const props = defineProps<TModelItemProps>()
@@ -60,6 +62,8 @@
   const loadNetPic = ref(true)
   const modelName = ref("")
   const input = ref()
+
+  const selectedModelInfoStore = useSelectedModelInfoStore()
 
   watchEffect(() => {
     modelName.value = props.infos.humanName
@@ -80,7 +84,11 @@
   }
 
   const onSelect = (infos: THumanModelInfos) => {
-    emits("select", infos)
+    selectedModelInfoStore.setSelectedModelInfo({
+      humanId: infos.humanId,
+      humanName: infos.humanName,
+      humanCatg: props.type
+    })
   }
 
   const onEditName = (humanId: string) => {

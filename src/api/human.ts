@@ -17,7 +17,7 @@ import { buildinModels, userModels } from "./mock"
 export const getPlatformHumanLists = function () {
   // return Promise.resolve(buildinModels)
   return new Promise<THumanModelInfos[]>((res) => {
-    res(buildinModels)
+    res(buildinModels.slice(0, 3))
   })
   // return request.post<THumanModelInfos[]>("platform/human/template/list")
 }
@@ -56,5 +56,5 @@ export const getHumanActionLists = function () {
 // 数字人捏脸配置
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=61803609
 export const getHumanHeaderEditConfig = function () {
-  return request.post<TEditHumanConfigResParams[]>("user/human/edit/config")
+  return request.post<TEditHumanConfigResParams>("user/human/edit/config")
 }

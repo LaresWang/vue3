@@ -2,7 +2,7 @@
 <template>
   <div class="human-models flex-v">
     <div class="model-tab-area flex-center">
-      <div class="tab-wrapper flex-center">
+      <div class="fix-tab-wrapper flex-center">
         <div
           v-for="item in HumanModelCatgs"
           :key="item.value"
@@ -15,14 +15,8 @@
       </div>
     </div>
     <div class="model-lists">
-      <ModelsFromBuildin
-        :show="breadcrumbMenusStore.currentModelCat === EModelCatg.Buildin"
-        @select="onSelectModel"
-      />
-      <ModelsFromUser
-        :show="breadcrumbMenusStore.currentModelCat === EModelCatg.User"
-        @select="onSelectModel"
-      />
+      <ModelsFromBuildin :show="breadcrumbMenusStore.currentModelCat === EModelCatg.Buildin" />
+      <ModelsFromUser :show="breadcrumbMenusStore.currentModelCat === EModelCatg.User" />
     </div>
     <div class="model-operate-area flex-between">
       <div class="icons-group flex-center">
@@ -63,9 +57,9 @@
 </template>
 <script setup lang="ts">
   import { HumanModelCatgs } from "@/utils/const"
+  import { useSelectedModelInfoStore } from "@/stores/human"
   import { useBreadcrumbMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { EModelCatg } from "@/types/human.d"
-  import type { THumanModelInfos } from "@/types/human"
   import type { TBreadcrumbMenu } from "@/types/menus"
 
   import ModelsFromBuildin from "./ModelsFromBuildin.vue"
@@ -73,6 +67,7 @@
 
   const breadcrumbMenusStore = useBreadcrumbMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
+  const selectedModelInfoStore = useSelectedModelInfoStore()
 
   const changeModelList = (item: TBreadcrumbMenu) => {
     if (breadcrumbMenusStore.currentModelCat === item.value) {
@@ -84,23 +79,16 @@
     })
   }
 
-  let selectedModel: TBreadcrumbMenu = {
-    value: "",
-    label: ""
-  }
-  const onSelectModel = (infos: THumanModelInfos) => {
-    selectedModel.value = infos.humanId
-    selectedModel.label = infos.humanName
-  }
   const createModel = () => {
-    if (!selectedModel.label) {
+    if (!selectedModelInfoStore.info.humanName || selectedModelInfoStore.info.humanCatg !== breadcrumbMenusStore.currentModelCat) {
       console.log("需要先选择模型")
       return
     }
 
     selectedEditCompNameStore.initSelectCompName()
     breadcrumbMenusStore.addBreadMenu({
-      ...selectedModel
+      value: selectedModelInfoStore.info.humanId,
+      label: selectedModelInfoStore.info.humanName
     })
   }
 
@@ -129,7 +117,7 @@
       width: 100%;
       height: 78px;
       background: var(--c-black-5);
-      .tab-wrapper {
+      .fix-tab-wrapper {
         width: fit-content;
         min-width: 200px;
         height: 30px;

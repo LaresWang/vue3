@@ -15,10 +15,8 @@
       >
         <Modeltem
           :infos="model"
-          :type="EModelCatg.Buildin"
-          :isSelected="selectedModeId === model.humanId"
+          :type="EModelCatg.User"
           :isEditName="editModelId === model.humanId"
-          @select="onSelectModel"
           @editName="onEditName"
         />
       </template>
@@ -34,17 +32,13 @@
 
   import Modeltem from "./Modeltem.vue"
   import NoMoreLists from "./NoMoreLists.vue"
-  // import { debounce } from "lodash"
 
   const props = defineProps<{
     show: boolean
   }>()
 
-  const emits = defineEmits(["select"])
-
   const pageSize = 10
   const pageNo = ref(0)
-  const selectedModeId = ref("")
   const editModelId = ref("")
   const loading = ref(false)
   const noMoreLists = ref(false)
@@ -86,11 +80,6 @@
       loadMore(1)
     }
   })
-
-  const onSelectModel = (infos: THumanModelInfos) => {
-    selectedModeId.value = infos.humanId
-    emits("select", infos, EModelCatg.Buildin)
-  }
 
   const onEditName = (humanId: string) => {
     editModelId.value = humanId

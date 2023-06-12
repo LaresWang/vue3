@@ -1,4 +1,4 @@
-import type { THumanModelInfos } from "../types/human"
+import type { THumanModelInfos, TEditHumanConfigResParams } from "../types/human"
 
 export const buildinModels: THumanModelInfos[] = [
   {
@@ -7,7 +7,7 @@ export const buildinModels: THumanModelInfos[] = [
     humanName: "111",
     gender: 0,
     genderName: "Male",
-    previewUrl: "aaaa",
+    previewUrl: "aaaa.png",
     ceratedOn: "2023",
     updatedOn: "2023"
   },
@@ -17,7 +17,7 @@ export const buildinModels: THumanModelInfos[] = [
     humanName: "222",
     gender: 1,
     genderName: "Female",
-    previewUrl: "bbb",
+    previewUrl: "bbb.png",
     ceratedOn: "2023",
     updatedOn: "2023"
   },
@@ -27,7 +27,7 @@ export const buildinModels: THumanModelInfos[] = [
     humanName: "333",
     gender: 0,
     genderName: "Male",
-    previewUrl: "aaaa",
+    previewUrl: "aaaa.png",
     ceratedOn: "2023",
     updatedOn: "2023"
   },
@@ -305,3 +305,854 @@ export const userModels: THumanModelInfos[] = [
     updatedOn: "2023"
   }
 ]
+
+export const editModelConfig: TEditHumanConfigResParams = {
+  body_parts: [
+    {
+      name: "头型",
+      code: "001",
+      position: [
+        {
+          name: "整体",
+          code: "001-001",
+          detail: [
+            {
+              name: "",
+              code: "001-001-001",
+              detail: [
+                {
+                  name: "扁头",
+                  setting_mode: 0,
+                  code: "001-001-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "高度",
+                  setting_mode: 0,
+                  code: "001-001-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "宽度",
+                  code: "001-001-001-003",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "变大",
+                  setting_mode: 0,
+                  code: "001-001-001-004",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "上部宽度",
+                  setting_mode: 0,
+                  code: "001-001-001-005",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "下部宽度",
+                  code: "001-001-001-006",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "脖子",
+          code: "001-002",
+          detail: [
+            {
+              name: "",
+              code: "001-002-001",
+              detail: [
+                {
+                  name: "全局粗细",
+                  setting_mode: 0,
+                  code: "001-002-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "前后粗细",
+                  setting_mode: 0,
+                  code: "001-002-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "左右粗细",
+                  code: "001-002-001-003",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "锁骨",
+          code: "001-003",
+          detail: [
+            {
+              name: "",
+              code: "001-003-001",
+              detail: [
+                {
+                  name: "锁骨强弱",
+                  setting_mode: 0,
+                  code: "001-003-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "锁骨上移",
+                  setting_mode: 0,
+                  code: "001-003-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: "面部",
+      code: "002",
+      position: [
+        {
+          name: "整体",
+          code: "001-001",
+          detail: [
+            {
+              name: "",
+              code: "001-001-001",
+              detail: [
+                {
+                  name: "扁头",
+                  setting_mode: 0,
+                  code: "001-001-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "高度",
+                  setting_mode: 0,
+                  code: "001-001-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "宽度",
+                  code: "001-001-001-003",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "变大",
+                  setting_mode: 0,
+                  code: "001-001-001-004",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "上部宽度",
+                  setting_mode: 0,
+                  code: "001-001-001-005",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "下部宽度",
+                  code: "001-001-001-006",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "脖子",
+          code: "001-002",
+          detail: [
+            {
+              name: "",
+              code: "001-002-001",
+              detail: [
+                {
+                  name: "全局粗细",
+                  setting_mode: 0,
+                  code: "001-002-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "前后粗细",
+                  setting_mode: 0,
+                  code: "001-002-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "左右粗细",
+                  code: "001-002-001-003",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "锁骨",
+          code: "001-003",
+          detail: [
+            {
+              name: "",
+              code: "001-003-001",
+              detail: [
+                {
+                  name: "锁骨强弱",
+                  setting_mode: 0,
+                  code: "001-003-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "锁骨上移",
+                  setting_mode: 0,
+                  code: "001-003-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: "眼睛",
+      code: "003",
+      position: [
+        {
+          name: "整体",
+          code: "001-001",
+          detail: [
+            {
+              name: "",
+              code: "001-001-001",
+              detail: [
+                {
+                  name: "扁头",
+                  setting_mode: 0,
+                  code: "001-001-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "高度",
+                  setting_mode: 0,
+                  code: "001-001-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "宽度",
+                  code: "001-001-001-003",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "变大",
+                  setting_mode: 0,
+                  code: "001-001-001-004",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "上部宽度",
+                  setting_mode: 0,
+                  code: "001-001-001-005",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "下部宽度",
+                  code: "001-001-001-006",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "脖子",
+          code: "001-002",
+          detail: [
+            {
+              name: "",
+              code: "001-002-001",
+              detail: [
+                {
+                  name: "全局粗细",
+                  setting_mode: 0,
+                  code: "001-002-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "前后粗细",
+                  setting_mode: 0,
+                  code: "001-002-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "左右粗细",
+                  code: "001-002-001-003",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "锁骨",
+          code: "001-003",
+          detail: [
+            {
+              name: "",
+              code: "001-003-001",
+              detail: [
+                {
+                  name: "锁骨强弱",
+                  setting_mode: 0,
+                  code: "001-003-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "锁骨上移",
+                  setting_mode: 0,
+                  code: "001-003-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: "耳朵",
+      code: "004",
+      position: [
+        {
+          name: "整体",
+          code: "001-001",
+          detail: [
+            {
+              name: "",
+              code: "001-001-001",
+              detail: [
+                {
+                  name: "扁头",
+                  setting_mode: 0,
+                  code: "001-001-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "高度",
+                  setting_mode: 0,
+                  code: "001-001-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "宽度",
+                  code: "001-001-001-003",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "变大",
+                  setting_mode: 0,
+                  code: "001-001-001-004",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "上部宽度",
+                  setting_mode: 0,
+                  code: "001-001-001-005",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "下部宽度",
+                  code: "001-001-001-006",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "脖子",
+          code: "001-002",
+          detail: [
+            {
+              name: "",
+              code: "001-002-001",
+              detail: [
+                {
+                  name: "全局粗细",
+                  setting_mode: 0,
+                  code: "001-002-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "前后粗细",
+                  setting_mode: 0,
+                  code: "001-002-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "左右粗细",
+                  code: "001-002-001-003",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "锁骨",
+          code: "001-003",
+          detail: [
+            {
+              name: "",
+              code: "001-003-001",
+              detail: [
+                {
+                  name: "锁骨强弱",
+                  setting_mode: 0,
+                  code: "001-003-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "锁骨上移",
+                  setting_mode: 0,
+                  code: "001-003-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: "鼻子",
+      code: "005",
+      position: [
+        {
+          name: "整体",
+          code: "001-001",
+          detail: [
+            {
+              name: "",
+              code: "001-001-001",
+              detail: [
+                {
+                  name: "扁头",
+                  setting_mode: 0,
+                  code: "001-001-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "高度",
+                  setting_mode: 0,
+                  code: "001-001-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "宽度",
+                  code: "001-001-001-003",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "变大",
+                  setting_mode: 0,
+                  code: "001-001-001-004",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "上部宽度",
+                  setting_mode: 0,
+                  code: "001-001-001-005",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "下部宽度",
+                  code: "001-001-001-006",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "脖子",
+          code: "001-002",
+          detail: [
+            {
+              name: "",
+              code: "001-002-001",
+              detail: [
+                {
+                  name: "全局粗细",
+                  setting_mode: 0,
+                  code: "001-002-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "前后粗细",
+                  setting_mode: 0,
+                  code: "001-002-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "左右粗细",
+                  code: "001-002-001-003",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "锁骨",
+          code: "001-003",
+          detail: [
+            {
+              name: "",
+              code: "001-003-001",
+              detail: [
+                {
+                  name: "锁骨强弱",
+                  setting_mode: 0,
+                  code: "001-003-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "锁骨上移",
+                  setting_mode: 0,
+                  code: "001-003-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      name: "嘴巴",
+      code: "006",
+      position: [
+        {
+          name: "整体",
+          code: "001-001",
+          detail: [
+            {
+              name: "",
+              code: "001-001-001",
+              detail: [
+                {
+                  name: "扁头",
+                  setting_mode: 0,
+                  code: "001-001-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "高度",
+                  setting_mode: 0,
+                  code: "001-001-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "宽度",
+                  code: "001-001-001-003",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "变大",
+                  setting_mode: 0,
+                  code: "001-001-001-004",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "上部宽度",
+                  setting_mode: 0,
+                  code: "001-001-001-005",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "下部宽度",
+                  code: "001-001-001-006",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "脖子",
+          code: "001-002",
+          detail: [
+            {
+              name: "",
+              code: "001-002-001",
+              detail: [
+                {
+                  name: "全局粗细",
+                  setting_mode: 0,
+                  code: "001-002-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "前后粗细",
+                  setting_mode: 0,
+                  code: "001-002-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "左右粗细",
+                  code: "001-002-001-003",
+                  setting_mode: 0,
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          name: "锁骨",
+          code: "001-003",
+          detail: [
+            {
+              name: "",
+              code: "001-003-001",
+              detail: [
+                {
+                  name: "锁骨强弱",
+                  setting_mode: 0,
+                  code: "001-003-001-001",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                },
+                {
+                  name: "锁骨上移",
+                  setting_mode: 0,
+                  code: "001-003-001-002",
+                  range: {
+                    value: [-1, 1],
+                    scale: 8
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
