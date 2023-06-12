@@ -1,10 +1,13 @@
-import { reactive, ref } from "vue"
+import { reactive, ref, computed } from "vue"
 import { defineStore } from "pinia"
 import type { TBreadcrumbMenu, TEditHumanMenu, EEditCompName } from "../types/menus"
 import { v4 as uuid } from "uuid"
 
-const useBreadcrumbMenus = defineStore("breadcrumbMenus", () => {
+const useBreadcrumbMenusStore = defineStore("breadcrumbMenus", () => {
   const breadMenus = reactive<TBreadcrumbMenu[]>([])
+
+  const currentModelCat = computed(() => breadMenus[0]?.value)
+
   const addBreadMenu = (menu: TBreadcrumbMenu) => {
     if (!menu.id) {
       menu.id = uuid()
@@ -34,10 +37,10 @@ const useBreadcrumbMenus = defineStore("breadcrumbMenus", () => {
     }
   }
 
-  return { breadMenus, addBreadMenu, jumpPrevMenu, updateRootMenu }
+  return { breadMenus, currentModelCat, addBreadMenu, jumpPrevMenu, updateRootMenu }
 })
 
-const useEidtHumanMenus = defineStore("editHumanMenus", () => {
+const useEidtHumanMenusStore = defineStore("editHumanMenus", () => {
   const editMenus = reactive<TEditHumanMenu[]>([])
   const addEditMenus = (menus: TEditHumanMenu | TEditHumanMenu[]) => {
     if (Array.isArray(menus)) {
@@ -62,13 +65,20 @@ const useEidtHumanMenus = defineStore("editHumanMenus", () => {
   return { editMenus, addEditMenus, clearEditMenus }
 })
 
-const useSelectedEditCompId = defineStore("editCompId", () => {
-  const selectedCompId = ref<EEditCompName>()
-  const setSelectId = (id: EEditCompName) => {
-    selectedCompId.value = id
+const useSelectedEditCompNameStore = defineStore("editCompId", () => {
+  const selectedCompName = ref<EEditCompName>()
+  const eidtHumanMenusStore = useEidtHumanMenusStore()
+  const setSelectCompName = (id: EEditCompName) => {
+    selectedCompName.value = id
   }
-
-  return { selectedCompId, setSelectId }
+  const initSelectCompName = () => {
+    const menus = eidtHumanMenusStore.editMenus
+    if (menus.length) {
+      const selectedmenu = menus.find((menu) => menu.defaultSelected)
+      selectedCompName.value = selectedmenu?.value || menus[0].value
+    }
+  }
+  return { selectedCompName, setSelectCompName, initSelectCompName }
 })
 
-export { useBreadcrumbMenus, useEidtHumanMenus, useSelectedEditCompId }
+export { useBreadcrumbMenusStore, useEidtHumanMenusStore, useSelectedEditCompNameStore }

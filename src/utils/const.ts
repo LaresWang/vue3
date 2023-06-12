@@ -1,3 +1,4 @@
+import { EModelCatg } from "@/types/human.d"
 import { t } from "../locale"
 // 项目各种常量
 // 手机号 只校验第一位是否为1开头  其余只要是数字即可
@@ -43,13 +44,13 @@ export const AMOUNT_INPUT_REG = /^(\d+(\.(\d{0,2})?)?)/
 // 金额失焦时校验
 export const AMOUNT_REG = /^\d+(\.(\d{0,2})?)?$/
 
-export const HumanCatgs = [
+export const HumanModelCatgs = [
   {
-    value: "00",
+    value: EModelCatg.Buildin,
     label: t("edit.t1")
   },
   {
-    value: "01",
+    value: EModelCatg.User,
     label: t("edit.t2")
   }
 ]

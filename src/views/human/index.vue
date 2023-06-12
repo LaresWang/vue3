@@ -1,5 +1,5 @@
 <template>
-  <DigitalHuman>
+  <DigitalHuman class="human-wrapper">
     <template #header>
       <HumanHeader />
     </template>
@@ -12,4 +12,8 @@
   import DigitalHuman from "@/layouts/DigitalHuman.vue"
   import HumanHeader from "@/components/HumanHeader.vue"
 </script>
-<style lang="less"></style>
+<style lang="less">
+  .human-wrapper {
+    color: var(--c-white-1);
+  }
+</style>

@@ -15,7 +15,7 @@
 </template>
 <script setup lang="ts">
   import { ref } from "vue"
-  import useLanguage from "../stores/language"
+  import useLanguageStore from "../stores/language"
 
   const langs = ref([
     {
@@ -28,7 +28,7 @@
     }
   ])
 
-  const { language, setLang } = useLanguage()
+  const { language, setLang } = useLanguageStore()
   const selectedLang = ref(language)
 
   const changeLang = () => {

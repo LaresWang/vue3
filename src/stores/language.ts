@@ -2,7 +2,7 @@ import { ref } from "vue"
 import { defineStore } from "pinia"
 import { getCurrentLang, setCurrentLang, type TLangs } from "../locale"
 
-const useLanguage = defineStore("language", () => {
+const useLanguageStore = defineStore("language", () => {
   const language = ref(getCurrentLang())
   const setLang = (lang: TLangs) => {
     setCurrentLang(lang)
@@ -12,4 +12,4 @@ const useLanguage = defineStore("language", () => {
   return { language, setLang }
 })
 
-export default useLanguage
+export default useLanguageStore

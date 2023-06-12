@@ -8,9 +8,9 @@ export type TBreadcrumbMenu = {
 }
 
 export enum EEditCompName {
-  EditHeaderPart,
-  EditEmotions,
-  EditActions
+  EditHeaderPart = "EditHeaderPart",
+  EditEmotions = "EditEmotions",
+  EditActions = "EditActions"
 }
 
 export type TEditHumanMenu = {
@@ -20,5 +20,5 @@ export type TEditHumanMenu = {
   path?: string
   icon?: string
   iconType?: "svg" | "image"
-  selected?: boolean
+  defaultSelected?: boolean
 }

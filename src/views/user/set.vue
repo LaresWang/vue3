@@ -348,7 +348,7 @@
   import message from "@/utils/message"
   import { t } from "@/locale"
 
-  import useUserInfo from "@/stores/user"
+  import useUserInfoStore from "@/stores/user"
   import { useGetUserInfo, useGetCaptchaId, useCountDownStatus } from "@/hooks/user"
   import { useCaptchaInitSet } from "@/hooks/user/set"
 
@@ -411,7 +411,7 @@
   })
 
   const uploadCropper = ref<typeof UploadCropper>()
-  const { userInfo } = useUserInfo()
+  const { userInfo } = useUserInfoStore()
   const { getUser } = useGetUserInfo(true)
   const { isCountingDown, startCountDown, stopCountDown } = useCountDownStatus()
   const { captchaId: captchaIdPwd } = useGetCaptchaId(2)

@@ -1,7 +1,7 @@
 // 数字人相关
 import request from "./request"
 import type {
-  TPlateFormHumanResParams,
+  THumanModelInfos,
   TUserHUmanResParams,
   TPageReqParams,
   TEmotionCatg,
@@ -10,16 +10,35 @@ import type {
   TEditHumanConfigResParams
 } from "../types/human"
 
+import { buildinModels, userModels } from "./mock"
+
 // 平台数字人模版列表
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=61802669
 export const getPlatformHumanLists = function () {
-  return request.post<TPlateFormHumanResParams>("platform/human/template/list")
+  // return Promise.resolve(buildinModels)
+  return new Promise<THumanModelInfos[]>((res) => {
+    res(buildinModels)
+  })
+  // return request.post<THumanModelInfos[]>("platform/human/template/list")
 }
 
 // 用户数字人列表
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=61802671
 export const getUserHumanLists = function (params: TPageReqParams) {
-  return request.post<TUserHUmanResParams>("user/human/page", params)
+  return new Promise<TUserHUmanResParams>((res) => {
+    const { pageNo, pageSize } = params
+    const totalRow = userModels.length
+    const totalPage = Math.ceil(totalRow / pageSize)
+    const rows = userModels.slice((pageNo - 1) * pageSize, pageNo * pageSize)
+    res({
+      pageNo,
+      pageSize,
+      totalRow,
+      totalPage,
+      rows
+    })
+  })
+  // return request.post<TUserHUmanResParams>("user/human/page", params)
 }
 
 // 数字人素材-表情

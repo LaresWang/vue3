@@ -30,4 +30,7 @@ declare module '@vue/runtime-core' {
     ThemeColorsTest: typeof import('./src/components/ThemeColorsTest.vue')['default']
     UploadWithCropper: typeof import('./src/components/UploadWithCropper.vue')['default']
   }
+  export interface ComponentCustomProperties {
+    vInfiniteScroll: typeof import('element-plus/es')['ElInfiniteScroll']
+  }
 }

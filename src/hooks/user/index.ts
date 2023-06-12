@@ -1,7 +1,7 @@
 import { ref } from "vue"
 import { getCaptchaInfo, getUserInfo } from "../../api/user"
 import type { TOptBizType, TUserInfoResParams } from "../../types/user"
-import useUserInfo from "../../stores/user"
+import useUserInfoStore from "../../stores/user"
 
 export const useCountDownStatus = () => {
   const isCountingDown = ref(false)
@@ -71,7 +71,7 @@ export const computedPosition = (selector: string) => {
 
 export const useGetUserInfo = (immediate = false) => {
   const userInfo = ref<TUserInfoResParams>()
-  const { setUserInfo } = useUserInfo()
+  const { setUserInfo } = useUserInfoStore()
 
   const getUser = async () => {
     try {

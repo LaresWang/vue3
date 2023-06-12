@@ -7,18 +7,19 @@ const icons = [
   "icon_face",
   "icon_expression",
   "icon_action",
+  "icon_face_a"
 ];
 
 const run = async ()=> {
   const svgDir = path.join(process.cwd(), "src/assets/svgs")
-  console.log(svgDir)
+  // console.log(svgDir)
   icons.forEach(async (name)=>{
     const iconPath = path.join(svgDir, name+'.svg')
     console.log(iconPath)
     try {
       await fsp.stat(iconPath)
       let data = await fsp.readFile(iconPath, {encoding: "utf-8"})
-      console.log(data)
+      // console.log(data)
       data = data.replace(/(fill=".*?")|(stroke=".*?")/g, "");
       await fsp.writeFile(iconPath, data)
     } catch (e) {

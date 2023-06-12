@@ -50,18 +50,15 @@
           <span
             v-if="item.icon && item.iconType === 'svg'"
             class="edit-menu-icon flex-center"
-            :class="selectedCompId === item.value ? 'active' : 'pointer'"
+            :class="selectedEditCompNameStore.selectedCompName === item.value ? 'active' : 'pointer'"
             @click="changeEditContent(item.value)"
           >
-            <svg-icon
-              :name="item.icon"
-              :color="selectedCompId === item.value ? '#3f73f6' : '#fff'"
-            />
+            <svg-icon :name="item.icon" />
           </span>
           <img
             v-else-if="item.icon && item.iconType === 'image'"
             class="edit-menu-icon flex-center"
-            :class="selectedCompId === item.value ? 'active' : 'pointer'"
+            :class="selectedEditCompNameStore.selectedCompName === item.value ? 'active' : 'pointer'"
             :src="item.icon"
             @click="changeEditContent(item.value)"
             alt=""
@@ -87,24 +84,20 @@
 </template>
 <script setup lang="ts">
   import { watch } from "vue"
-  import { storeToRefs } from "pinia"
   import { goUserCenter } from "@/utils/jump"
-  import useUserInfo from "@/stores/user"
-  import { useBreadcrumbMenus, useEidtHumanMenus, useSelectedEditCompId } from "@/stores/menus"
+  import useUserInfoStore from "@/stores/user"
+  import { useBreadcrumbMenusStore, useEidtHumanMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { EEditCompName } from "@/types/menus.d"
-  import type { TEditHumanMenu } from "@/types/menus.d"
 
   import Avatar from "./Avatar.vue"
 
-  const { userInfo } = useUserInfo()
-  const { breadMenus, jumpPrevMenu } = useBreadcrumbMenus()
-  const { editMenus, addEditMenus } = useEidtHumanMenus()
-  const selectStore = useSelectedEditCompId()
-  const { selectedCompId } = storeToRefs(selectStore)
+  const { userInfo } = useUserInfoStore()
+  const { breadMenus, jumpPrevMenu } = useBreadcrumbMenusStore()
+  const { editMenus, clearEditMenus, addEditMenus } = useEidtHumanMenusStore()
+  const selectedEditCompNameStore = useSelectedEditCompNameStore()
 
-  watch(editMenus, (val: TEditHumanMenu[]) => {
-    const selectedmenu = val.find((menu) => menu.selected)
-    selectStore.setSelectId(selectedmenu?.value || val[0].value)
+  watch(editMenus, () => {
+    selectedEditCompNameStore.initSelectCompName()
   })
 
   const goToUserCenter = () => {
@@ -118,17 +111,7 @@
     jumpPrevMenu(idx)
   }
 
-  // addBreadMenu({
-  //   label: "我的数字人",
-  //   value: "01",
-  //   canJump: true
-  // })
-  // addBreadMenu({
-  //   label: "male",
-  //   value: "01-01",
-  //   canJump: true
-  // })
-
+  clearEditMenus()
   addEditMenus([
     {
       value: EEditCompName.EditHeaderPart,
@@ -149,11 +132,11 @@
     }
   ])
 
-  const changeEditContent = (id: EEditCompName) => {
-    if (selectedCompId.value === id) {
+  const changeEditContent = (name: EEditCompName) => {
+    if (selectedEditCompNameStore.selectedCompName === name) {
       return
     }
-    selectStore.setSelectId(id)
+    selectedEditCompNameStore.setSelectCompName(name)
   }
 </script>
 <style lang="less">
@@ -190,9 +173,13 @@
           .svg-icon {
             width: 28px;
             height: 28px;
+            fill: var(--c-white-1);
           }
           &.active {
             background: var(--c-black-11);
+            .svg-icon {
+              fill: var(--c-blue-1);
+            }
           }
         }
       }

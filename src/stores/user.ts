@@ -2,7 +2,7 @@ import { reactive } from "vue"
 import { defineStore } from "pinia"
 import type { TUserInfoResParams } from "../types/user"
 
-const useUserInfo = defineStore("userInfo", () => {
+const useUserInfoStore = defineStore("userInfo", () => {
   const userInfo = reactive<TUserInfoResParams>({})
   const setUserInfo = (data: TUserInfoResParams) => {
     if (data.userAvatar) {
@@ -19,4 +19,4 @@ const useUserInfo = defineStore("userInfo", () => {
   return { userInfo, setUserInfo }
 })
 
-export default useUserInfo
+export default useUserInfoStore

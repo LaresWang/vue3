@@ -1,3 +1,8 @@
+export enum EModelCatg {
+  Buildin = "00", // 平台内置数字人
+  User = "01" // 用户创建的数字人
+}
+
 export enum EGender {
   Male = 0,
   Female
@@ -12,7 +17,7 @@ previewUrl	string	预览图地址
 ceratedOn	string	创建时间
 updatedOn	string	最后修改时间
  */
-export type TPlateFormHumanResParams = {
+export type THumanModelInfos = {
   humanId: string
   humanNo: string
   humanName: string
@@ -33,7 +38,7 @@ export type TUserHUmanResParams = {
   pageSize: number
   totalPage: number
   totalRow: number
-  rows: TPlateFormHumanResParams[]
+  rows: THumanModelInfos[]
 }
 
 // category 0-静态 1-动态
