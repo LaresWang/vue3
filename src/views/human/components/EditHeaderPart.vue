@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-header">
+  <div class="edit-header flex-v">
     <div class="fix-edit-header-tabs flex-start">
       <div
         v-for="tab in tabDatas"
@@ -26,6 +26,7 @@
         </el-tab-pane>
       </el-tabs> -->
     </div>
+    <div class="preset-config-lists"></div>
     <div class="edit-header-options">
       <EditSliderGroups :data="editConfig[activeTabValue]" />
     </div>
@@ -82,10 +83,12 @@
 </script>
 <style lang="less">
   .edit-header {
-    color: var(--c-gray-1);
+    width: 100%;
     height: 100%;
+    color: var(--c-gray-1);
     background: var(--c-black-10);
     .fix-edit-header-tabs {
+      width: 100%;
       height: 48px;
       padding: 0 16px;
       font-size: 14px;
@@ -114,10 +117,16 @@
         }
       }
     }
+    .preset-config-lists {
+      width: 100%;
+      height: 400px;
+    }
     .edit-header-options {
+      width: 100%;
+      flex: 1;
       margin-top: 2px;
-      padding: 0 12px;
-      background: var(--c-black-5);
+      min-height: 0;
+      overflow: hidden;
     }
   }
 </style>

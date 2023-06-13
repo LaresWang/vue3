@@ -593,3 +593,18 @@ input:-ms-input-placeholder {
 .el-overlay {
   background: rgba(47, 61, 105, 0.1) !important;
 }
+
+.fix-slider-tip {
+  width: 40px;
+  height: 24px;
+  padding: 0 !important;
+  border: none !important;
+  background: var(--c-black-0-light-1) !important;
+  box-shadow: 0px 2px 8px var(--c-black-0-light-2) !important;
+  line-height: 24px !important;
+  text-align: center;
+  .el-popper__arrow::before {
+    border-color: var(--c-black-0-light-1) !important;
+    background-color: var(--c-black-0-light-1) !important;
+  }
+}
