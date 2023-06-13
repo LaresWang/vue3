@@ -101,7 +101,7 @@
         position: relative;
         flex-shrink: 0;
         .tab-border {
-          height: 1px;
+          height: 2px;
           width: 100%;
           position: absolute;
           bottom: 0;

@@ -3,7 +3,7 @@
     <div class="human-edit-area flex-between">
       <div class="edit-left-area">
         <!-- 根据导航栏上的编辑按钮动态切换左边的菜单组件 -->
-        <BodySummaryParts v-show="breadMenus.length > 1" />
+        <BodySummaryParts v-show="breadMenus.length > 1 && selectedEditCompNameStore.selectedCompName === EEditCompName.EditHeaderPart" />
       </div>
       <div class="edit-right-area">
         <!-- 根据 默认显示模型列表， 导航栏上的编辑按钮动态切换下面的组件 -->

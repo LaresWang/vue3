@@ -3,6 +3,11 @@ export enum EModelCatg {
   User = "01" // 用户创建的数字人
 }
 
+export enum EEmotionCatg {
+  Static = 0, // 静态表情
+  Dynamic = 1 // 动态表情
+}
+
 export enum EGender {
   Male = 0,
   Female
@@ -43,7 +48,7 @@ export type TUserHUmanResParams = {
 
 // category 0-静态 1-动态
 export type TEmotionCatg = {
-  category: 0 | 1
+  category: EEmotionCatg
 }
 
 /**
@@ -410,4 +415,16 @@ export type TSelectedHumanModelInfo = {
   humanName: string
   humanId: string
   humanCatg?: EModelCatg
+}
+
+export type TSelectedPresetInfo = {
+  id: string
+  name: string
+}
+
+export type TPresetListInfo = {
+  id: string
+  previewUrl: string
+  name: string
+  cmdCode: string
 }

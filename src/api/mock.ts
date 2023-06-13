@@ -1,4 +1,4 @@
-import type { THumanModelInfos, TEditHumanConfigResParams } from "../types/human"
+import type { THumanModelInfos, TEditHumanConfigResParams, TEmotionParams, TActionParams } from "../types/human"
 
 export const buildinModels: THumanModelInfos[] = [
   {
@@ -1537,3 +1537,115 @@ export const editModelConfig: TEditHumanConfigResParams = {
     }
   ]
 }
+
+/**
+ * 动作数据
+ */
+export const actionLists: TActionParams[] = [
+  {
+    actionId: "1",
+    name: "1",
+    previewUrl: "aaa"
+  },
+  {
+    actionId: "2",
+    name: "2",
+    previewUrl: "aaa"
+  },
+  {
+    actionId: "3",
+    name: "3",
+    previewUrl: "aaa"
+  },
+  {
+    actionId: "4",
+    name: "4",
+    previewUrl: "aaa"
+  },
+  {
+    actionId: "5",
+    name: "5",
+    previewUrl: "aaa"
+  },
+  {
+    actionId: "6",
+    name: "6",
+    previewUrl: "aaa"
+  },
+  {
+    actionId: "7",
+    name: "7",
+    previewUrl: "aaa"
+  },
+  {
+    actionId: "8",
+    name: "8",
+    previewUrl: "aaa"
+  },
+  {
+    actionId: "9",
+    name: "9",
+    previewUrl: "aaa"
+  },
+  {
+    actionId: "10",
+    name: "10",
+    previewUrl: "aaa"
+  }
+]
+
+/**
+ * 表情数据
+ */
+export const emotionLists: TEmotionParams[] = [
+  {
+    faceId: "1",
+    name: "1",
+    previewUrl: "aaa"
+  },
+  {
+    faceId: "2",
+    name: "2",
+    previewUrl: "aaa"
+  },
+  {
+    faceId: "3",
+    name: "3",
+    previewUrl: "aaa"
+  },
+  {
+    faceId: "4",
+    name: "4",
+    previewUrl: "aaa"
+  },
+  {
+    faceId: "5",
+    name: "5",
+    previewUrl: "aaa"
+  },
+  {
+    faceId: "6",
+    name: "6",
+    previewUrl: "aaa"
+  },
+  {
+    faceId: "7",
+    name: "7",
+    previewUrl: "aaa"
+  },
+  {
+    faceId: "8",
+    name: "8",
+    previewUrl: "aaa"
+  },
+  {
+    faceId: "9",
+    name: "9",
+    previewUrl: "aaa"
+  },
+  {
+    faceId: "10",
+    name: "10",
+    previewUrl: "aaa"
+  }
+]

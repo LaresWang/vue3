@@ -1,4 +1,4 @@
-import { EModelCatg } from "@/types/human.d"
+import { EModelCatg, EEmotionCatg } from "@/types/human.d"
 import { t } from "../locale"
 // 项目各种常量
 // 手机号 只校验第一位是否为1开头  其余只要是数字即可
@@ -52,5 +52,23 @@ export const HumanModelCatgs = [
   {
     value: EModelCatg.User,
     label: t("edit.t2")
+  }
+]
+
+export const HumanEmotionCatgs = [
+  {
+    value: EEmotionCatg.Static,
+    label: t("edit.t7")
+  },
+  {
+    value: EEmotionCatg.Dynamic,
+    label: t("edit.t8")
+  }
+]
+
+export const HumanActionCatgs = [
+  {
+    value: 0,
+    label: t("edit.t9")
   }
 ]

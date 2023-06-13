@@ -10,7 +10,7 @@ import type {
   TEditHumanConfigResParams
 } from "../types/human"
 
-import { buildinModels, userModels, editModelConfig } from "./mock"
+import { buildinModels, userModels, editModelConfig, emotionLists, actionLists } from "./mock"
 
 // 平台数字人模版列表
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=61802669
@@ -44,13 +44,21 @@ export const getUserHumanLists = function (params: TPageReqParams) {
 // 数字人素材-表情
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=61803532
 export const getHumanEmotionLists = function (params: TEmotionCatg) {
-  return request.post<TEmotionParams[]>("user/human/material/face/list", params)
+  return new Promise<TEmotionParams[]>((res) => {
+    if (params.category === 0) {
+      res(emotionLists)
+    } else {
+      res(emotionLists.reverse())
+    }
+  })
+  // return request.post<TEmotionParams[]>("user/human/material/face/list", params)
 }
 
 // 数字人素材-动作
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=61803546
 export const getHumanActionLists = function () {
-  return request.post<TActionParams[]>("user/human/material/action/list")
+  return Promise.resolve(actionLists)
+  // return request.post<TActionParams[]>("user/human/material/action/list")
 }
 
 // 数字人捏脸配置

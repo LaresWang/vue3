@@ -1,8 +1,167 @@
 <template>
-  <div class="edit-emotions">edit-emotions</div>
+  <div class="edit-emotions flex-v">
+    <div class="fix-edit-emotions-tabs flex-start">
+      <div
+        v-for="tab in HumanEmotionCatgs"
+        :key="tab.value"
+        class="edit-header-tab flex-center"
+        :class="activeTabValue === tab.value ? 'active' : 'pointer'"
+        @click="clickTab(tab.value)"
+      >
+        <span>{{ tab.label }}</span>
+        <span class="tab-border"></span>
+      </div>
+    </div>
+    <div class="emotion-lists-wrapper">
+      <div
+        v-show="activeTabValue === EEmotionCatg.Static"
+        class="emotion-lists-inner-wrapper"
+      >
+        <div class="emotion-lists-inner flex-between">
+          <div
+            class="emotion-list"
+            v-for="item in staicEmotionLists"
+            :key="item.faceId"
+          >
+            <PresetList
+              :infos="{
+                id: item.faceId,
+                previewUrl: item.previewUrl,
+                name: item.name,
+                cmdCode: item.faceId
+              }"
+              :isSelected="selectedEmotionInfoStore.info.id === item.faceId"
+              @select="onSelectEmotion"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div
+        v-show="activeTabValue === EEmotionCatg.Dynamic"
+        class="emotion-lists-inner-wrapper"
+      >
+        <div class="emotion-lists-inner flex-between">
+          <div
+            class="emotion-list"
+            v-for="item in dynamicEmotionLists"
+            :key="item.faceId"
+          >
+            <PresetList
+              :infos="{
+                id: item.faceId,
+                previewUrl: item.previewUrl,
+                name: item.name,
+                cmdCode: item.faceId
+              }"
+              :isSelected="selectedEmotionInfoStore.info.id === item.faceId"
+              @select="onSelectEmotion"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { ref, watchEffect } from "vue"
+  import { getHumanEmotionLists } from "@/api/human"
+  import { useSelectedEmotionInfoStore } from "@/stores/human"
+  import { EEmotionCatg } from "@/types/human.d"
+  import type { TEmotionParams, TPresetListInfo } from "@/types/human"
+  import { HumanEmotionCatgs } from "@/utils/const"
+
+  import PresetList from "./PresetList.vue"
+
+  const selectedEmotionInfoStore = useSelectedEmotionInfoStore()
+  const activeTabValue = ref(EEmotionCatg.Static)
+  const staicEmotionLists = ref<TEmotionParams[]>([])
+  const dynamicEmotionLists = ref<TEmotionParams[]>([])
+
+  const getEmotionsLists = async (catg: EEmotionCatg) => {
+    const res = await getHumanEmotionLists({ category: catg })
+    if (catg === EEmotionCatg.Static) {
+      staicEmotionLists.value = res
+    } else if (catg === EEmotionCatg.Dynamic) {
+      dynamicEmotionLists.value = res
+    }
+  }
+
+  watchEffect(() => {
+    getEmotionsLists(EEmotionCatg.Static)
+    getEmotionsLists(EEmotionCatg.Dynamic)
+  })
+
+  const clickTab = (value: EEmotionCatg) => {
+    if (activeTabValue.value === value) {
+      return
+    }
+    activeTabValue.value = value
+  }
+
+  const onSelectEmotion = (info: TPresetListInfo) => {
+    selectedEmotionInfoStore.setSelectedEmotionInfo({
+      id: info.id,
+      name: info.name
+    })
+    // TODO 调指令接口
+  }
+</script>
 <style lang="less">
   .edit-emotions {
+    width: 100%;
+    height: 100%;
+    color: var(--c-gray-1);
+    background: var(--c-black-10);
+    .fix-edit-emotions-tabs {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      font-size: 14px;
+      font-weight: 500;
+      overflow: auto;
+      background: var(--c-black-5);
+      .edit-header-tab {
+        height: 100%;
+        margin: 0 8px;
+        position: relative;
+        flex-shrink: 0;
+        .tab-border {
+          height: 2px;
+          width: 100%;
+          position: absolute;
+          bottom: 0;
+        }
+        &:hover {
+          color: var(--c-blue-1);
+        }
+        &.active {
+          color: var(--c-blue-1);
+          .tab-border {
+            background: var(--c-blue-1);
+          }
+        }
+      }
+    }
+    .emotion-lists-wrapper {
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      .emotion-lists-inner-wrapper {
+        padding: 0 20px;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        .emotion-lists-inner {
+          flex-flow: row wrap;
+
+          .emotion-list {
+            width: 108px;
+            height: 138px;
+            margin-top: 15px;
+          }
+        }
+      }
+    }
   }
 </style>

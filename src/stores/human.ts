@@ -1,6 +1,6 @@
 import { ref, computed } from "vue"
 import { defineStore } from "pinia"
-import type { TSelectedHumanModelInfo } from "../types/human"
+import type { TSelectedHumanModelInfo, TSelectedPresetInfo } from "../types/human"
 
 const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
   const info = ref<TSelectedHumanModelInfo>({
@@ -26,4 +26,44 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
   return { info, selectedHumanModelId, setSelectedModelInfo, clearSelectedModelInfo }
 })
 
-export { useSelectedModelInfoStore }
+const useSelectedEmotionInfoStore = defineStore("selectedEmotionInfo", () => {
+  const info = ref<TSelectedPresetInfo>({
+    id: "",
+    name: ""
+  })
+
+  const setSelectedEmotionInfo = (params: TSelectedPresetInfo) => {
+    info.value = params
+  }
+
+  const clearSelectedEmotionInfo = () => {
+    info.value = {
+      id: "",
+      name: ""
+    }
+  }
+
+  return { info, setSelectedEmotionInfo, clearSelectedEmotionInfo }
+})
+
+const useSelectedActionInfoStore = defineStore("selectedActionInfo", () => {
+  const info = ref<TSelectedPresetInfo>({
+    id: "",
+    name: ""
+  })
+
+  const setSelectedActionInfo = (params: TSelectedPresetInfo) => {
+    info.value = params
+  }
+
+  const clearSelectedActionInfo = () => {
+    info.value = {
+      id: "",
+      name: ""
+    }
+  }
+
+  return { info, setSelectedActionInfo, clearSelectedActionInfo }
+})
+
+export { useSelectedModelInfoStore, useSelectedEmotionInfoStore, useSelectedActionInfoStore }
