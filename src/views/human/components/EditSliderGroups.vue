@@ -32,7 +32,10 @@
             <div class="level-two-title flex-between">
               <span>{{ list.name }}</span>
               <div class="fix-show-adjust-value">
-                <el-input v-model="currentAdjustValues[list.code]" />
+                <el-input
+                  v-model="currentAdjustValues[list.code]"
+                  @change="changeInput(list)"
+                />
               </div>
             </div>
             <div class="slider-area">
@@ -43,6 +46,7 @@
                 :step="0.01"
                 class="fix-slider-body"
                 tooltip-class="fix-slider-tip"
+                @change="sliderChange(list)"
               />
             </div>
           </div>
@@ -54,19 +58,23 @@
 <script setup lang="ts">
   import { ref, watchEffect, onMounted, onBeforeUnmount } from "vue"
   import { ArrowRight, ArrowDown } from "@element-plus/icons-vue"
-  import type { TBodyPartPositionDetail } from "@/types/human"
+  import type { TBodyPartPositionDetail, TBodyPartPositionDetailInfo } from "@/types/human"
 
   const props = defineProps<{
     data: TBodyPartPositionDetail[]
   }>()
 
-  const expandCode = ref("")
-  const currentAdjustValues = ref<{
+  type TAdjustValue = {
     [x: string]: number
-  }>({})
+  }
+  const expandCode = ref("")
+  const currentAdjustValues = ref<TAdjustValue>({})
+  // 输入框手动输入有问题的时候恢复输入前的值
+  let prevAdjustValues: TAdjustValue = {}
   // 初始化数值
   watchEffect(() => {
     currentAdjustValues.value = {}
+    prevAdjustValues = {}
     // 取二级的数据
     props.data?.forEach((subData) => {
       /** subData
@@ -93,13 +101,47 @@
               }
             },
          */
-        currentAdjustValues.value[item.code] = (+item.range.left_value + +item.range.right_value) / 2
+        const avg = (+item.range.left_value + +item.range.right_value) / 2
+        currentAdjustValues.value[item.code] = avg
+        prevAdjustValues[item.code] = avg
       })
     })
   })
 
   const expandLists = (code: string) => {
     expandCode.value = expandCode.value === code ? "" : code
+  }
+
+  const sliderChange = (item: TBodyPartPositionDetailInfo) => {
+    const currentValue = currentAdjustValues.value[item.code]
+    console.log(currentValue)
+    prevAdjustValues[item.code] = currentValue
+    notifyChangeResult(item, currentValue)
+    handleSliderMouseUpEvents()
+  }
+
+  const changeInput = (item: TBodyPartPositionDetailInfo) => {
+    const currentValue = currentAdjustValues.value[item.code]
+    const prevValue = prevAdjustValues[item.code]
+    console.log("input ", currentValue)
+    if (currentValue && !isNaN(currentValue)) {
+      if (currentValue < +item.range.left_value || currentValue > +item.range.right_value) {
+        console.log("输入的值不在区间内")
+        currentAdjustValues.value[item.code] = +prevValue
+      } else {
+        // 转成数字是为了给滑块设置对应的进度值
+        currentAdjustValues.value[item.code] = +currentValue
+        prevAdjustValues[item.code] = +currentValue
+        notifyChangeResult(item, +currentValue)
+      }
+    } else {
+      currentAdjustValues.value[item.code] = +prevValue
+    }
+  }
+
+  const notifyChangeResult = (item: TBodyPartPositionDetailInfo, value: number) => {
+    // TODO 调指令接口
+    console.log("调用指令接口", item, value)
   }
 
   /** VVVVV  点击拖动滑块的时候背景色变色处理 VVVVVV */
@@ -112,6 +154,7 @@
     if (sliderWrapperEl) {
       sliderWrapperEl.addEventListener("mousedown", handleSliderMouseEvents)
       sliderWrapperEl.addEventListener("mouseup", handleSliderMouseUpEvents)
+      // 电脑操控面板有时不触发mouseup，可能是slider组件里阻止了事件的默认行为，需要利用sliderChange来兜底处理一下
     }
   }
 
@@ -129,7 +172,11 @@
       clickedTargetEl = true
       sliderBody = target
       target.style.backgroundColor = "#fff"
-    } else if (classList?.contains("el-slider__button") || classList?.contains("el-slider__bar")) {
+    } else if (
+      classList?.contains("el-slider__button") ||
+      classList?.contains("el-slider__button-wrapper") ||
+      classList?.contains("el-slider__bar")
+    ) {
       clickedTargetEl = true
       let parentEl = target.parentElement
       while (parentEl) {
@@ -154,6 +201,7 @@
     //     })
     //   }
     // }
+    // console.log(mouseup)
     if (clickedTargetEl && sliderBody) {
       sliderBody.style.backgroundColor = "#3a3a3a"
     }
@@ -192,6 +240,8 @@
           color: var(--c-white-1);
           margin-bottom: 2px;
           background: var(--c-black-5);
+          // position: sticky;
+          // top: 0;
           .fix-el-icon {
             .el-icon {
               font-size: 14px;
@@ -252,11 +302,12 @@
                   .el-slider__button-wrapper {
                     height: 10px;
                     width: 10px;
-                    top: -7px;
+                    top: -3px;
                     .el-slider__button {
                       height: 10px;
                       width: 10px;
                       border-color: var(--el-color-white);
+                      display: block;
                     }
                   }
                 }
