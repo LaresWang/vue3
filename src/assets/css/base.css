@@ -85,7 +85,10 @@ body {
 }
 
 #app {
-  min-width: 900px;
+  min-width: 800px;
+}
+.fix-fs-12 {
+  font-size: 12px !important;
 }
 
 :root {

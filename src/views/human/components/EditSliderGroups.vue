@@ -6,6 +6,7 @@
         v-for="item in props.data"
         :key="item.code"
         class="slider-group-item"
+        :class="fixSizeStore.needFix ? 'fix-fs-12' : ''"
       >
         <div
           class="level-one-list pointer flex-between"
@@ -56,8 +57,10 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, watchEffect, onMounted, onBeforeUnmount } from "vue"
+  import { ref, watchEffect, onMounted, onBeforeUnmount, inject } from "vue"
   import { ArrowRight, ArrowDown } from "@element-plus/icons-vue"
+  import useFixSizeStore from "@/stores/fixsize"
+
   import type { TBodyPartPositionDetail, TBodyPartPositionDetailInfo } from "@/types/human"
 
   const props = defineProps<{
@@ -67,6 +70,9 @@
   type TAdjustValue = {
     [x: string]: number
   }
+
+  const fixSizeStore = useFixSizeStore()
+  const isSafari = inject("isSafari")
   const expandCode = ref("")
   const currentAdjustValues = ref<TAdjustValue>({})
   // 输入框手动输入有问题的时候恢复输入前的值
