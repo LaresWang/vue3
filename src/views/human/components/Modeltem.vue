@@ -47,6 +47,7 @@
 </template>
 <script setup lang="ts">
   import { ref, watchEffect, onMounted, onUpdated } from "vue"
+  import { modifyHumanName } from "@/api/human"
   import { useSelectedModelInfoStore } from "@/stores/human"
   import { EModelCatg } from "@/types/human.d"
   import type { THumanModelInfos } from "@/types/human"
@@ -57,7 +58,7 @@
     isEditName: boolean
   }
   const props = defineProps<TModelItemProps>()
-  const emits = defineEmits(["select", "modifyName", "editName"])
+  const emits = defineEmits(["select", "submitName", "editName"])
 
   const loadNetPic = ref(true)
   const modelName = ref("")
@@ -95,19 +96,26 @@
     emits("editName", humanId)
   }
 
-  // const onChangeName = () => {
-  //   // emits("modifyName", props.infos, modelName.value)
-  // }
-
-  const onBlur = () => {
+  const onBlur = async () => {
     emits("editName", "")
     console.log("onblur", modelName.value)
     if (props.infos.humanName === modelName.value) {
       console.log("没有变化")
       return
     }
-    // TODO 可以在此组建内部直接调修改接口  成功后直接使用modelName值，不用刷新列表， 如果通知父组件调接口，需要刷新列表更新humanName
-    // emits("modifyName", props.infos, modelName.value)
+
+    emits("submitName", true, props.infos)
+    try {
+      await modifyHumanName({
+        humanId: props.infos.humanId,
+        name: modelName.value
+      })
+      emits("submitName", false, props.infos, modelName.value)
+    } catch (e) {
+      console.log("修改名称失败", e)
+      modelName.value = props.infos.humanName
+      emits("submitName", false, props.infos)
+    }
   }
 
   const loadPicError = () => {

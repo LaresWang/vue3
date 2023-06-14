@@ -18,3 +18,7 @@ export type TVoidFunction = <T>(arg: T) => {}
 export interface IVoidFunction {
   <T>(arg: T): void
 }
+
+export type TEmptyObj = {
+  [x: string]: any
+}

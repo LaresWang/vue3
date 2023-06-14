@@ -13,6 +13,7 @@
           :type="EModelCatg.Buildin"
           :isEditName="editModelId === model.humanId"
           @editName="onEditName"
+          @submitName="onSubmitName"
         />
       </template>
     </div>
@@ -31,6 +32,7 @@
   const props = defineProps<{
     show: boolean
   }>()
+  const emits = defineEmits(["submitName"])
 
   const editModelId = ref("")
   const buildinModels = ref<THumanModelInfos[]>([])
@@ -45,6 +47,10 @@
 
   const onEditName = (humanId: string) => {
     editModelId.value = humanId
+  }
+
+  const onSubmitName = (isSubmiting: boolean, infos: THumanModelInfos, name?: string) => {
+    emits("submitName", isSubmiting, infos, name)
   }
 </script>
 <style lang="less">

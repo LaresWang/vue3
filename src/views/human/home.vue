@@ -18,7 +18,9 @@
         <EditActions /> -->
       </div>
     </div>
-    <div class="human-player-area">video</div>
+    <div class="human-player-area">
+      <Player />
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -33,6 +35,7 @@
   import EditHeaderPart from "./components/EditHeaderPart.vue"
   import EditEmotions from "./components/EditEmotions.vue"
   import EditActions from "./components/EditActions.vue"
+  import Player from "./components/Player.vue"
 
   const { breadMenus, addBreadMenu } = useBreadcrumbMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()

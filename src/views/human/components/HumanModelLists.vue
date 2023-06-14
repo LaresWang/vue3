@@ -15,8 +15,15 @@
       </div>
     </div>
     <div class="model-lists">
-      <ModelsFromBuildin :show="breadcrumbMenusStore.currentModelCat === EModelCatg.Buildin" />
-      <ModelsFromUser :show="breadcrumbMenusStore.currentModelCat === EModelCatg.User" />
+      <ModelsFromBuildin
+        :show="breadcrumbMenusStore.currentModelCat === EModelCatg.Buildin"
+        @submitName="onSubmitName"
+      />
+      <ModelsFromUser
+        :key="modelUserKey"
+        :show="breadcrumbMenusStore.currentModelCat === EModelCatg.User"
+        @submitName="onSubmitName"
+      />
     </div>
     <div class="model-operate-area flex-between">
       <div class="icons-group flex-center">
@@ -56,18 +63,38 @@
   </div>
 </template>
 <script setup lang="ts">
+  import { ref, watchEffect } from "vue"
   import { HumanModelCatgs } from "@/utils/const"
+  import useSaveHumanModelStore from "@/stores/saveModel"
   import { useSelectedModelInfoStore } from "@/stores/human"
   import { useBreadcrumbMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { EModelCatg } from "@/types/human.d"
+  import type { TEmptyObj } from "@/types"
+  import type { THumanModelInfos } from "@/types/human"
   import type { TBreadcrumbMenu } from "@/types/menus"
+  import message from "@/utils/message"
 
   import ModelsFromBuildin from "./ModelsFromBuildin.vue"
   import ModelsFromUser from "./ModelsFromUser.vue"
 
+  const modelUserKey = ref(0)
   const breadcrumbMenusStore = useBreadcrumbMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
+  const saveHumanModelStore = useSaveHumanModelStore()
+
+  watchEffect(() => {
+    if (saveHumanModelStore.result === "ok") {
+      saveHumanModelStore.resetResult()
+
+      console.log("保存成功后更新列表")
+      // 显示我的数字人tab
+      // const item = HumanModelCatgs.find((info) => info.value === EModelCatg.User)
+      // changeModelList(item!)
+      // 强制刷新组件
+      modelUserKey.value++
+    }
+  })
 
   const changeModelList = (item: TBreadcrumbMenu) => {
     if (breadcrumbMenusStore.currentModelCat === item.value) {
@@ -79,17 +106,54 @@
     })
   }
 
+  // 不排除有多个模型正在修改name，接口响应很慢，然后用户修改了多个模型名称
+  let submitStatusRecord: TEmptyObj = {}
+  let submitNameRecord: TEmptyObj = {}
+  const onSubmitName = (isSubmiting: boolean, infos: THumanModelInfos, name?: string) => {
+    submitStatusRecord[infos.humanId] = isSubmiting
+    if (name) {
+      submitNameRecord[infos.humanId] = name
+    }
+    if (!isSubmiting && isCreatingModel && infos.humanId === selectedModelInfoStore.info.humanId) {
+      isCreatingModel = false
+      showEditModelPage()
+    } else {
+      delete submitNameRecord[infos.humanId]
+      delete submitStatusRecord[infos.humanId]
+    }
+  }
+
+  let isCreatingModel = false
   const createModel = () => {
-    if (!selectedModelInfoStore.info.humanName || selectedModelInfoStore.info.humanCatg !== breadcrumbMenusStore.currentModelCat) {
-      console.log("需要先选择模型")
+    if (isCreatingModel) {
       return
     }
+    isCreatingModel = true
 
+    if (!selectedModelInfoStore.info.humanName || selectedModelInfoStore.info.humanCatg !== breadcrumbMenusStore.currentModelCat) {
+      message("需要先选择模型", "warning")
+      isCreatingModel = false
+      return
+    }
+    // 在点击创建的时候可能会触发修改名称输入框的blur事件，需要等修改提交响应结果后再进入下一步
+    setTimeout(() => {
+      if (!submitStatusRecord[selectedModelInfoStore.info.humanId]) {
+        isCreatingModel = false
+        showEditModelPage()
+      }
+    }, 300)
+  }
+
+  const showEditModelPage = () => {
     selectedEditCompNameStore.initSelectCompName()
+    const humanId = selectedModelInfoStore.info.humanId
     breadcrumbMenusStore.addBreadMenu({
-      value: selectedModelInfoStore.info.humanId,
-      label: selectedModelInfoStore.info.humanName
+      value: humanId,
+      label: submitNameRecord[humanId] || selectedModelInfoStore.info.humanName
     })
+
+    delete submitNameRecord[humanId]
+    delete submitStatusRecord[humanId]
   }
 
   const deleteModel = () => {

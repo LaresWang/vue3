@@ -18,6 +18,7 @@
           :type="EModelCatg.User"
           :isEditName="editModelId === model.humanId"
           @editName="onEditName"
+          @submitName="onSubmitName"
         />
       </template>
     </div>
@@ -26,6 +27,7 @@
 </template>
 <script setup lang="ts">
   import { ref, watch, watchEffect } from "vue"
+  import { useSelectedModelInfoStore } from "@/stores/human"
   import { getUserHumanLists } from "@/api/human"
   import { EModelCatg } from "@/types/human.d"
   import type { THumanModelInfos } from "@/types/human"
@@ -36,7 +38,9 @@
   const props = defineProps<{
     show: boolean
   }>()
+  const emits = defineEmits(["submitName"])
 
+  const selectedModelInfoStore = useSelectedModelInfoStore()
   const pageSize = 10
   const pageNo = ref(0)
   const editModelId = ref("")
@@ -56,6 +60,15 @@
     console.log(res)
     if (res.pageNo === pageNoLoading && res.rows.length) {
       userModels.value = userModels.value.concat(res.rows)
+
+      if (pageNoLoading === 1 && !selectedModelInfoStore.info.humanId) {
+        selectedModelInfoStore.setSelectedModelInfo({
+          humanId: res.rows[0].humanId,
+          humanName: res.rows[0].humanName,
+          humanCatg: EModelCatg.User
+        })
+        // TODO 发送指令显示第一个模型
+      }
     }
 
     if (res.rows.length < pageSize || res.totalPage === pageNoLoading) {
@@ -83,6 +96,10 @@
 
   const onEditName = (humanId: string) => {
     editModelId.value = humanId
+  }
+
+  const onSubmitName = (isSubmiting: boolean, infos: THumanModelInfos, name?: string) => {
+    emits("submitName", isSubmiting, infos, name)
   }
 </script>
 <style lang="less">

@@ -159,7 +159,7 @@
     .preset-lists-wrapper {
       width: 100%;
       padding: 20px 0;
-      max-height: 600px;
+      max-height: 400px;
       overflow: hidden;
       .preset-lists-inner-wrapper {
         padding: 0 20px;

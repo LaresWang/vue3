@@ -7,7 +7,10 @@ import type {
   TEmotionCatg,
   TEmotionParams,
   TActionParams,
-  TEditHumanConfigResParams
+  TEditHumanConfigResParams,
+  TModifyHumanNameReqParams,
+  TModifyHumanNameResParams,
+  TSaveHumanModelResParams
 } from "../types/human"
 
 import { buildinModels, userModels, editModelConfig, emotionLists, actionLists } from "./mock"
@@ -70,4 +73,12 @@ export const getHumanHeaderEditConfig = function () {
 
 export const getBodyPresetLists = function () {
   return Promise.resolve(emotionLists)
+}
+
+export const modifyHumanName = function (params: TModifyHumanNameReqParams) {
+  return request.post<TModifyHumanNameResParams>("user/human/name/modify", params)
+}
+
+export const saveHumanModel = function (params: FormData) {
+  return request.post<TSaveHumanModelResParams>("user/human/modify", params)
 }

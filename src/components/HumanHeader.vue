@@ -40,6 +40,8 @@
         <el-button
           class="edit-save-btn"
           type="primary"
+          @click="saveModel"
+          :disabled="saveHumanModelStore.isSaving"
         >
           保存
         </el-button>
@@ -88,6 +90,7 @@
   import useUserInfoStore from "@/stores/user"
   import { useBreadcrumbMenusStore, useEidtHumanMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { EEditCompName } from "@/types/menus.d"
+  import useSaveHumanModelStore from "@/stores/saveModel"
 
   import Avatar from "./Avatar.vue"
 
@@ -95,6 +98,7 @@
   const { breadMenus, jumpPrevMenu } = useBreadcrumbMenusStore()
   const { editMenus, clearEditMenus, addEditMenus } = useEidtHumanMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
+  const saveHumanModelStore = useSaveHumanModelStore()
 
   watch(editMenus, () => {
     selectedEditCompNameStore.initSelectCompName()
@@ -137,6 +141,13 @@
       return
     }
     selectedEditCompNameStore.setSelectCompName(name)
+  }
+
+  const saveModel = () => {
+    if (saveHumanModelStore.isSaving) {
+      return
+    }
+    saveHumanModelStore.save()
   }
 </script>
 <style lang="less">

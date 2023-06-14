@@ -68,6 +68,17 @@ export type TActionParams = {
   name: string
 }
 
+export type TModifyHumanNameReqParams = {
+  humanId: string
+  name: string
+}
+
+export type TModifyHumanNameResParams = {
+  humanId: string
+}
+
+export type TSaveHumanModelResParams = TModifyHumanNameResParams
+
 /**编辑数字人配置 VVVVV*/
 /*
  const demo = {
