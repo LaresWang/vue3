@@ -67,3 +67,7 @@ export const getHumanHeaderEditConfig = function () {
   return Promise.resolve(editModelConfig)
   // return request.post<TEditHumanConfigResParams>("user/human/edit/config")
 }
+
+export const getBodyPresetLists = function () {
+  return Promise.resolve(emotionLists)
+}

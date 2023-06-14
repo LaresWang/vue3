@@ -21,16 +21,11 @@
           <div
             class="emotion-list"
             v-for="item in staicEmotionLists"
-            :key="item.faceId"
+            :key="item.id"
           >
             <PresetList
-              :infos="{
-                id: item.faceId,
-                previewUrl: item.previewUrl,
-                name: item.name,
-                cmdCode: item.faceId
-              }"
-              :isSelected="selectedEmotionInfoStore.info.id === item.faceId"
+              :infos="item"
+              :isSelected="selectedEmotionInfoStore.info.id === item.id"
               @select="onSelectEmotion"
             />
           </div>
@@ -45,16 +40,11 @@
           <div
             class="emotion-list"
             v-for="item in dynamicEmotionLists"
-            :key="item.faceId"
+            :key="item.id"
           >
             <PresetList
-              :infos="{
-                id: item.faceId,
-                previewUrl: item.previewUrl,
-                name: item.name,
-                cmdCode: item.faceId
-              }"
-              :isSelected="selectedEmotionInfoStore.info.id === item.faceId"
+              :infos="item"
+              :isSelected="selectedEmotionInfoStore.info.id === item.id"
               @select="onSelectEmotion"
             />
           </div>
@@ -69,21 +59,22 @@
   import { useSelectedEmotionInfoStore } from "@/stores/human"
   import { EEmotionCatg } from "@/types/human.d"
   import type { TEmotionParams, TPresetListInfo } from "@/types/human"
+  import { formatPresetListsData } from "@/hooks/human/presetLists"
   import { HumanEmotionCatgs } from "@/utils/const"
 
   import PresetList from "./PresetList.vue"
 
   const selectedEmotionInfoStore = useSelectedEmotionInfoStore()
   const activeTabValue = ref(EEmotionCatg.Static)
-  const staicEmotionLists = ref<TEmotionParams[]>([])
-  const dynamicEmotionLists = ref<TEmotionParams[]>([])
+  const staicEmotionLists = ref<TPresetListInfo[]>([])
+  const dynamicEmotionLists = ref<TPresetListInfo[]>([])
 
   const getEmotionsLists = async (catg: EEmotionCatg) => {
     const res = await getHumanEmotionLists({ category: catg })
     if (catg === EEmotionCatg.Static) {
-      staicEmotionLists.value = res
+      staicEmotionLists.value = formatPresetListsData<TEmotionParams>(res)
     } else if (catg === EEmotionCatg.Dynamic) {
-      dynamicEmotionLists.value = res
+      dynamicEmotionLists.value = formatPresetListsData<TEmotionParams>(res)
     }
   }
 

@@ -66,4 +66,24 @@ const useSelectedActionInfoStore = defineStore("selectedActionInfo", () => {
   return { info, setSelectedActionInfo, clearSelectedActionInfo }
 })
 
-export { useSelectedModelInfoStore, useSelectedEmotionInfoStore, useSelectedActionInfoStore }
+const useSelectedBodyPresetStore = defineStore("selectedBodyPresetInfo", () => {
+  const info = ref<TSelectedPresetInfo>({
+    id: "",
+    name: ""
+  })
+
+  const setSelectedBodyPresetInfo = (params: TSelectedPresetInfo) => {
+    info.value = params
+  }
+
+  const clearSelectedBodyPresetInfo = () => {
+    info.value = {
+      id: "",
+      name: ""
+    }
+  }
+
+  return { info, setSelectedBodyPresetInfo, clearSelectedBodyPresetInfo }
+})
+
+export { useSelectedModelInfoStore, useSelectedEmotionInfoStore, useSelectedActionInfoStore, useSelectedBodyPresetStore }

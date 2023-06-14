@@ -26,7 +26,26 @@
         </el-tab-pane>
       </el-tabs> -->
     </div>
-    <div class="preset-config-lists"></div>
+    <div
+      class="preset-lists-wrapper"
+      v-if="presetConfig[activeTabValue]"
+    >
+      <div class="preset-lists-inner-wrapper">
+        <div class="preset-lists-inner flex-between">
+          <div
+            class="preset-list"
+            v-for="item in presetConfig[activeTabValue]"
+            :key="item.id"
+          >
+            <PresetList
+              :infos="item"
+              :isSelected="selectedBodyPresetStore.info.id === item.id"
+              @select="onSelectPreset"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="edit-header-options">
       <EditSliderGroups :data="editConfig[activeTabValue]" />
     </div>
@@ -34,10 +53,13 @@
 </template>
 <script setup lang="ts">
   import { ref, watchEffect } from "vue"
-  import { getHumanHeaderEditConfig } from "@/api/human"
-  import type { TBodyPartPositionDetail } from "@/types/human"
+  import { getHumanHeaderEditConfig, getBodyPresetLists } from "@/api/human"
+  import { useSelectedBodyPresetStore } from "@/stores/human"
+  import type { TBodyPartPositionDetail, TPresetListInfo } from "@/types/human"
+  import { formatPresetListsData } from "@/hooks/human/presetLists"
 
   import EditSliderGroups from "./EditSliderGroups.vue"
+  import PresetList from "./PresetList.vue"
   console.log("editheader")
 
   type THeaderPartsTab = {
@@ -47,9 +69,14 @@
   type THeaderPartEditConfig = {
     [x: string]: TBodyPartPositionDetail[]
   }
+  type TPresetListsConfig = {
+    [x: string]: TPresetListInfo[]
+  }
 
+  const selectedBodyPresetStore = useSelectedBodyPresetStore()
   const tabDatas = ref<THeaderPartsTab[]>([])
   const editConfig = ref<THeaderPartEditConfig>({})
+  const presetConfig = ref<TPresetListsConfig>({})
   const activeTabValue = ref("")
 
   watchEffect(async () => {
@@ -58,6 +85,7 @@
     if (res.body_parts && res.body_parts.length) {
       const tabs: THeaderPartsTab[] = []
       const config: THeaderPartEditConfig = {}
+      const presets: TPresetListsConfig = {}
       for (let i = 0; i < res.body_parts.length; i++) {
         const obj = res.body_parts[i]
         tabs.push({
@@ -65,10 +93,13 @@
           label: obj.name
         })
         config[obj.code] = obj.detail
+        // TODO 按需加载？
+        presets[obj.code] = formatPresetListsData(await getBodyPresetLists())
       }
 
       tabDatas.value = tabs
       editConfig.value = config
+      presetConfig.value = presets
       activeTabValue.value = tabs[0].value
     }
   })
@@ -79,6 +110,14 @@
     }
     console.log(val)
     activeTabValue.value = val
+  }
+
+  const onSelectPreset = (info: TPresetListInfo) => {
+    selectedBodyPresetStore.setSelectedBodyPresetInfo({
+      id: info.id,
+      name: info.name
+    })
+    // TODO 调指令接口
   }
 </script>
 <style lang="less">
@@ -117,9 +156,26 @@
         }
       }
     }
-    .preset-config-lists {
+    .preset-lists-wrapper {
       width: 100%;
-      height: 400px;
+      padding: 20px 0;
+      max-height: 600px;
+      overflow: hidden;
+      .preset-lists-inner-wrapper {
+        padding: 0 20px;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        .preset-lists-inner {
+          flex-flow: row wrap;
+
+          .preset-list {
+            width: 108px;
+            height: 138px;
+            margin-top: 15px;
+          }
+        }
+      }
     }
     .edit-header-options {
       width: 100%;

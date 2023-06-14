@@ -17,16 +17,11 @@
           <div
             class="action-list"
             v-for="item in actionLists"
-            :key="item.actionId"
+            :key="item.id"
           >
             <PresetList
-              :infos="{
-                id: item.actionId,
-                previewUrl: item.previewUrl,
-                name: item.name,
-                cmdCode: item.actionId
-              }"
-              :isSelected="selectedActionInfoStore.info.id === item.actionId"
+              :infos="item"
+              :isSelected="selectedActionInfoStore.info.id === item.id"
               @select="onSelectAction"
             />
           </div>
@@ -41,16 +36,17 @@
   import { useSelectedActionInfoStore } from "@/stores/human"
 
   import type { TActionParams, TPresetListInfo } from "@/types/human"
+  import { formatPresetListsData } from "@/hooks/human/presetLists"
   import { HumanActionCatgs } from "@/utils/const"
 
   import PresetList from "./PresetList.vue"
 
   const selectedActionInfoStore = useSelectedActionInfoStore()
-  const actionLists = ref<TActionParams[]>([])
+  const actionLists = ref<TPresetListInfo[]>([])
 
   const getActionLists = async () => {
     const res = await getHumanActionLists()
-    actionLists.value = res
+    actionLists.value = formatPresetListsData<TActionParams>(res)
   }
 
   watchEffect(() => {
