@@ -1,8 +1,11 @@
 <script setup lang="ts">
   import { provide } from "vue"
   import { RouterView } from "vue-router"
-  import { isSafari } from "@/utils/browser"
-  provide("isSafari", isSafari())
+  import useFixsize from "@/hooks/fixsize"
+
+  const { needFix } = useFixsize()
+
+  provide("needFix", needFix)
   // import HelloWorld from './components/HelloWorld.vue'
   // document.body.addEventListener("keydown", function (event: KeyboardEvent) {
   //   console.log("app evemt", event)

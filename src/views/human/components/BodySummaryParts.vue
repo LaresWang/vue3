@@ -11,7 +11,7 @@
         @click="changeBodyPart(part.value)"
       >
         <svg-icon :name="part.icon" />
-        <span :class="fixSizeStore.needFix ? 'fix-fs-12' : ''">{{ $t("edit.t6") }}</span>
+        <span :class="needFix ? 'fix-fs-12' : ''">{{ $t("edit.t6") }}</span>
       </div>
     </template>
     <!-- 为了调试多个的时候 -->
@@ -26,11 +26,8 @@
 </template>
 <script setup lang="ts">
   import { ref, inject } from "vue"
-  import useFixSizeStore from "@/stores/fixsize"
 
-  const fixSizeStore = useFixSizeStore()
-  const isSafari = inject("isSafari")
-  console.log("isSafari", isSafari)
+  const needFix = inject("needFix")
   const selectedPart = ref("01")
   const parts = [
     {
