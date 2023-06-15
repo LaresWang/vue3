@@ -65,8 +65,7 @@
 <script setup lang="ts">
   import { ref, watchEffect } from "vue"
   import { HumanModelCatgs } from "@/utils/const"
-  import useSaveHumanModelStore from "@/stores/saveModel"
-  import { useSelectedModelInfoStore } from "@/stores/human"
+  import { useSelectedModelInfoStore, useSaveHumanModelStore } from "@/stores/human"
   import { useBreadcrumbMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { EModelCatg } from "@/types/human.d"
   import type { TEmptyObj } from "@/types"
@@ -131,7 +130,7 @@
     isCreatingModel = true
 
     if (!selectedModelInfoStore.info.humanName || selectedModelInfoStore.info.humanCatg !== breadcrumbMenusStore.currentModelCat) {
-      message("需要先选择模型", "warning")
+      message("请先选择数字人", "warning")
       isCreatingModel = false
       return
     }
@@ -156,12 +155,34 @@
     delete submitStatusRecord[humanId]
   }
 
+  let isDeleting = false
   const deleteModel = () => {
     console.log("deleteModel")
+    if (isDeleting) {
+      return
+    }
+    isDeleting = true
+
+    if (!selectedModelInfoStore.info.humanName || selectedModelInfoStore.info.humanCatg !== breadcrumbMenusStore.currentModelCat) {
+      message("请先选择数字人", "warning")
+      isDeleting = false
+      return
+    }
   }
 
+  let isCopying = false
   const copyModel = () => {
     console.log("copyModel")
+    if (isCopying) {
+      return
+    }
+    isCopying = true
+
+    if (!selectedModelInfoStore.info.humanName || selectedModelInfoStore.info.humanCatg !== breadcrumbMenusStore.currentModelCat) {
+      message("请先选择数字人", "warning")
+      isCopying = false
+      return
+    }
   }
 
   const importFile = () => {

@@ -90,7 +90,7 @@
   import useUserInfoStore from "@/stores/user"
   import { useBreadcrumbMenusStore, useEidtHumanMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { EEditCompName } from "@/types/menus.d"
-  import useSaveHumanModelStore from "@/stores/saveModel"
+  import { useSaveHumanModelStore } from "@/stores/human"
 
   import Avatar from "./Avatar.vue"
 
