@@ -10,7 +10,12 @@ import type {
   TEditHumanConfigResParams,
   TModifyHumanNameReqParams,
   TModifyHumanNameResParams,
-  TSaveHumanModelResParams
+  TSaveHumanModelResParams,
+  TDeleteHumanReqParams,
+  TDeleteHumanResultReqParams,
+  TCopyHumanReqParams,
+  TCopyHumanResParams,
+  TCopyHumanResultReqParams
 } from "../types/human"
 
 import { buildinModels, userModels, editModelConfig, emotionLists, actionLists } from "./mock"
@@ -81,4 +86,20 @@ export const modifyHumanName = function (params: TModifyHumanNameReqParams) {
 
 export const saveHumanModel = function (params: FormData) {
   return request.post<TSaveHumanModelResParams>("user/human/modify", params)
+}
+
+export const deleteHumanModel = function (params: TDeleteHumanReqParams) {
+  return request.post("user/human/remove", params)
+}
+
+export const deleteHumanModelResult = function (params: TDeleteHumanResultReqParams) {
+  return request.post("user/human/remove/result", params)
+}
+
+export const copyHumanModel = function (params: TCopyHumanReqParams) {
+  return request.post<TCopyHumanResParams>("user/human/copy", params)
+}
+
+export const copyHumanModelResult = function (params: TCopyHumanResultReqParams) {
+  return request.post("user/human/copy/result", params)
 }

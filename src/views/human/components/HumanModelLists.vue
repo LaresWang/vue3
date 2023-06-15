@@ -65,7 +65,7 @@
 <script setup lang="ts">
   import { ref, watchEffect } from "vue"
   import { HumanModelCatgs } from "@/utils/const"
-  import { useSelectedModelInfoStore, useSaveHumanModelStore } from "@/stores/human"
+  import { useSelectedModelInfoStore, useRefreshHumanListsStore } from "@/stores/human"
   import { useBreadcrumbMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { EModelCatg } from "@/types/human.d"
   import type { TEmptyObj } from "@/types"
@@ -77,14 +77,14 @@
   import ModelsFromUser from "./ModelsFromUser.vue"
 
   const modelUserKey = ref(0)
+  const refreshHumanListsStore = useRefreshHumanListsStore()
   const breadcrumbMenusStore = useBreadcrumbMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
-  const saveHumanModelStore = useSaveHumanModelStore()
 
   watchEffect(() => {
-    if (saveHumanModelStore.result === "ok") {
-      saveHumanModelStore.resetResult()
+    if (refreshHumanListsStore.refresh) {
+      refreshHumanListsStore.resetRefresh()
 
       console.log("保存成功后更新列表")
       // 显示我的数字人tab

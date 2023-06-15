@@ -1,6 +1,6 @@
 export type TBreadcrumbMenu = {
   id?: string
-  value: string
+  value: number | string
   label: string
   path?: string
   // parent?: string

@@ -1,11 +1,23 @@
 import { ref, computed } from "vue"
 import { defineStore } from "pinia"
-import { saveHumanModel } from "@/api/human"
-import { useBreadcrumbMenusStore } from "./menus"
+import { saveHumanModel, deleteHumanModel, deleteHumanModelResult, copyHumanModel, copyHumanModelResult } from "@/api/human"
 import type { TSelectedHumanModelInfo, TSelectedPresetInfo } from "../types/human"
 import { getImgDataFromVideo, transferB64toBlob } from "@/utils/screenShot"
-import { HumanModelCatgs } from "@/utils/const"
-import { EModelCatg } from "@/types/human.d"
+import { showUserModelLists } from "@/utils/showModelList"
+
+// 强制刷新数字人列表
+const useRefreshHumanListsStore = defineStore("refreshHumanLists", () => {
+  const refresh = ref(false)
+  const setRefresh = () => {
+    refresh.value = true
+    showUserModelLists()
+  }
+  const resetRefresh = () => {
+    refresh.value = false
+  }
+
+  return { refresh, setRefresh, resetRefresh }
+})
 
 // 点击选择数字人
 const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
@@ -98,10 +110,9 @@ const useSelectedBodyPresetStore = defineStore("selectedBodyPresetInfo", () => {
 // 点击保存数字人
 const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
   const isSaving = ref(false)
-  const result = ref("")
   const param = new FormData()
+  const refreshHumanListsStore = useRefreshHumanListsStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
-  const breadcrumbMenusStore = useBreadcrumbMenusStore()
 
   const startSaving = async (previewImgData: Blob) => {
     param.append("humanId", selectedModelInfoStore.info.humanId)
@@ -110,11 +121,11 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
     try {
       const res = await saveHumanModel(param)
       console.log("保存成功", res)
-      result.value = "ok"
-      jumpModelList()
+      refreshHumanListsStore.setRefresh()
     } catch (e) {
       console.log("保存失败")
-      result.value = "error"
+      refreshHumanListsStore.resetRefresh()
+      // refreshHumanListsStore.setRefresh()
     } finally {
       isSaving.value = false
     }
@@ -133,27 +144,66 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
     startSaving(blobData)
   }
 
-  const jumpModelList = () => {
-    // 显示我的数字人tab
-    const item = HumanModelCatgs.find((info) => info.value === EModelCatg.User)
-    breadcrumbMenusStore.updateRootMenu({
-      ...item!,
-      canJump: true
-    })
-    // 清楚编辑前选中的模型，加载列表后再发送指令显示 第一个模型
-    selectedModelInfoStore.clearSelectedModelInfo()
-  }
-
   const save = () => {
     isSaving.value = true
     startScreenShot()
   }
 
-  const resetResult = () => {
-    result.value = ""
-  }
-
-  return { isSaving, result, resetResult, save }
+  return { isSaving, save }
 })
 
-export { useSelectedModelInfoStore, useSelectedEmotionInfoStore, useSelectedActionInfoStore, useSelectedBodyPresetStore, useSaveHumanModelStore }
+// 删除数字人
+const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
+  // 一次
+  const isDeleting = ref(false)
+  let isDeletingId = ""
+  const refreshHumanListsStore = useRefreshHumanListsStore()
+
+  const reset = () => {
+    isDeleting.value = false
+    isDeletingId = ""
+  }
+
+  const startDelete = async (humanId: string) => {
+    isDeleting.value = true
+    isDeletingId = humanId
+    try {
+      await deleteHumanModel({ humanId })
+    } catch (e) {
+      console.error(e)
+      reset()
+    }
+  }
+
+  const deleteDone = async (humanId: string, result: boolean) => {
+    if (humanId === isDeletingId) {
+      try {
+        await deleteHumanModelResult({
+          humanId,
+          result
+        })
+        reset()
+        refreshHumanListsStore.setRefresh()
+      } catch (e) {
+        console.error(e)
+        reset()
+      }
+    }
+  }
+
+  return { isDeleting, startDelete, deleteDone }
+})
+
+// 复制数字人
+const useCopyHumanModelStore = defineStore("copyHumanModel", () => {})
+
+export {
+  useRefreshHumanListsStore,
+  useSelectedModelInfoStore,
+  useSelectedEmotionInfoStore,
+  useSelectedActionInfoStore,
+  useSelectedBodyPresetStore,
+  useSaveHumanModelStore,
+  useDeleteHumanModelStore,
+  useCopyHumanModelStore
+}

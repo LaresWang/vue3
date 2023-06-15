@@ -1,6 +1,6 @@
 export enum EModelCatg {
-  Buildin = "00", // 平台内置数字人
-  User = "01" // 用户创建的数字人
+  Buildin = 0, // 平台内置数字人
+  User = 1 // 用户创建的数字人
 }
 
 export enum EEmotionCatg {
@@ -78,6 +78,25 @@ export type TModifyHumanNameResParams = {
 }
 
 export type TSaveHumanModelResParams = TModifyHumanNameResParams
+
+export type TDeleteHumanReqParams = Pick<TModifyHumanNameReqParams, "humanId">
+
+export type TDeleteHumanResultReqParams = TDeleteHumanReqParams & { result: boolean }
+
+export type TCopyHumanReqParams = {
+  sourceHumanId: string
+  source: EModelCatg
+}
+
+export type TCopyHumanResParams = {
+  humanId: string
+  humanNo: EModelCatg
+}
+
+export type TCopyHumanResultReqParams = TDeleteHumanResultReqParams & {
+  assetFile?: string
+  previewUrl?: FormData
+}
 
 /**编辑数字人配置 VVVVV*/
 /*
