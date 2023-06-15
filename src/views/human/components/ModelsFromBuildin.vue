@@ -23,6 +23,7 @@
 <script setup lang="ts">
   import { ref, watchEffect } from "vue"
   import { getPlatformHumanLists } from "@/api/human"
+  import { useSelectedModelInfoStore } from "@/stores/human"
   import { EModelCatg } from "@/types/human.d"
   import type { THumanModelInfos } from "@/types/human"
 
@@ -34,6 +35,7 @@
   }>()
   const emits = defineEmits(["submitName"])
 
+  const selectedModelInfoStore = useSelectedModelInfoStore()
   const editModelId = ref("")
   const buildinModels = ref<THumanModelInfos[]>([])
 
@@ -42,6 +44,24 @@
       const res = await getPlatformHumanLists()
       console.log(res)
       buildinModels.value = res
+
+      if (!selectedModelInfoStore.info.humanId) {
+        selectedModelInfoStore.setSelectedModelInfo({
+          humanId: res[0].humanId,
+          humanName: res[0].humanName,
+          humanCatg: EModelCatg.Buildin
+        })
+      }
+    }
+  })
+
+  watchEffect(() => {
+    if (props.show && buildinModels.value.length) {
+      selectedModelInfoStore.setSelectedModelInfo({
+        humanId: buildinModels.value[0].humanId,
+        humanName: buildinModels.value[0].humanName,
+        humanCatg: EModelCatg.Buildin
+      })
     }
   })
 

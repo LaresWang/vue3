@@ -12,6 +12,12 @@ export enum EGender {
   Male = 0,
   Female
 }
+
+export enum EOperateModelType {
+  Delete = "delete", // 删除数字人
+  Copy = "copy", // 复制数字人
+  Save = "save" //保存数字人
+}
 /**
  *humanId	string	数字人ID
 humanNo	string	数字人编号

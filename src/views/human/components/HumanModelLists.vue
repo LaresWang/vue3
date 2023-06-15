@@ -16,6 +16,7 @@
     </div>
     <div class="model-lists">
       <ModelsFromBuildin
+        :key="modelBuildinKey"
         :show="breadcrumbMenusStore.currentModelCat === EModelCatg.Buildin"
         @submitName="onSubmitName"
       />
@@ -79,6 +80,7 @@
   import ModelsFromUser from "./ModelsFromUser.vue"
 
   const modelUserKey = ref(0)
+  const modelBuildinKey = ref(0)
   const refreshHumanListsStore = useRefreshHumanListsStore()
   const breadcrumbMenusStore = useBreadcrumbMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
@@ -87,15 +89,13 @@
   const deleteHumanModelStore = useDeleteHumanModelStore()
 
   watchEffect(() => {
-    if (refreshHumanListsStore.refresh) {
+    if (refreshHumanListsStore.refreshListType === EModelCatg.User) {
       refreshHumanListsStore.resetRefresh()
-
-      console.log("保存成功后更新列表")
-      // 显示我的数字人tab
-      // const item = HumanModelCatgs.find((info) => info.value === EModelCatg.User)
-      // changeModelList(item!)
       // 强制刷新组件
       modelUserKey.value++
+    } else if (refreshHumanListsStore.refreshListType === EModelCatg.Buildin) {
+      refreshHumanListsStore.resetRefresh()
+      modelBuildinKey.value++
     }
   })
 
@@ -103,6 +103,8 @@
     if (breadcrumbMenusStore.currentModelCat === item.value) {
       return
     }
+
+    selectedModelInfoStore.clearSelectedModelInfo()
     breadcrumbMenusStore.updateRootMenu({
       ...item,
       canJump: true

@@ -1,23 +1,42 @@
 import { ref, computed } from "vue"
 import { defineStore } from "pinia"
 import { saveHumanModel, deleteHumanModel, deleteHumanModelResult, copyHumanModel, copyHumanModelResult } from "@/api/human"
-import type { EModelCatg, TSelectedHumanModelInfo, TSelectedPresetInfo } from "../types/human"
+import type { EModelCatg, EOperateModelType, TSelectedHumanModelInfo, TSelectedPresetInfo } from "../types/human"
+import { EModelCatg as ModelCatg, EOperateModelType as OperateType } from "@/types/human.d"
 import { getImgDataFromVideo, transferB64toBlob } from "@/utils/screenShot"
-import { showUserModelLists } from "@/utils/showModelList"
+import { showModelLists } from "@/utils/showModelList"
 import type { TEmptyObj } from "@/types"
 
 // 强制刷新数字人列表
 const useRefreshHumanListsStore = defineStore("refreshHumanLists", () => {
-  const refresh = ref(false)
-  const setRefresh = () => {
-    refresh.value = true
-    showUserModelLists()
-  }
-  const resetRefresh = () => {
-    refresh.value = false
+  const refreshListType = ref<ModelCatg>()
+  const refreshReason = ref<EOperateModelType>()
+
+  const refreshUserModelLists = (source?: EOperateModelType) => {
+    refreshListType.value = ModelCatg.User
+    if (source) {
+      refreshReason.value = source
+    } else {
+      refreshReason.value = undefined
+    }
+
+    showModelLists(ModelCatg.User)
   }
 
-  return { refresh, setRefresh, resetRefresh }
+  const refreshBuildinModelLists = () => {
+    refreshListType.value = ModelCatg.Buildin
+    showModelLists(ModelCatg.Buildin)
+  }
+
+  const resetRefresh = () => {
+    refreshListType.value = undefined
+  }
+
+  const resetRefreshReason = () => {
+    refreshReason.value = undefined
+  }
+
+  return { refreshListType, refreshReason, refreshUserModelLists, refreshBuildinModelLists, resetRefresh, resetRefreshReason }
 })
 
 // 点击选择数字人
@@ -32,6 +51,7 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
 
   const setSelectedModelInfo = (params: TSelectedHumanModelInfo) => {
     info.value = params
+    // TODO 发送指令显示数字人模型
   }
 
   const clearSelectedModelInfo = () => {
@@ -122,7 +142,7 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
     try {
       const res = await saveHumanModel(param)
       console.log("保存成功", res)
-      refreshHumanListsStore.setRefresh()
+      refreshHumanListsStore.refreshUserModelLists(OperateType.Save)
     } catch (e) {
       console.log("保存失败")
       refreshHumanListsStore.resetRefresh()
@@ -184,7 +204,7 @@ const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
           result
         })
         reset()
-        refreshHumanListsStore.setRefresh()
+        refreshHumanListsStore.refreshUserModelLists(OperateType.Delete)
       } catch (e) {
         console.error(e)
         reset()
@@ -229,7 +249,7 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
           result
         })
         reset()
-        refreshHumanListsStore.setRefresh()
+        refreshHumanListsStore.refreshUserModelLists(OperateType.Copy)
       } catch (e) {
         console.error(e)
         reset()

@@ -27,9 +27,9 @@
 </template>
 <script setup lang="ts">
   import { ref, watch, watchEffect } from "vue"
-  import { useSelectedModelInfoStore } from "@/stores/human"
+  import { useSelectedModelInfoStore, useRefreshHumanListsStore } from "@/stores/human"
   import { getUserHumanLists } from "@/api/human"
-  import { EModelCatg } from "@/types/human.d"
+  import { EModelCatg, EOperateModelType } from "@/types/human.d"
   import type { THumanModelInfos } from "@/types/human"
 
   import Modeltem from "./Modeltem.vue"
@@ -41,6 +41,7 @@
   const emits = defineEmits(["submitName"])
 
   const selectedModelInfoStore = useSelectedModelInfoStore()
+  const refreshHumanListsStore = useRefreshHumanListsStore()
   const pageSize = 10
   const pageNo = ref(0)
   const editModelId = ref("")
@@ -61,13 +62,12 @@
     if (res.pageNo === pageNoLoading && res.rows.length) {
       userModels.value = userModels.value.concat(res.rows)
 
-      if (pageNoLoading === 1 && !selectedModelInfoStore.info.humanId) {
+      if (!selectedModelInfoStore.info.humanId) {
         selectedModelInfoStore.setSelectedModelInfo({
           humanId: res.rows[0].humanId,
           humanName: res.rows[0].humanName,
           humanCatg: EModelCatg.User
         })
-        // TODO 发送指令显示第一个模型
       }
     }
 
@@ -77,6 +77,13 @@
       noMoreLists.value = false
     }
     loading.value = false
+
+    // 表示用户数字人列表数量为0，删完了
+    if (pageNoLoading === 1 && res.totalRow === 0 && refreshHumanListsStore.refreshReason === EOperateModelType.Delete) {
+      // 自动跳到平台模型列表
+      refreshHumanListsStore.refreshBuildinModelLists()
+    }
+    refreshHumanListsStore.resetRefreshReason()
   })
 
   const loadMore = (page?: number) => {
@@ -91,6 +98,16 @@
   watchEffect(() => {
     if (props.show && pageNo.value === 0) {
       loadMore(1)
+    }
+  })
+
+  watchEffect(() => {
+    if (props.show && userModels.value.length) {
+      selectedModelInfoStore.setSelectedModelInfo({
+        humanId: userModels.value[0].humanId,
+        humanName: userModels.value[0].humanName,
+        humanCatg: EModelCatg.User
+      })
     }
   })
 
