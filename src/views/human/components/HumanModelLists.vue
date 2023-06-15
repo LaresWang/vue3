@@ -28,13 +28,15 @@
     <div class="model-operate-area flex-between">
       <div class="icons-group flex-center">
         <div
-          class="icon-wrapper flex-center pointer"
+          class="icon-wrapper flex-center"
+          :class="deleteHumanModelStore.isDeleting ? '' : 'pointer'"
           @click="deleteModel"
         >
           <svg-icon name="icon_delete" />
         </div>
         <div
           class="icon-wrapper flex-center pointer"
+          :class="copyHumanModelStore.isCopying ? '' : 'pointer'"
           @click="copyModel"
         >
           <svg-icon name="icon_copy" />
@@ -65,7 +67,7 @@
 <script setup lang="ts">
   import { ref, watchEffect } from "vue"
   import { HumanModelCatgs } from "@/utils/const"
-  import { useSelectedModelInfoStore, useRefreshHumanListsStore } from "@/stores/human"
+  import { useSelectedModelInfoStore, useRefreshHumanListsStore, useCopyHumanModelStore, useDeleteHumanModelStore } from "@/stores/human"
   import { useBreadcrumbMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { EModelCatg } from "@/types/human.d"
   import type { TEmptyObj } from "@/types"
@@ -81,6 +83,8 @@
   const breadcrumbMenusStore = useBreadcrumbMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
+  const copyHumanModelStore = useCopyHumanModelStore()
+  const deleteHumanModelStore = useDeleteHumanModelStore()
 
   watchEffect(() => {
     if (refreshHumanListsStore.refresh) {
@@ -155,34 +159,31 @@
     delete submitStatusRecord[humanId]
   }
 
-  let isDeleting = false
   const deleteModel = () => {
     console.log("deleteModel")
-    if (isDeleting) {
+    if (deleteHumanModelStore.isDeleting) {
       return
     }
-    isDeleting = true
 
     if (!selectedModelInfoStore.info.humanName || selectedModelInfoStore.info.humanCatg !== breadcrumbMenusStore.currentModelCat) {
       message("请先选择数字人", "warning")
-      isDeleting = false
+      // isDeleting = false
       return
     }
+    deleteHumanModelStore.startDelete(selectedModelInfoStore.info.humanId)
   }
 
-  let isCopying = false
   const copyModel = () => {
     console.log("copyModel")
-    if (isCopying) {
+    if (copyHumanModelStore.isCopying) {
       return
     }
-    isCopying = true
 
     if (!selectedModelInfoStore.info.humanName || selectedModelInfoStore.info.humanCatg !== breadcrumbMenusStore.currentModelCat) {
       message("请先选择数字人", "warning")
-      isCopying = false
       return
     }
+    copyHumanModelStore.startCopy(selectedModelInfoStore.info.humanId, selectedModelInfoStore.info.humanCatg)
   }
 
   const importFile = () => {

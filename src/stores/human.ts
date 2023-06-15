@@ -1,9 +1,10 @@
 import { ref, computed } from "vue"
 import { defineStore } from "pinia"
 import { saveHumanModel, deleteHumanModel, deleteHumanModelResult, copyHumanModel, copyHumanModelResult } from "@/api/human"
-import type { TSelectedHumanModelInfo, TSelectedPresetInfo } from "../types/human"
+import type { EModelCatg, TSelectedHumanModelInfo, TSelectedPresetInfo } from "../types/human"
 import { getImgDataFromVideo, transferB64toBlob } from "@/utils/screenShot"
 import { showUserModelLists } from "@/utils/showModelList"
+import type { TEmptyObj } from "@/types"
 
 // 强制刷新数字人列表
 const useRefreshHumanListsStore = defineStore("refreshHumanLists", () => {
@@ -154,7 +155,7 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
 
 // 删除数字人
 const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
-  // 一次
+  // 一次只能删除一个数字人，等删除完成后才能进行下一个数字人的删除操作
   const isDeleting = ref(false)
   let isDeletingId = ""
   const refreshHumanListsStore = useRefreshHumanListsStore()
@@ -195,7 +196,49 @@ const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
 })
 
 // 复制数字人
-const useCopyHumanModelStore = defineStore("copyHumanModel", () => {})
+const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
+  // 一次只能复制一个数字人，等复制完成后才能进行下一个数字人的复制操作
+  const isCopying = ref(false)
+  let copyInfo: TEmptyObj = {}
+  const refreshHumanListsStore = useRefreshHumanListsStore()
+
+  const reset = () => {
+    isCopying.value = false
+    copyInfo = {}
+  }
+
+  const startCopy = async (humanId: string, catg: EModelCatg) => {
+    isCopying.value = true
+    try {
+      const res = await copyHumanModel({
+        sourceHumanId: humanId,
+        source: catg
+      })
+      copyInfo = res
+    } catch (e) {
+      console.error(e)
+      reset()
+    }
+  }
+
+  const copyDone = async (humanId: string, result: boolean) => {
+    if (humanId === copyInfo.humanId) {
+      try {
+        await copyHumanModelResult({
+          humanId,
+          result
+        })
+        reset()
+        refreshHumanListsStore.setRefresh()
+      } catch (e) {
+        console.error(e)
+        reset()
+      }
+    }
+  }
+
+  return { isCopying, startCopy, copyDone }
+})
 
 export {
   useRefreshHumanListsStore,
