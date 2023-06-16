@@ -25,5 +25,10 @@ export const startLaunchHuman = function (params: TStartLaunchHumanReqParams) {
 }
 // 数字人启动状态
 export const getLaunchStatus = function (params: TLaunchStatusReqParams) {
-  return request.post<TLaunchStatusResParams>("user/human/start/status", params)
+  console.log(params)
+  return Promise.resolve({
+    status: 1,
+    channelInstanceId: "1111"
+  })
+  // return request.post<TLaunchStatusResParams>("user/human/start/status", params)
 }

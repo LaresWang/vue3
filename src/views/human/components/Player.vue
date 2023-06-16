@@ -1,8 +1,7 @@
 <template>
   <div class="player-wrapper">
     <div id="player">
-      video.area
-      <video id="streamingVideo"></video>
+      <!-- <video id="streamingVideo"></video> -->
     </div>
   </div>
 </template>
@@ -58,7 +57,7 @@
   })
 
   watchEffect(() => {
-    if (canStartWebrtc) {
+    if (canStartWebrtc.value) {
       // 开始建立webrtc链接
       sdk.init()
     }
@@ -83,6 +82,7 @@
     let gamepadEvent = {}
 
     sdk.setConfig({
+      canChangeDisplayToFillWindow: true,
       interactOptions: {
         controlScheme: 0,
         // 控制交互事件的注册 现在只有unity代码实现此功能
@@ -105,9 +105,10 @@
     }
 
     sdk = new WEBRTCSDK({
+      windowBoxSelector: ".player-wrapper",
       // autoPlayAudio: false,
       wsAddress: url,
-      ioType: "api",
+      // ioType: "api",
       onStatsChange: onStatsChange,
       onConnectStatusChange: onConnectStatusChange,
       onReceiveDataCallback: onReceiveData,
@@ -123,6 +124,7 @@
   const setPlayerInfo = (appInstanceId: string) => {
     const infos = {
       linkType: "5",
+      appType: 1,
       uuid: uuid, // uuid是当前窗口的唯一标识字段，刷新当前窗口不变化
       instanceId: appInstanceId
     }
@@ -140,9 +142,16 @@
   .player-wrapper {
     width: 100%;
     height: 100%;
+    position: relative;
     #player {
       width: 100%;
       height: 100%;
+      position: absolute;
+      video {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
     }
   }
 </style>

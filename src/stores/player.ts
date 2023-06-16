@@ -3,7 +3,7 @@ import { defineStore } from "pinia"
 import { getLaunchStatus } from "@/api/player"
 import type { TInterval } from "@/types"
 import type { ELaunchStatus } from "@/types/player"
-import { ELaunchStatus as LaunchStatus } from "@/types/player"
+import { ELaunchStatus as LaunchStatus } from "@/types/player.d"
 
 export const useLaunchInitInfosStore = defineStore("launchInitInfos", () => {
   const humanId = ref("") // 数字人ID
