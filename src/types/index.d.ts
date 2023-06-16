@@ -22,3 +22,7 @@ export interface IVoidFunction {
 export type TEmptyObj = {
   [x: string]: any
 }
+
+export type TTimeout = ReturnType<typeof setTimeout>
+
+export type TInterval = ReturnType<typeof setInterval>

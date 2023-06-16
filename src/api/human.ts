@@ -75,31 +75,31 @@ export const getHumanHeaderEditConfig = function () {
   return Promise.resolve(editModelConfig)
   // return request.post<TEditHumanConfigResParams>("user/human/edit/config")
 }
-
+// 获取预设列表
 export const getBodyPresetLists = function () {
   return Promise.resolve(emotionLists)
 }
-
+// 修改数字人名称
 export const modifyHumanName = function (params: TModifyHumanNameReqParams) {
   return request.post<TModifyHumanNameResParams>("user/human/name/modify", params)
 }
-
+// 保存数字人
 export const saveHumanModel = function (params: FormData) {
   return request.post<TSaveHumanModelResParams>("user/human/modify", params)
 }
-
+// 删除数字人
 export const deleteHumanModel = function (params: TDeleteHumanReqParams) {
   return request.post("user/human/remove", params)
 }
-
+// 删除结果
 export const deleteHumanModelResult = function (params: TDeleteHumanResultReqParams) {
   return request.post("user/human/remove/result", params)
 }
-
+// 复制数字人
 export const copyHumanModel = function (params: TCopyHumanReqParams) {
   return request.post<TCopyHumanResParams>("user/human/copy", params)
 }
-
+// 复制结果
 export const copyHumanModelResult = function (params: TCopyHumanResultReqParams) {
   return request.post("user/human/copy/result", params)
 }

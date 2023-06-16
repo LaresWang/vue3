@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
   import { ref, onMounted, onBeforeUnmount } from "vue"
+  import type { TInterval } from "@/types"
 
   const props = withDefaults(
     defineProps<{
@@ -17,7 +18,7 @@
   const emits = defineEmits(["done"])
 
   const count = ref(props.startNum)
-  let timmer: ReturnType<typeof setInterval>
+  let timmer: TInterval = 0
 
   onMounted(() => {
     timmer = setInterval(() => {

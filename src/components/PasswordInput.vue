@@ -118,6 +118,7 @@
   import { validatePasswordChange, validatePasswordBlur, validateSetPassword, validateSetConfirmPassword } from "@/utils/validate"
 
   import type { IValidateResult, IValidateSetPWDResult } from "@/types/login"
+  import type { TTimeout } from "@/types"
 
   const props = withDefaults(
     defineProps<{
@@ -152,9 +153,8 @@
   const pwdInfos = reactive<{ value: IValidateSetPWDResult }>({ value: {} })
   const pwdInput = ref()
 
-  type TTimout = ReturnType<typeof setTimeout>
-  let errTimmer: TTimout
-  let okTimmer: TTimout
+  let errTimmer: TTimeout = 0
+  let okTimmer: TTimeout = 0
 
   let isSwitchInputType = false
   let isFromPaste = false

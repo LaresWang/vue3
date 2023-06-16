@@ -25,10 +25,14 @@
 </template>
 <script setup lang="ts">
   import { watchEffect } from "vue"
+  import { getUserHumanLists, getPlatformHumanLists } from "@/api/human"
+  import { startLaunchHuman } from "@/api/player"
   import { useBreadcrumbMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { HumanModelCatgs } from "@/utils/const"
   import { EEditCompName } from "@/types/menus.d"
-  // import type { TEditHumanMenu } from "@/types/menus.d"
+  import type { THumanModelInfos, EModelCatg } from "@/types/human"
+  import { EModelCatg as ModelCatg } from "@/types/human.d"
+  import { useLaunchInitInfosStore } from "@/stores/player"
 
   import HumanModelLists from "./components/HumanModelLists.vue"
   import BodySummaryParts from "./components/BodySummaryParts.vue"
@@ -39,6 +43,7 @@
 
   const { breadMenus, addBreadMenu } = useBreadcrumbMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
+  const launchInitInfosStore = useLaunchInitInfosStore()
 
   const comps = {
     [EEditCompName.EditHeaderPart]: EditHeaderPart,
@@ -46,9 +51,68 @@
     [EEditCompName.EditActions]: EditActions
   }
 
-  watchEffect(() => {
+  watchEffect(async () => {
     if (!breadMenus.length) {
-      addBreadMenu(HumanModelCatgs[0])
+      // 如果用户模型列表有数据则默认显示用户列表，HumanModelCatgs[1]
+      // 否则默认显示内置模型列表 HumanModelCatgs[0]
+      // addBreadMenu(HumanModelCatgs[0])
+      try {
+        const results = await Promise.all([
+          getUserHumanLists({
+            pageNo: 1,
+            pageSize: 1
+          }),
+          getPlatformHumanLists()
+        ])
+
+        console.log(results)
+        let info: THumanModelInfos | null
+        let catg: EModelCatg | undefined
+
+        if (results[0].rows.length) {
+          addBreadMenu(HumanModelCatgs[1])
+          info = results[0].rows[0]
+          catg = ModelCatg.User
+        } else {
+          addBreadMenu(HumanModelCatgs[0])
+          info = results[1][0]
+          catg = ModelCatg.Buildin
+        }
+
+        const res = await startLaunchHuman({
+          humanId: info.humanId,
+          platform: catg
+        })
+
+        launchInitInfosStore.setHumanIds(res.instanceId, info.humanId)
+      } catch (e) {
+        console.error(e)
+      }
+
+      // Promise.all([
+      //   getUserHumanLists({
+      //     pageNo: 1,
+      //     pageSize: 1
+      //   }),
+      //   getPlatformHumanLists()
+      // ]).then((results) => {
+      //   console.log(results)
+      //   let info: THumanModelInfos | null
+      //   let catg: EModelCatg | undefined
+      //   if (results[0].rows.length) {
+      //     addBreadMenu(HumanModelCatgs[1])
+      //     info = results[0].rows[0]
+      //     catg = ModelCatg.User
+      //   } else {
+      //     addBreadMenu(HumanModelCatgs[0])
+      //     info = results[1][0]
+      //     catg = ModelCatg.Buildin
+      //   }
+      //   startLaunchHuman({
+      //     humanId: info.humanId,
+      //     platform: catg
+      //   })
+      // })
     }
   })
 </script>
