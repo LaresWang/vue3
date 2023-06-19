@@ -1,5 +1,6 @@
 import { ref } from "vue"
 import type { TConnectStatus, TStatsRTC } from "@/types/player"
+import useRtcHandlerStore from "@/stores/rtc"
 
 const wsHandler = (code: number) => {
   switch (code) {
@@ -21,6 +22,8 @@ export const usePlayerHandlers = () => {
   const canStartWebrtc = ref(false)
   const loadingProgress = ref(0)
   const stats = ref<TStatsRTC>()
+  const rtcHandlerStore = useRtcHandlerStore()
+
   const onStatsChange = (info: TStatsRTC) => {
     stats.value = info
   }
@@ -52,6 +55,7 @@ export const usePlayerHandlers = () => {
         break
       case "done":
         loadingProgress.value = 100
+        rtcHandlerStore.ready()
         break
       case "error":
         // this.wsError = true
@@ -72,11 +76,11 @@ export const usePlayerHandlers = () => {
   }
 
   const onRtcRecieveMessage = (data: any) => {
-    console.log(data)
+    rtcHandlerStore.receive(data)
   }
 
   const onRtcBeforeSendMessage = (data: any) => {
-    console.log(data)
+    rtcHandlerStore.sendByApi(data)
     /**
      * type: "mousemove",
         coord: { x: coord.x, y: coord.x },

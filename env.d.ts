@@ -1,9 +1,9 @@
 /// <reference types="vite/client" />
-declare module 'webrtcsdk_new';
-declare const APP_ENV: string;
+declare module "webrtcsdk_new"
+declare const APP_ENV: string
 
 type TGeetestParams = {
-  captchaId: string,
+  captchaId: string
   product: string
 }
 interface IGeetestCallback {
@@ -11,7 +11,13 @@ interface IGeetestCallback {
 }
 
 interface Window {
-  initGeetest4: (params:TGeetestParams, cb: IGeetestCallback )=>void
-};
-
-
+  initGeetest4: (params: TGeetestParams, cb: IGeetestCallback) => void
+  rtc: {
+    closeApp: (code: number, reason: string) => void
+    init: () => void
+    setConfig: (options: any) => void
+    setPlayerInfo: (options: { info: string; timestamp: string }) => void
+    sendDataToApp: (data: string) => void
+    webRtcPlayerObj: any
+  }
+}

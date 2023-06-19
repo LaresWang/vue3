@@ -88,7 +88,8 @@
     selectedModelInfoStore.setSelectedModelInfo({
       humanId: infos.humanId,
       humanName: infos.humanName,
-      humanCatg: props.type
+      humanCatg: props.type,
+      humanNo: infos.humanNo
     })
   }
 

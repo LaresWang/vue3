@@ -44,6 +44,8 @@ export const AMOUNT_INPUT_REG = /^(\d+(\.(\d{0,2})?)?)/
 // 金额失焦时校验
 export const AMOUNT_REG = /^\d+(\.(\d{0,2})?)?$/
 
+export const PLAYER_TYPE = "5"
+
 export const HumanModelCatgs = [
   {
     value: EModelCatg.Buildin,

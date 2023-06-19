@@ -1,5 +1,6 @@
 import { ref, computed } from "vue"
 import { defineStore } from "pinia"
+import useRTCHandlersStore from "./rtc"
 import { saveHumanModel, deleteHumanModel, deleteHumanModelResult, copyHumanModel, copyHumanModelResult } from "@/api/human"
 import type { EModelCatg, EOperateModelType, TSelectedHumanModelInfo, TSelectedPresetInfo } from "../types/human"
 import { EModelCatg as ModelCatg, EOperateModelType as OperateType } from "@/types/human.d"
@@ -44,21 +45,36 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
   const info = ref<TSelectedHumanModelInfo>({
     humanCatg: undefined,
     humanId: "",
+    humanNo: "",
     humanName: ""
   })
 
+  const rtcHandlersStore = useRTCHandlersStore()
   const selectedHumanModelId = computed(() => info.value.humanId)
 
   const setSelectedModelInfo = (params: TSelectedHumanModelInfo) => {
     info.value = params
     // TODO 发送指令显示数字人模型
+    // rtcHandlersStore.sendByApi({
+
+    // })
+    rtcHandlersStore.sendByChannel(
+      JSON.stringify({
+        taskId: "123456",
+        commandId: "CMD0001",
+        userId: "0001",
+        humanNo: params.humanNo,
+        platform: params.humanCatg
+      })
+    )
   }
 
   const clearSelectedModelInfo = () => {
     info.value = {
       humanCatg: undefined,
       humanId: "",
-      humanName: ""
+      humanName: "",
+      humanNo: ""
     }
   }
 
@@ -159,7 +175,8 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
       isSaving.value = false
       return
     }
-
+    // const img = document.getElementById("shotcut") as HTMLImageElement
+    // img && (img.src = b64)
     const blobData = transferB64toBlob(b64)
 
     startSaving(blobData)

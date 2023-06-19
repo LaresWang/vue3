@@ -49,7 +49,8 @@
         selectedModelInfoStore.setSelectedModelInfo({
           humanId: res[0].humanId,
           humanName: res[0].humanName,
-          humanCatg: EModelCatg.Buildin
+          humanCatg: EModelCatg.Buildin,
+          humanNo: res[0].humanNo
         })
       }
     }
@@ -60,7 +61,8 @@
       selectedModelInfoStore.setSelectedModelInfo({
         humanId: buildinModels.value[0].humanId,
         humanName: buildinModels.value[0].humanName,
-        humanCatg: EModelCatg.Buildin
+        humanCatg: EModelCatg.Buildin,
+        humanNo: buildinModels.value[0].humanNo
       })
     }
   })

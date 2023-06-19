@@ -66,7 +66,8 @@
         selectedModelInfoStore.setSelectedModelInfo({
           humanId: res.rows[0].humanId,
           humanName: res.rows[0].humanName,
-          humanCatg: EModelCatg.User
+          humanCatg: EModelCatg.User,
+          humanNo: res.rows[0].humanNo
         })
       }
     }
@@ -106,7 +107,8 @@
       selectedModelInfoStore.setSelectedModelInfo({
         humanId: userModels.value[0].humanId,
         humanName: userModels.value[0].humanName,
-        humanCatg: EModelCatg.User
+        humanCatg: EModelCatg.User,
+        humanNo: userModels.value[0].humanNo
       })
     }
   })

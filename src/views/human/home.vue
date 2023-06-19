@@ -11,7 +11,7 @@
         <HumanModelLists v-show="breadMenus.length < 2" />
         <component
           v-show="breadMenus.length > 1"
-          :is="selectedEditCompNameStore.selectedCompName && comps[selectedEditCompNameStore.selectedCompName]"
+          :is="comps[selectedEditCompNameStore.selectedCompName || EEditCompName.EditHeaderPart]"
         ></component>
         <!-- <EditHeaderPart />
         <EditEmotions />

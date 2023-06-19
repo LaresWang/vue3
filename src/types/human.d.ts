@@ -450,6 +450,7 @@ export type TEditHumanConfigResParams = {
 export type TSelectedHumanModelInfo = {
   humanName: string
   humanId: string
+  humanNo: stirng
   humanCatg?: EModelCatg
 }
 

@@ -31,6 +31,8 @@ export type TLaunchStatusResParams = {
   channelInstanceId: string
 }
 
+export type TRtcSDK = typeof window.rtc
+
 export type TStatsRTC = {
   duration: string
   resolution: string
@@ -38,4 +40,10 @@ export type TStatsRTC = {
   framerate: string
   bitrate: string
   packetslostrate: string
+}
+
+export type THumanCMDReqParams = {
+  command: string
+  instanceId: string
+  channelInstanceId: string
 }

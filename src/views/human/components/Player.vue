@@ -9,17 +9,20 @@
   import { watchEffect } from "vue"
   import WEBRTCSDK from "webrtcsdk_new"
   import { getBrowserUUID, getCiphertext } from "@/utils/tools"
+  import { PLAYER_TYPE } from "@/utils/const"
   import { useLaunchInitInfosStore, useLaunchStatusStore } from "@/stores/player"
+  import useRtcHandlerStore from "@/stores/rtc"
   import { usePlayerHandlers } from "@/hooks/human/player"
-  import { ELaunchStatus } from "@/types/player.d"
+  import { ELaunchStatus, type TRtcSDK } from "@/types/player.d"
 
   const launchInitInfosStore = useLaunchInitInfosStore()
   const launchStatusStore = useLaunchStatusStore()
+  const rtcHandlerStore = useRtcHandlerStore()
 
   const { connectStatus, canStartWebrtc, onConnectStatusChange, onStatsChange, onReceiveData, onRtcBeforeSendMessage, onRtcRecieveMessage } =
     usePlayerHandlers()
 
-  let sdk: InstanceType<typeof WEBRTCSDK>
+  let sdk: TRtcSDK
   const uuid = getBrowserUUID()
 
   watchEffect(() => {
@@ -84,7 +87,8 @@
     sdk.setConfig({
       canChangeDisplayToFillWindow: true,
       interactOptions: {
-        controlScheme: 0,
+        controlScheme: 2,
+        showCursor: true,
         // 控制交互事件的注册 现在只有unity代码实现此功能
         keyboardEvent,
         mouseEvent,
@@ -98,7 +102,7 @@
   }
 
   const presetWebrtc = () => {
-    let url = `${import.meta.env.VITE_SIGNAL_HOST.replace("http", "ws")}/player/home?sid=${uuid}&linkType=5`
+    let url = `${import.meta.env.VITE_SIGNAL_HOST.replace("http", "ws")}/player/home?sid=${uuid}&linkType=${PLAYER_TYPE}`
 
     if (location.search.includes("&t=")) {
       url += "&t=123"
@@ -123,7 +127,7 @@
 
   const setPlayerInfo = (appInstanceId: string) => {
     const infos = {
-      linkType: "5",
+      linkType: PLAYER_TYPE,
       appType: 1,
       uuid: uuid, // uuid是当前窗口的唯一标识字段，刷新当前窗口不变化
       instanceId: appInstanceId
@@ -136,6 +140,8 @@
       info: encodeURIComponent(ciphertext),
       timestamp: t
     })
+
+    rtcHandlerStore.setRtc(sdk)
   }
 </script>
 <style lang="less">

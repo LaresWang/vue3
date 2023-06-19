@@ -5,7 +5,8 @@ import type {
   TStartLaunchHumanReqParams,
   TStartLaunchHumanResParams,
   TLaunchStatusReqParams,
-  TLaunchStatusResParams
+  TLaunchStatusResParams,
+  THumanCMDReqParams
 } from "../types/player"
 
 export const heartBeat = function (params: THeatBeatReqParams) {
@@ -31,4 +32,9 @@ export const getLaunchStatus = function (params: TLaunchStatusReqParams) {
     channelInstanceId: "1111"
   })
   // return request.post<TLaunchStatusResParams>("user/human/start/status", params)
+}
+
+// 数字人指令
+export const sendCommand = function (params: THumanCMDReqParams) {
+  return request.post("user/human/control", params)
 }
