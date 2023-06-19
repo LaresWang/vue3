@@ -17,7 +17,7 @@ interface Window {
     init: () => void
     setConfig: (options: any) => void
     setPlayerInfo: (options: { info: string; timestamp: string }) => void
-    sendDataToApp: (data: string) => void
+    sendDataToApp: (data: ArrayBuffer) => void
     webRtcPlayerObj: any
   }
 }

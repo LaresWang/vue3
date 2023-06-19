@@ -60,6 +60,13 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
     // })
     rtcHandlersStore.sendByChannel(
       JSON.stringify({
+        // Console: {
+        //   taskId: "123456",
+        //   commandId: "CMD0001",
+        //   userId: "0001",
+        //   humanNo: params.humanNo,
+        //   platform: params.humanCatg
+        // }
         taskId: "123456",
         commandId: "CMD0001",
         userId: "0001",

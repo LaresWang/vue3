@@ -3,6 +3,7 @@
     <div id="player">
       <!-- <video id="streamingVideo"></video> -->
     </div>
+    <ShortCut />
   </div>
 </template>
 <script setup lang="ts">
@@ -14,6 +15,8 @@
   import useRtcHandlerStore from "@/stores/rtc"
   import { usePlayerHandlers } from "@/hooks/human/player"
   import { ELaunchStatus, type TRtcSDK } from "@/types/player.d"
+
+  import ShortCut from "./ShortCut.vue"
 
   const launchInitInfosStore = useLaunchInitInfosStore()
   const launchStatusStore = useLaunchStatusStore()

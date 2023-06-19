@@ -21,10 +21,25 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
     rtc.value = sdk
   }
 
-  const sendByChannel = (data: string) => {
+  const sendByChannel = (da: string) => {
     if (isReady.value) {
-      console.log("sendByChannel=====", data)
-      rtc.value!.sendDataToApp(data)
+      console.log("sendByChannel=====", da)
+      const descriptorAsString = da
+
+      // Add the UTF-16 JSON string to the array byte buffer, going two bytes at
+      // a time.
+      const data = new DataView(new ArrayBuffer(1 + 2 + 2 * descriptorAsString.length))
+      let byteIdx = 0
+      data.setUint8(byteIdx, 50)
+      byteIdx++
+      data.setUint16(byteIdx, descriptorAsString.length, true)
+      byteIdx += 2
+      for (let i = 0; i < descriptorAsString.length; i++) {
+        data.setUint16(byteIdx, descriptorAsString.charCodeAt(i), true)
+        byteIdx += 2
+      }
+      console.log(data)
+      rtc.value!.sendDataToApp(data.buffer)
     }
   }
 
