@@ -89,7 +89,8 @@
       humanId: infos.humanId,
       humanName: infos.humanName,
       humanCatg: props.type,
-      humanNo: infos.humanNo
+      humanNo: infos.humanNo,
+      gender: infos.gender
     })
   }
 

@@ -67,7 +67,8 @@
           humanId: res.rows[0].humanId,
           humanName: res.rows[0].humanName,
           humanCatg: EModelCatg.User,
-          humanNo: res.rows[0].humanNo
+          humanNo: res.rows[0].humanNo,
+          gender: res.rows[0].gender
         })
       }
     }
@@ -108,7 +109,8 @@
         humanId: userModels.value[0].humanId,
         humanName: userModels.value[0].humanName,
         humanCatg: EModelCatg.User,
-        humanNo: userModels.value[0].humanNo
+        humanNo: userModels.value[0].humanNo,
+        gender: userModels.value[0].gender
       })
     }
   })

@@ -6,6 +6,7 @@ import type {
   TPageReqParams,
   TEmotionCatg,
   TEmotionParams,
+  TActionReqParams,
   TActionParams,
   TEditHumanConfigResParams,
   TModifyHumanNameReqParams,
@@ -64,7 +65,8 @@ export const getHumanEmotionLists = function (params: TEmotionCatg) {
 
 // 数字人素材-动作
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=61803546
-export const getHumanActionLists = function () {
+export const getHumanActionLists = function (params: TActionReqParams) {
+  console.log(params)
   return Promise.resolve(actionLists)
   // return request.post<TActionParams[]>("user/human/material/action/list")
 }

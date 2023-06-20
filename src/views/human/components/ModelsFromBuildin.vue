@@ -50,7 +50,8 @@
           humanId: res[0].humanId,
           humanName: res[0].humanName,
           humanCatg: EModelCatg.Buildin,
-          humanNo: res[0].humanNo
+          humanNo: res[0].humanNo,
+          gender: res[0].gender
         })
       }
     }
@@ -62,7 +63,8 @@
         humanId: buildinModels.value[0].humanId,
         humanName: buildinModels.value[0].humanName,
         humanCatg: EModelCatg.Buildin,
-        humanNo: buildinModels.value[0].humanNo
+        humanNo: buildinModels.value[0].humanNo,
+        gender: buildinModels.value[0].gender
       })
     }
   })

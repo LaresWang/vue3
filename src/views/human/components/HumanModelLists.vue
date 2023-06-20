@@ -71,7 +71,7 @@
   import { useSelectedModelInfoStore, useRefreshHumanListsStore, useCopyHumanModelStore, useDeleteHumanModelStore } from "@/stores/human"
   import { useBreadcrumbMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { EModelCatg } from "@/types/human.d"
-  import type { TEmptyObj } from "@/types"
+  import type { TObj } from "@/types"
   import type { THumanModelInfos } from "@/types/human"
   import type { TBreadcrumbMenu } from "@/types/menus"
   import message from "@/utils/message"
@@ -112,8 +112,8 @@
   }
 
   // 不排除有多个模型正在修改name，接口响应很慢，然后用户修改了多个模型名称
-  let submitStatusRecord: TEmptyObj = {}
-  let submitNameRecord: TEmptyObj = {}
+  let submitStatusRecord: TObj = {}
+  let submitNameRecord: TObj = {}
   const onSubmitName = (isSubmiting: boolean, infos: THumanModelInfos, name?: string) => {
     submitStatusRecord[infos.humanId] = isSubmiting
     if (name) {

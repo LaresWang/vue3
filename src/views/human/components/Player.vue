@@ -12,6 +12,7 @@
   import { getBrowserUUID, getCiphertext } from "@/utils/tools"
   import { PLAYER_TYPE } from "@/utils/const"
   import { useLaunchInitInfosStore, useLaunchStatusStore } from "@/stores/player"
+  import { useIOMethodStore } from "@/stores/io"
   import useRtcHandlerStore from "@/stores/rtc"
   import { usePlayerHandlers } from "@/hooks/human/player"
   import { ELaunchStatus, type TRtcSDK } from "@/types/player.d"
@@ -21,6 +22,7 @@
   const launchInitInfosStore = useLaunchInitInfosStore()
   const launchStatusStore = useLaunchStatusStore()
   const rtcHandlerStore = useRtcHandlerStore()
+  const IOMethodStore = useIOMethodStore()
 
   const { connectStatus, canStartWebrtc, onConnectStatusChange, onStatsChange, onReceiveData, onRtcBeforeSendMessage, onRtcRecieveMessage } =
     usePlayerHandlers()
@@ -115,7 +117,7 @@
       windowBoxSelector: ".player-wrapper",
       // autoPlayAudio: false,
       wsAddress: url,
-      // ioType: "api",
+      ioType: IOMethodStore.method,
       onStatsChange: onStatsChange,
       onConnectStatusChange: onConnectStatusChange,
       onReceiveDataCallback: onReceiveData,

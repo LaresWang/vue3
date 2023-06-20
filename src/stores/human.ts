@@ -6,7 +6,7 @@ import type { EModelCatg, EOperateModelType, TSelectedHumanModelInfo, TSelectedP
 import { EModelCatg as ModelCatg, EOperateModelType as OperateType } from "@/types/human.d"
 import { getImgDataFromVideo, transferB64toBlob } from "@/utils/screenShot"
 import { showModelLists } from "@/utils/showModelList"
-import type { TEmptyObj } from "@/types"
+import type { TObj } from "@/types"
 
 // 强制刷新数字人列表
 const useRefreshHumanListsStore = defineStore("refreshHumanLists", () => {
@@ -46,7 +46,8 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
     humanCatg: undefined,
     humanId: "",
     humanNo: "",
-    humanName: ""
+    humanName: "",
+    gender: undefined
   })
 
   const rtcHandlersStore = useRTCHandlersStore()
@@ -54,26 +55,12 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
 
   const setSelectedModelInfo = (params: TSelectedHumanModelInfo) => {
     info.value = params
-    // TODO 发送指令显示数字人模型
-    // rtcHandlersStore.sendByApi({
 
-    // })
-    rtcHandlersStore.sendByChannel(
-      JSON.stringify({
-        // Console: {
-        //   taskId: "123456",
-        //   commandId: "CMD0001",
-        //   userId: "0001",
-        //   humanNo: params.humanNo,
-        //   platform: params.humanCatg
-        // }
-        taskId: "123456",
-        commandId: "CMD0001",
-        userId: "0001",
-        humanNo: params.humanNo,
-        platform: params.humanCatg
-      })
-    )
+    rtcHandlersStore.send({
+      commandId: "CMD0001",
+      humanNo: params.humanNo,
+      platform: params.humanCatg
+    })
   }
 
   const clearSelectedModelInfo = () => {
@@ -81,7 +68,8 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
       humanCatg: undefined,
       humanId: "",
       humanName: "",
-      humanNo: ""
+      humanNo: "",
+      gender: undefined
     }
   }
 
@@ -243,7 +231,7 @@ const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
 const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
   // 一次只能复制一个数字人，等复制完成后才能进行下一个数字人的复制操作
   const isCopying = ref(false)
-  let copyInfo: TEmptyObj = {}
+  let copyInfo: TObj = {}
   const refreshHumanListsStore = useRefreshHumanListsStore()
 
   const reset = () => {

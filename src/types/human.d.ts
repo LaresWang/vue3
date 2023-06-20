@@ -55,6 +55,11 @@ export type TUserHUmanResParams = {
 // category 0-静态 1-动态
 export type TEmotionCatg = {
   category: EEmotionCatg
+  gender: EGender
+}
+
+export type TActionReqParams = {
+  gender: EGender
 }
 
 /**
@@ -452,6 +457,7 @@ export type TSelectedHumanModelInfo = {
   humanId: string
   humanNo: stirng
   humanCatg?: EModelCatg
+  gender?: EGender
 }
 
 export type TSelectedPresetInfo = {

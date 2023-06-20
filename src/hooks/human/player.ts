@@ -1,6 +1,8 @@
 import { ref } from "vue"
-import type { TConnectStatus, TStatsRTC } from "@/types/player"
+import type { TConnectStatus, TKeyboardData, TMouseData, TStatsRTC } from "@/types/player"
+import { EIOMethod } from "@/types/player.d"
 import useRtcHandlerStore from "@/stores/rtc"
+import { useIOMethodStore } from "@/stores/io"
 
 const wsHandler = (code: number) => {
   switch (code) {
@@ -23,6 +25,7 @@ export const usePlayerHandlers = () => {
   const loadingProgress = ref(0)
   const stats = ref<TStatsRTC>()
   const rtcHandlerStore = useRtcHandlerStore()
+  const IOMethodStore = useIOMethodStore()
 
   const onStatsChange = (info: TStatsRTC) => {
     stats.value = info
@@ -79,64 +82,11 @@ export const usePlayerHandlers = () => {
     rtcHandlerStore.receive(data)
   }
 
-  const onRtcBeforeSendMessage = (data: any) => {
-    rtcHandlerStore.sendByApi(data)
-    /**
-     * type: "mousemove",
-        coord: { x: coord.x, y: coord.x },
-        deta: { x: delta.x, y: delta.y }
-     */
-    /** button mouse事件的button属性
-     * delta mousewheel 的wheelDelta属性
-     * 
-     * type: "mousedown",
-        coord: { x: coord.x, y: coord.x },
-        button
-
-        type: "mouseup",
-        coord: { x: coord.x, y: coord.x },
-        button
-
-        type: "mousewheel",
-        coord: { x: coord.x, y: coord.x },
-        delta
-
-        type: "mouseenter",
-        type: "mouseleave",
-     */
-
-    /**
-     * event 
-     * //     altKey: e.altKey,
-    //     bubbles: e.bubbles,
-    //     cancelBubble: e.cancelBubble,
-    //     cancelable: e.cancelable,
-    //     charCode: e.charCode,
-    //     code: e.code,
-    //     composed: e.composed,
-    //     ctrlKey: e.ctrlKey,
-    //     defaultPrevented: e.defaultPrevented,
-    //     detail: e.detail,
-    //     eventPhase: e.eventPhase,
-    //     isComposing: e.isComposing,
-    //     key: e.key,
-    //     keyCode: e.keyCode,
-    //     location: e.location,
-    //     metaKey: e.metaKey,
-    //     repeat: e.repeat,
-    //     returnValue: e.returnValue,
-    //     shiftKey: e.shiftKey
-     * 
-     * 
-     * type: "keydown",
-        event: e
-
-        type: "keyup",
-        event: e
-
-        type: "keypress",
-        event: e
-     */
+  const onRtcBeforeSendMessage = (data: TMouseData | TKeyboardData) => {
+    // EIOMethod.Rtc 的话这里直接忽略，数据会从sdk里直接发出去的
+    if (IOMethodStore.method === EIOMethod.Api) {
+      rtcHandlerStore.send(data)
+    }
   }
 
   return { connectStatus, canStartWebrtc, stats, onStatsChange, onConnectStatusChange, onReceiveData, onRtcRecieveMessage, onRtcBeforeSendMessage }

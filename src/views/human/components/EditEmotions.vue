@@ -56,7 +56,7 @@
 <script setup lang="ts">
   import { ref, watchEffect } from "vue"
   import { getHumanEmotionLists } from "@/api/human"
-  import { useSelectedEmotionInfoStore } from "@/stores/human"
+  import { useSelectedEmotionInfoStore, useSelectedModelInfoStore } from "@/stores/human"
   import { EEmotionCatg } from "@/types/human.d"
   import type { TEmotionParams, TPresetListInfo } from "@/types/human"
   import { formatPresetListsData } from "@/hooks/human/presetLists"
@@ -65,12 +65,13 @@
   import PresetList from "./PresetList.vue"
 
   const selectedEmotionInfoStore = useSelectedEmotionInfoStore()
+  const selectedModelInfoStore = useSelectedModelInfoStore()
   const activeTabValue = ref(EEmotionCatg.Static)
   const staicEmotionLists = ref<TPresetListInfo[]>([])
   const dynamicEmotionLists = ref<TPresetListInfo[]>([])
 
   const getEmotionsLists = async (catg: EEmotionCatg) => {
-    const res = await getHumanEmotionLists({ category: catg })
+    const res = await getHumanEmotionLists({ category: catg, gender: selectedModelInfoStore.info.gender! })
     if (catg === EEmotionCatg.Static) {
       staicEmotionLists.value = formatPresetListsData<TEmotionParams>(res)
     } else if (catg === EEmotionCatg.Dynamic) {

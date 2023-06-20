@@ -2,10 +2,21 @@
   import { provide } from "vue"
   import { RouterView } from "vue-router"
   import useFixsize from "@/hooks/fixsize"
+  import { useIOMethodStore } from "@/stores/io"
+  import { qs2Obj } from "@/utils/querystring"
+  import { EIOMethod } from "./types/player.d"
 
   const { needFix } = useFixsize()
+  const IOMethodStore = useIOMethodStore()
+
+  const queryObj = qs2Obj()
 
   provide("needFix", needFix)
+
+  if (queryObj.io === EIOMethod.Rtc) {
+    IOMethodStore.setMethod(queryObj.io)
+  }
+
   // import HelloWorld from './components/HelloWorld.vue'
   // document.body.addEventListener("keydown", function (event: KeyboardEvent) {
   //   console.log("app evemt", event)

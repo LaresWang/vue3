@@ -19,8 +19,12 @@ export interface IVoidFunction {
   <T>(arg: T): void
 }
 
-export type TEmptyObj = {
+export type TObj = {
   [x: string]: any
+}
+
+export type TObjGeneric<T> = {
+  [x: string]: T
 }
 
 export type TTimeout = ReturnType<typeof setTimeout>
