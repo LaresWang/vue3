@@ -17,7 +17,7 @@
         <div class="user-info-item flex-between">
           <div class="left-area flex-start">
             <div class="user-avatar">
-              <Avatar :url="userInfo.userAvatar" />
+              <Avatar :url="userInfoStore.userInfo?.userAvatar" />
             </div>
 
             <span class="item-label">
@@ -44,7 +44,7 @@
             <span class="item-label">
               {{ $t("user.t37") }}
             </span>
-            <span class="item-content">{{ userInfo.mobile }}</span>
+            <span class="item-content">{{ userInfoStore.userInfo?.mobile }}</span>
           </div>
           <div class="right-area flex-start">
             <span
@@ -64,7 +64,7 @@
             <span class="item-label">
               {{ $t("user.t39") }}
             </span>
-            <span class="item-content">{{ userInfo.userName }}</span>
+            <span class="item-content">{{ userInfoStore.userInfo?.userName }}</span>
           </div>
           <div class="right-area flex-start">
             <span
@@ -85,7 +85,7 @@
               {{ $t("user.t40") }}
             </span>
             <!-- 0-未设置 1-已设置 2-稍后设置 -->
-            <span class="item-content">{{ userInfo.passwordStatus === 1 ? $t("user.t41") : $t("user.t42") }}</span>
+            <span class="item-content">{{ userInfoStore.userInfo?.passwordStatus === 1 ? $t("user.t41") : $t("user.t42") }}</span>
           </div>
           <div class="right-area flex-start">
             <span
@@ -130,7 +130,7 @@
           class="modal-body mt25"
         >
           <div class="modal-body-content flex-v-start">
-            <div>{{ $t("user.t47", { value: userInfo.mobile }) }}</div>
+            <div>{{ $t("user.t47", { value: userInfoStore.userInfo?.mobile }) }}</div>
             <!-- 短信验证码 -->
             <div
               class="nt-input-item with-button mt20"
@@ -411,7 +411,7 @@
   })
 
   const uploadCropper = ref<typeof UploadCropper>()
-  const { userInfo } = useUserInfoStore()
+  const userInfoStore = useUserInfoStore()
   const { getUser } = useGetUserInfo(true)
   const { isCountingDown, startCountDown, stopCountDown } = useCountDownStatus()
   const { captchaId: captchaIdPwd } = useGetCaptchaId(2)
@@ -543,7 +543,7 @@
     const full = (prop + "Infos") as TModifyInfosTypes
     const ret = validate(rdata[full].value)
 
-    if (prop === "mobile" && ret.ok && rdata[full].value === userInfo.mobile) {
+    if (prop === "mobile" && ret.ok && rdata[full].value === userInfoStore.userInfo?.mobile) {
       // 新老手机号相同了
       ret.ok = false
       ret.error = t("user.t50")

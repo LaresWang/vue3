@@ -78,9 +78,9 @@
     >
       <Avatar
         class="nav-avatar"
-        :url="userInfo.userAvatar"
+        :url="userInfoStore.userInfo?.userAvatar"
       />
-      <span class="user-name single-line-text-ellipsis">{{ userInfo.userName }}</span>
+      <span class="user-name single-line-text-ellipsis">{{ userInfoStore.userInfo?.userName }}</span>
     </div>
   </div>
 </template>
@@ -94,7 +94,7 @@
 
   import Avatar from "./Avatar.vue"
 
-  const { userInfo } = useUserInfoStore()
+  const userInfoStore = useUserInfoStore()
   const { breadMenus, jumpPrevMenu } = useBreadcrumbMenusStore()
   const { editMenus, clearEditMenus, addEditMenus } = useEidtHumanMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()

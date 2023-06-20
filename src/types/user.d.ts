@@ -67,6 +67,7 @@ export type TUserInfoResParams = {
   userAvatar?: string
   capitalDetailList?: Array<TCapitalDetail>
   assetsStoreDetail?: TAssetsStoreDetail
+  userId: string
 }
 
 export type TOptBizType = 0 | 1 | 2 | 3

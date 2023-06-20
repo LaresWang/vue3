@@ -45,6 +45,7 @@ export const loginDone = (data: TLoginPWDResParams) => {
     message(t("user.t25"))
     localStorage.setItem("token", data.token)
     localStorage.setItem("userkey", data.userKey)
+    localStorage.setItem("userId", data.userId)
     loginFinished()
   }
 }

@@ -20,7 +20,7 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
   const deleteHumanModelStore = useDeleteHumanModelStore()
   const copyHumanModelStore = useCopyHumanModelStore()
 
-  const userId = computed(() => userInfoStore.userInfo.mobile)
+  const userId = computed(() => userInfoStore.userInfo?.userId)
 
   const ready = () => {
     isReady.value = true

@@ -1,19 +1,16 @@
-import { reactive } from "vue"
+import { ref } from "vue"
 import { defineStore } from "pinia"
 import type { TUserInfoResParams } from "../types/user"
 
 const useUserInfoStore = defineStore("userInfo", () => {
-  const userInfo = reactive<TUserInfoResParams>({})
+  const userInfo = ref<TUserInfoResParams>()
+
   const setUserInfo = (data: TUserInfoResParams) => {
     if (data.userAvatar) {
       data.userAvatar += `?t=${Date.now()}`
     }
-    userInfo.mobile = data.mobile
-    userInfo.userAvatar = data.userAvatar
-    userInfo.userName = data.userName
-    userInfo.assetsStoreDetail = data.assetsStoreDetail
-    userInfo.capitalDetailList = data.capitalDetailList
-    userInfo.passwordStatus = data.passwordStatus
+    userInfo.value = data
+    userInfo.value.userId = localStorage.getItem("userId") || ""
   }
 
   return { userInfo, setUserInfo }
