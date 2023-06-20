@@ -72,21 +72,69 @@
       </div>
     </div>
 
-    <div
-      class="user-info-area flex-center pointer"
-      @click="goToUserCenter"
-    >
-      <Avatar
-        class="nav-avatar"
-        :url="userInfoStore.userInfo?.userAvatar"
-      />
-      <span class="user-name single-line-text-ellipsis">{{ userInfoStore.userInfo?.userName }}</span>
+    <div class="user-info-area">
+      <el-dropdown
+        class="user-nav-body"
+        popper-class="fix-user-nav-popper-body"
+      >
+        <div class="user-info-title flex-center">
+          <Avatar
+            class="nav-avatar"
+            :url="userInfoStore.userInfo?.userAvatar"
+          />
+          <span class="user-name single-line-text-ellipsis">{{ userInfoStore.userInfo?.userName }}</span>
+        </div>
+        <template #dropdown>
+          <el-dropdown-menu class="user-nav-items-wrapper">
+            <el-dropdown-item class="user-nav-item first">
+              <div class="user-nav-item-inner flex-center">
+                <div class="left-icon flex-center">
+                  <Avatar
+                    class="nav-item-avatar"
+                    :url="userInfoStore.userInfo?.userAvatar"
+                  />
+                </div>
+                <div class="right-text single-line-text-ellipsis">
+                  {{ userInfoStore.userInfo?.userName }}
+                </div>
+              </div>
+            </el-dropdown-item>
+            <el-dropdown-item class="user-nav-item">
+              <div
+                class="user-nav-item-inner flex-center"
+                @click="goToUserCenter"
+              >
+                <div class="left-icon flex-center">
+                  <svg-icon name="icon_set_up"></svg-icon>
+                </div>
+                <div class="right-text single-line-text-ellipsis">
+                  {{ $t("user.t56") }}
+                </div>
+              </div>
+            </el-dropdown-item>
+            <el-dropdown-item class="user-nav-item">
+              <div
+                class="user-nav-item-inner flex-center"
+                @click="loginOut"
+              >
+                <div class="left-icon flex-center">
+                  <svg-icon name="icon_exit"></svg-icon>
+                </div>
+                <div class="right-text single-line-text-ellipsis">
+                  {{ $t("user.t57") }}
+                </div>
+              </div>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
   </div>
 </template>
 <script setup lang="ts">
   import { watch } from "vue"
-  import { goUserCenter } from "@/utils/jump"
+  import { logout } from "@/api/user"
+  import { goLoginPage, goUserCenter } from "@/utils/jump"
   import useUserInfoStore from "@/stores/user"
   import { useBreadcrumbMenusStore, useEidtHumanMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { EEditCompName } from "@/types/menus.d"
@@ -106,6 +154,11 @@
 
   const goToUserCenter = () => {
     goUserCenter()
+  }
+
+  const loginOut = async () => {
+    await logout()
+    goLoginPage()
   }
 
   const breadMenusJump = (idx: number) => {
@@ -197,15 +250,22 @@
     }
     .user-info-area {
       height: 100%;
-      .nav-avatar {
-        width: 24px;
-        height: 24px;
-      }
-      .user-name {
-        margin-left: 8px;
-        font-size: 14px;
-        max-width: 100px;
-        color: var(--c-white-1);
+      .user-nav-body {
+        // height: 100%;
+        padding: 13px 0;
+        .user-info-title {
+          height: 100%;
+          .nav-avatar {
+            width: 24px;
+            height: 24px;
+          }
+          .user-name {
+            margin-left: 8px;
+            font-size: 14px;
+            max-width: 100px;
+            color: var(--c-white-1);
+          }
+        }
       }
     }
   }

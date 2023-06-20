@@ -96,7 +96,6 @@
       id: info.id,
       name: info.name
     })
-    // TODO 调指令接口
   }
 </script>
 <style lang="less">

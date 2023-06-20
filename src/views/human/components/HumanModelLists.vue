@@ -172,7 +172,7 @@
       // isDeleting = false
       return
     }
-    deleteHumanModelStore.startDelete(selectedModelInfoStore.info.humanId)
+    deleteHumanModelStore.startDelete(selectedModelInfoStore.info.humanId, selectedModelInfoStore.info.humanNo, selectedModelInfoStore.info.humanCatg)
   }
 
   const copyModel = () => {
@@ -185,7 +185,7 @@
       message("请先选择数字人", "warning")
       return
     }
-    copyHumanModelStore.startCopy(selectedModelInfoStore.info.humanId, selectedModelInfoStore.info.humanCatg)
+    copyHumanModelStore.startCopy(selectedModelInfoStore.info.humanId, selectedModelInfoStore.info.humanCatg, selectedModelInfoStore.info.humanNo)
   }
 
   const importFile = () => {

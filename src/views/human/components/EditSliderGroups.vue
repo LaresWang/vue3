@@ -59,6 +59,8 @@
 <script setup lang="ts">
   import { ref, watchEffect, onMounted, onBeforeUnmount, inject } from "vue"
   import { ArrowRight, ArrowDown } from "@element-plus/icons-vue"
+  import { useSelectedModelInfoStore } from "@/stores/human"
+  import useRtcHandlerStore from "@/stores/rtc"
 
   import type { TBodyPartPositionDetail, TBodyPartPositionDetailInfo } from "@/types/human"
 
@@ -69,6 +71,9 @@
   type TAdjustValue = {
     [x: string]: number
   }
+
+  const rtcHandlerStore = useRtcHandlerStore()
+  const selectedModelInfoStore = useSelectedModelInfoStore()
 
   const needFix = inject("needFix")
   const expandCode = ref("")
@@ -144,8 +149,12 @@
   }
 
   const notifyChangeResult = (item: TBodyPartPositionDetailInfo, value: number) => {
-    // TODO 调指令接口
     console.log("调用指令接口", item, value)
+    rtcHandlerStore.send({
+      humanNo: selectedModelInfoStore.info.humanNo,
+      commandId: item.cmd_code,
+      commandValue: value
+    })
   }
 
   /** VVVVV  点击拖动滑块的时候背景色变色处理 VVVVVV */

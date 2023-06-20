@@ -78,7 +78,7 @@ export const usePlayerHandlers = () => {
     console.log(data)
   }
 
-  const onRtcRecieveMessage = (data: any) => {
+  const onRtcRecieveMessage = (data: number[]) => {
     rtcHandlerStore.receive(data)
   }
 

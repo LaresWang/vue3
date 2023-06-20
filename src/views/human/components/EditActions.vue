@@ -33,7 +33,7 @@
 <script setup lang="ts">
   import { ref, watchEffect } from "vue"
   import { getHumanActionLists } from "@/api/human"
-  import { useSelectedActionInfoStore } from "@/stores/human"
+  import { useSelectedActionInfoStore, useSelectedModelInfoStore } from "@/stores/human"
 
   import type { TActionParams, TPresetListInfo } from "@/types/human"
   import { formatPresetListsData } from "@/hooks/human/presetLists"
@@ -42,10 +42,13 @@
   import PresetList from "./PresetList.vue"
 
   const selectedActionInfoStore = useSelectedActionInfoStore()
+  const selectedModelInfoStore = useSelectedModelInfoStore()
   const actionLists = ref<TPresetListInfo[]>([])
 
   const getActionLists = async () => {
-    const res = await getHumanActionLists()
+    const res = await getHumanActionLists({
+      gender: selectedModelInfoStore.info.gender!
+    })
     actionLists.value = formatPresetListsData<TActionParams>(res)
   }
 
@@ -58,7 +61,6 @@
       id: info.id,
       name: info.name
     })
-    // TODO 调指令接口
   }
 </script>
 <style lang="less">

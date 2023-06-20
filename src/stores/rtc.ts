@@ -49,8 +49,8 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
 
   const sendByChannel = (data: string) => {
     //
-    // rtc.value!.sendDataToApp(da)
-    rtc.value?.webRtcPlayerObj.send(data)
+    rtc.value!.sendDataToApp(JSON.parse(data))
+    // rtc.value?.webRtcPlayerObj.send(data)
   }
 
   const sendByApi = (cmd: string) => {
@@ -62,7 +62,7 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
     })
   }
 
-  const receive = (data: any) => {
+  const receive = (data: number[]) => {
     resolveMessage(data)
     // TODO
     // deleteHumanModelStore.deleteDone()
@@ -72,19 +72,40 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
   return { rtc, ready, setRtc, send, receive }
 })
 
-const resolveMessage = (data: any) => {
-  console.log("onReceiveMessage", data)
+const resolveMessage = (data: number[]) => {
+  const view = new Uint8Array(data)
+  // console.log(view[0])
+  if (view[0] === 1) {
+    // 1 代表是response
+    try {
+      const res = JSON.parse(new TextDecoder("utf-16").decode(view.slice(1)))
+
+      console.log("onReceiveMessage res", res)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
 
 const formatSendCommand = (data: TMouseData | TKeyboardData | TCMD, extralInfo: { userId: string; taskId: string }): string => {
   let res: TObj = {}
   if (isTMouseData(data)) {
     console.log("鼠标", data.coord)
+    res = {
+      ...extralInfo,
+      ...data
+    }
   } else if (isTKeyboardData(data)) {
     console.log("键盘", data.event)
+    res = {
+      ...extralInfo,
+      inputKeyName: data.event.key,
+      inputKeyCode: data.event.keyCode,
+      inputType: data.type
+    }
   } else {
     console.log("指令", data.commandId)
-    res = { ...data, ...extralInfo }
+    res = { ...extralInfo, ...data }
   }
 
   return JSON.stringify(res)

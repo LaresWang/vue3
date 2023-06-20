@@ -128,3 +128,7 @@ body {
   --c-red-1: #f56c6c;
   --c-red-2: #f5222d;
 }
+
+.el-dropdown__popper {
+  display: block !important;
+}

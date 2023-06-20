@@ -90,13 +90,19 @@ export type TModifyHumanNameResParams = {
 
 export type TSaveHumanModelResParams = TModifyHumanNameResParams
 
-export type TDeleteHumanReqParams = Pick<TModifyHumanNameReqParams, "humanId">
+export type TDeleteHumanReqParams = Pick<TModifyHumanNameReqParams, "humanId"> & {
+  humanNo: string
+  platform: EModelCatg
+  taskId: string
+}
 
-export type TDeleteHumanResultReqParams = TDeleteHumanReqParams & { result: boolean }
+export type TDeleteHumanResultReqParams = Pick<TModifyHumanNameReqParams, "humanId"> & { result: boolean }
 
 export type TCopyHumanReqParams = {
   sourceHumanId: string
   source: EModelCatg
+  sourceHumanNo: string
+  taskId: string
 }
 
 export type TCopyHumanResParams = {

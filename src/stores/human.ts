@@ -7,6 +7,7 @@ import { EModelCatg as ModelCatg, EOperateModelType as OperateType } from "@/typ
 import { getImgDataFromVideo, transferB64toBlob } from "@/utils/screenShot"
 import { showModelLists } from "@/utils/showModelList"
 import type { TObj } from "@/types"
+import { genUUID } from "@/utils/tools"
 
 // 强制刷新数字人列表
 const useRefreshHumanListsStore = defineStore("refreshHumanLists", () => {
@@ -50,13 +51,13 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
     gender: undefined
   })
 
-  const rtcHandlersStore = useRTCHandlersStore()
+  const rtcHandlerStore = useRTCHandlersStore()
   const selectedHumanModelId = computed(() => info.value.humanId)
 
   const setSelectedModelInfo = (params: TSelectedHumanModelInfo) => {
     info.value = params
 
-    rtcHandlersStore.send({
+    rtcHandlerStore.send({
       commandId: "CMD0001",
       humanNo: params.humanNo,
       platform: params.humanCatg
@@ -83,8 +84,16 @@ const useSelectedEmotionInfoStore = defineStore("selectedEmotionInfo", () => {
     name: ""
   })
 
+  const rtcHandlerStore = useRTCHandlersStore()
+  const selectedModelInfoStore = useSelectedModelInfoStore()
+
   const setSelectedEmotionInfo = (params: TSelectedPresetInfo) => {
     info.value = params
+    // TODO 选择表情时发送的指令
+    rtcHandlerStore.send({
+      commandId: "CMD0001",
+      humanNo: selectedModelInfoStore.info.humanNo
+    })
   }
 
   const clearSelectedEmotionInfo = () => {
@@ -103,9 +112,16 @@ const useSelectedActionInfoStore = defineStore("selectedActionInfo", () => {
     id: "",
     name: ""
   })
+  const rtcHandlerStore = useRTCHandlersStore()
+  const selectedModelInfoStore = useSelectedModelInfoStore()
 
   const setSelectedActionInfo = (params: TSelectedPresetInfo) => {
     info.value = params
+    // TODO 选择动作时发送的指令
+    rtcHandlerStore.send({
+      commandId: "CMD0001",
+      humanNo: selectedModelInfoStore.info.humanNo
+    })
   }
 
   const clearSelectedActionInfo = () => {
@@ -189,6 +205,7 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
 const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
   // 一次只能删除一个数字人，等删除完成后才能进行下一个数字人的删除操作
   const isDeleting = ref(false)
+  const deleteTaskId = ref("")
   let isDeletingId = ""
   const refreshHumanListsStore = useRefreshHumanListsStore()
 
@@ -197,11 +214,12 @@ const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
     isDeletingId = ""
   }
 
-  const startDelete = async (humanId: string) => {
+  const startDelete = async (humanId: string, humanNo: string, platform: EModelCatg) => {
     isDeleting.value = true
     isDeletingId = humanId
+    deleteTaskId.value = genUUID()
     try {
-      await deleteHumanModel({ humanId })
+      await deleteHumanModel({ humanId, humanNo, platform, taskId: deleteTaskId.value })
     } catch (e) {
       console.error(e)
       reset()
@@ -224,13 +242,14 @@ const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
     }
   }
 
-  return { isDeleting, startDelete, deleteDone }
+  return { isDeleting, deleteTaskId, startDelete, deleteDone }
 })
 
 // 复制数字人
 const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
   // 一次只能复制一个数字人，等复制完成后才能进行下一个数字人的复制操作
   const isCopying = ref(false)
+  const copyTaskId = ref("")
   let copyInfo: TObj = {}
   const refreshHumanListsStore = useRefreshHumanListsStore()
 
@@ -239,12 +258,15 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
     copyInfo = {}
   }
 
-  const startCopy = async (humanId: string, catg: EModelCatg) => {
+  const startCopy = async (humanId: string, catg: EModelCatg, humanNo: string) => {
     isCopying.value = true
+    copyTaskId.value = genUUID()
     try {
       const res = await copyHumanModel({
         sourceHumanId: humanId,
-        source: catg
+        source: catg,
+        sourceHumanNo: humanNo,
+        taskId: copyTaskId.value
       })
       copyInfo = res
     } catch (e) {
@@ -269,7 +291,7 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
     }
   }
 
-  return { isCopying, startCopy, copyDone }
+  return { isCopying, copyTaskId, startCopy, copyDone }
 })
 
 export {

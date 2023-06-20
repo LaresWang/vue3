@@ -7,7 +7,9 @@ const icons = [
   "icon_face",
   "icon_expression",
   "icon_action",
-  "icon_face_a"
+  "icon_face_a",
+  "icon_set_up",
+  "icon_exit",
 ];
 
 const run = async ()=> {

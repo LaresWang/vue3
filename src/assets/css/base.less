@@ -608,3 +608,64 @@ input:-ms-input-placeholder {
     background-color: var(--c-black-0-light-1) !important;
   }
 }
+
+.fix-user-nav-popper-body {
+  width: 218px;
+  overflow: hidden;
+  background: transparent !important;
+  border: none !important;
+  margin-top: 4px;
+  .user-nav-items-wrapper {
+    background: transparent !important;
+    padding: 0;
+    .user-nav-item {
+      padding: 0 !important;
+      overflow: hidden;
+      margin-top: 1px !important;
+      &.first {
+        margin-top: 0 !important;
+        .user-nav-item-inner {
+          height: 72px !important;
+          .left-icon {
+            width: 64px;
+            height: 100%;
+            .nav-item-avatar {
+              width: 32px;
+              height: 32px;
+            }
+          }
+        }
+      }
+      .user-nav-item-inner {
+        width: 100%;
+        height: 50px !important;
+        color: var(--c-gray-1);
+        font-size: 14px;
+        font-weight: 500;
+        background: var(--c-black-7);
+
+        .left-icon {
+          width: 48px;
+          .svg-icon {
+            width: 16px;
+            height: 16px;
+            fill: var(--c-gray-1);
+          }
+        }
+        .right-text {
+          flex: 1;
+        }
+        &:hover {
+          background: var(--c-blue-1);
+          color: var(--c-white-1);
+          .svg-icon {
+            fill: var(--c-white-1);
+          }
+        }
+      }
+    }
+  }
+  .el-popper__arrow {
+    display: none;
+  }
+}
