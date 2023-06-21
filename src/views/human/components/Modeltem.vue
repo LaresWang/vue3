@@ -130,7 +130,7 @@
     height: 200px;
     margin: 10px 0;
     // margin-right: 10px;
-    color: var(--c-white-1);
+    color: var(--c-gray-1);
     .model-pic-frame {
       width: 100%;
       height: 165px;

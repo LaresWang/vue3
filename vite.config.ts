@@ -92,8 +92,7 @@ export default defineConfig((params) => {
         less: {
           modifyVars: {
             // hack: `true; @import (reference) "${path.resolve('src/assets/css/theme.less')}"`,
-            "@MainColor": "#625DF5",
-            "@MainBgA005": "rgba(86,90,221,0.05)"
+            "@MainColor": "#625DF5"
           }
           // javascriptEnabled: true,
         }

@@ -158,7 +158,7 @@
     }
     .preset-lists-wrapper {
       width: 100%;
-      padding: 20px 0;
+      padding-top: 24px;
       max-height: 400px;
       overflow: hidden;
       .preset-lists-inner-wrapper {
@@ -172,7 +172,7 @@
           .preset-list {
             width: 108px;
             height: 138px;
-            margin-top: 15px;
+            margin-bottom: 20px;
           }
         }
       }
