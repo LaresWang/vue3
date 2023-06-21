@@ -124,11 +124,8 @@ body {
   --c-blue-2: #4e7ef5;
 
   --c-white-1: #fff;
+  --c-white-1-light-1: rgba(255, 255, 255, 0.2);
 
   --c-red-1: #f56c6c;
   --c-red-2: #f5222d;
-}
-
-.el-dropdown__popper {
-  display: block !important;
 }

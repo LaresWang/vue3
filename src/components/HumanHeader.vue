@@ -129,10 +129,17 @@
         </template>
       </el-dropdown>
     </div>
+    <Modal
+      v-model:show="showLoginoutModal"
+      :title="$t('user.t57')"
+      :content="$t('user.t58')"
+      :type="1"
+      @confirm="confirmLoginout"
+    />
   </div>
 </template>
 <script setup lang="ts">
-  import { watch } from "vue"
+  import { ref, watch } from "vue"
   import { logout } from "@/api/user"
   import { goLoginPage, goUserCenter } from "@/utils/jump"
   import useUserInfoStore from "@/stores/user"
@@ -141,7 +148,9 @@
   import { useSaveHumanModelStore } from "@/stores/human"
 
   import Avatar from "./Avatar.vue"
+  import Modal from "./Modal.vue"
 
+  const showLoginoutModal = ref(false)
   const userInfoStore = useUserInfoStore()
   const { breadMenus, jumpPrevMenu } = useBreadcrumbMenusStore()
   const { editMenus, clearEditMenus, addEditMenus } = useEidtHumanMenusStore()
@@ -156,8 +165,13 @@
     goUserCenter()
   }
 
-  const loginOut = async () => {
+  const loginOut = () => {
+    showLoginoutModal.value = true
+  }
+
+  const confirmLoginout = async () => {
     await logout()
+    showLoginoutModal.value = false
     goLoginPage()
   }
 

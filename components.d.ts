@@ -9,8 +9,10 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    2: typeof import('./src/components/IconSuccess copy 2.vue')['default']
     Avatar: typeof import('./src/components/Avatar.vue')['default']
     CodeEditor: typeof import('./src/components/CodeEditor.vue')['default']
+    copy: typeof import('./src/components/IconSuccess copy.vue')['default']
     CountDown: typeof import('./src/components/CountDown.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElDialog: typeof import('element-plus/es')['ElDialog']
@@ -26,7 +28,12 @@ declare module '@vue/runtime-core' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     HumanHeader: typeof import('./src/components/HumanHeader.vue')['default']
+    IconError: typeof import('./src/components/IconError.vue')['default']
+    IconInfo: typeof import('./src/components/IconInfo.vue')['default']
+    IconSuccess: typeof import('./src/components/IconSuccess.vue')['default']
+    IconWarning: typeof import('./src/components/IconWarning.vue')['default']
     Languge: typeof import('./src/components/Languge.vue')['default']
+    Modal: typeof import('./src/components/Modal.vue')['default']
     PasswordInput: typeof import('./src/components/PasswordInput.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

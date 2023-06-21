@@ -30,3 +30,13 @@ export type TObjGeneric<T> = {
 export type TTimeout = ReturnType<typeof setTimeout>
 
 export type TInterval = ReturnType<typeof setInterval>
+
+export type TModal = {
+  title: string
+  content: string
+  // 0-提示文本 不带图标
+  // 1-提示文本 带警告图标
+  // 可扩展
+  type: 0 | 1
+  show?: boolean
+}

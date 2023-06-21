@@ -382,40 +382,6 @@ input,
   height: 0 !important;
 }
 
-.el-message {
-  min-width: 26%;
-  padding-top: 11px;
-  padding-bottom: 11px;
-}
-
-.el-message__content {
-  color: #333 !important;
-}
-
-.el-message--success {
-  border-color: #b7eb8f;
-  background-color: #f6ffed;
-}
-
-.el-message--error {
-  border-color: #ffa39e;
-  background-color: #fff1f0;
-}
-
-.el-message--warning {
-  border-color: #ffe58f;
-  background-color: #fffbe6;
-}
-
-.el-message--info {
-  border-color: #91d5ff;
-  background-color: #e6f7ff;
-}
-
-.el-message--info .el-icon-info {
-  color: #1890ff;
-}
-
 .el-input__suffix {
   display: flex;
   justify-content: center;
@@ -667,5 +633,35 @@ input:-ms-input-placeholder {
   }
   .el-popper__arrow {
     display: none;
+  }
+}
+
+.el-message {
+  width: 616px;
+  background: var(--c-black-4);
+  color: var(--c-gray-1);
+  border: 1px solid var(--c-white-1-light-1);
+}
+
+.fix-message.el-message {
+  height: 40px;
+  border-radius: 4px;
+  padding: 0 15px;
+  font-size: 14px;
+  font-weight: 500;
+  .el-icon {
+    margin-right: 8px;
+    .svg-icon {
+      width: 14px;
+      height: 14px;
+    }
+    &.el-message__closeBtn {
+      margin-right: 0;
+      right: 12px;
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
   }
 }

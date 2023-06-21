@@ -63,6 +63,13 @@
         {{ $t("edit.t3") }}
       </el-button>
     </div>
+    <Modal
+      v-model:show="showModal"
+      :title="modalInfo?.title"
+      :content="modalInfo?.content"
+      :type="modalInfo?.type"
+      @confirm="confirmModal"
+    />
   </div>
 </template>
 <script setup lang="ts">
@@ -71,16 +78,20 @@
   import { useSelectedModelInfoStore, useRefreshHumanListsStore, useCopyHumanModelStore, useDeleteHumanModelStore } from "@/stores/human"
   import { useBreadcrumbMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { EModelCatg } from "@/types/human.d"
-  import type { TObj } from "@/types"
+  import type { TModal, TObj } from "@/types"
   import type { THumanModelInfos } from "@/types/human"
   import type { TBreadcrumbMenu } from "@/types/menus"
   import message from "@/utils/message"
+  import { t } from "@/locale"
 
   import ModelsFromBuildin from "./ModelsFromBuildin.vue"
   import ModelsFromUser from "./ModelsFromUser.vue"
+  import Modal from "@/components/Modal.vue"
 
   const modelUserKey = ref(0)
   const modelBuildinKey = ref(0)
+  const showModal = ref(false)
+  const modalInfo = ref<TModal>()
   const refreshHumanListsStore = useRefreshHumanListsStore()
   const breadcrumbMenusStore = useBreadcrumbMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
@@ -172,7 +183,21 @@
       // isDeleting = false
       return
     }
-    deleteHumanModelStore.startDelete(selectedModelInfoStore.info.humanId, selectedModelInfoStore.info.humanNo, selectedModelInfoStore.info.humanCatg)
+    showModal.value = true
+    modalInfo.value = {
+      title: t("edit.t11"),
+      content: t("edit.t12", { value: selectedModelInfoStore.info.humanName }),
+      type: 0
+    }
+  }
+
+  const confirmModal = () => {
+    showModal.value = false
+    deleteHumanModelStore.startDelete(
+      selectedModelInfoStore.info.humanId,
+      selectedModelInfoStore.info.humanNo,
+      selectedModelInfoStore.info.humanCatg!
+    )
   }
 
   const copyModel = () => {
