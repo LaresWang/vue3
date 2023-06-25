@@ -4,9 +4,9 @@ import type { TBreadcrumbMenu, TEditHumanMenu, EEditCompName } from "../types/me
 import { v4 as uuid } from "uuid"
 
 const useBreadcrumbMenusStore = defineStore("breadcrumbMenus", () => {
-  const breadMenus = reactive<TBreadcrumbMenu[]>([])
+  const breadMenus = ref<TBreadcrumbMenu[]>([])
 
-  const currentModelCat = computed(() => breadMenus[0]?.value)
+  const currentModelCat = computed(() => breadMenus.value[0]?.value)
 
   const addBreadMenu = (menu: TBreadcrumbMenu) => {
     if (!menu.id) {
@@ -20,20 +20,21 @@ const useBreadcrumbMenusStore = defineStore("breadcrumbMenus", () => {
     //   breadMenus.forEach((item) => (parent += item.value + "-"))
     //   menu.parent = parent.slice(0, -1)
     // }
-    breadMenus.push(menu)
+    breadMenus.value.push(menu)
+    console.log(breadMenus.value, 33333)
   }
   const updateRootMenu = (menu: TBreadcrumbMenu) => {
     clearBreadMenus()
     addBreadMenu(menu)
   }
   const clearBreadMenus = () => {
-    breadMenus.length = 0
+    breadMenus.value.length = 0
   }
 
   const jumpPrevMenu = (idx: number) => {
-    const len = breadMenus.length
+    const len = breadMenus.value.length
     if (idx < len - 1) {
-      breadMenus.splice(idx + 1, len - (idx + 1))
+      breadMenus.value.splice(idx + 1, len - (idx + 1))
     }
   }
 

@@ -21,10 +21,10 @@
     </div>
     <div class="model-name flex-start">
       <div
-        class=""
+        class="model-name-inner flex-start"
         v-if="!props.isEditName"
       >
-        <span>{{ props.infos.humanName }}</span>
+        <span class="single-line-text-ellipsis">{{ props.infos.humanName }}</span>
         <svg-icon
           class="pointer"
           name="icon_modify"
@@ -152,14 +152,18 @@
       width: 100%;
       height: 30px;
       font-size: 14px;
-      .svg-icon {
-        width: 16px;
-        height: 16px;
-        margin-left: 8px;
-        display: none;
-      }
-      &:hover .svg-icon {
-        display: inline-block;
+      .model-name-inner {
+        width: 100%;
+        .svg-icon {
+          width: 16px;
+          height: 16px;
+          margin-left: 8px;
+          flex-shrink: 0;
+          display: none;
+        }
+        &:hover .svg-icon {
+          display: inline-block;
+        }
       }
       .edit-name-area {
         height: 100%;

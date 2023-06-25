@@ -1,12 +1,12 @@
 <template>
-  <div class="fix-human-header flex-between">
+  <div class="fix-human-header flex-start">
     <div class="left-menus-area flex-start">
       <svg-icon
         name="logo"
         class="human-header-logo"
       />
       <div
-        v-if="breadMenus.length > 1"
+        v-if="breadcrumbMenusStore.breadMenus.length > 1"
         class="header-breadcrumb-menus flex-start"
       >
         <svg-icon
@@ -14,19 +14,20 @@
           name="icon_return"
         />
         <template
-          v-for="(menu, idx) in breadMenus"
+          v-for="(menu, idx) in breadcrumbMenusStore.breadMenus"
           :key="menu.id!"
         >
           <!-- 最后一级肯定不能跳转 -->
           <span
-            class="bread-menu-item"
-            :class="menu.canJump && idx !== breadMenus.length - 1 ? 'can-jump pointer' : ''"
+            class="bread-menu-item single-line-text-ellipsis"
+            :class="menu.canJump && idx !== breadcrumbMenusStore.breadMenus.length - 1 ? 'can-jump pointer' : ''"
             @click="breadMenusJump(idx)"
+            :title="JSON.stringify(menu)"
           >
             {{ menu.label }}
           </span>
           <span
-            v-if="idx !== breadMenus.length - 1"
+            v-if="idx !== breadcrumbMenusStore.breadMenus.length - 1"
             class="menu-separator"
           >
             /
@@ -34,8 +35,8 @@
         </template>
       </div>
       <div
-        v-if="breadMenus.length > 1 && editMenus.length"
-        class="header-edit-menus flex-start"
+        v-if="breadcrumbMenusStore.breadMenus.length > 1 && editMenus.length"
+        class="header-save-menu flex-start"
       >
         <el-button
           class="edit-save-btn"
@@ -45,6 +46,12 @@
         >
           保存
         </el-button>
+        
+      </div>
+    </div>
+    
+    <div class="right-menus-area flex-end">
+      <div class="edit-menus flex-start" v-if="breadcrumbMenusStore.breadMenus.length > 1">
         <template
           v-for="item in editMenus"
           :key="item.id"
@@ -70,9 +77,6 @@
           </span>
         </template>
       </div>
-    </div>
-
-    <div class="user-info-area">
       <el-dropdown
         class="user-nav-body"
         popper-class="fix-user-nav-popper-body"
@@ -152,7 +156,7 @@
 
   const showLoginoutModal = ref(false)
   const userInfoStore = useUserInfoStore()
-  const { breadMenus, jumpPrevMenu } = useBreadcrumbMenusStore()
+  const breadcrumbMenusStore = useBreadcrumbMenusStore()
   const { editMenus, clearEditMenus, addEditMenus } = useEidtHumanMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
   const saveHumanModelStore = useSaveHumanModelStore()
@@ -176,10 +180,10 @@
   }
 
   const breadMenusJump = (idx: number) => {
-    if (idx === breadMenus.length - 1) {
+    if (idx === breadcrumbMenusStore.breadMenus.length - 1) {
       return
     }
-    jumpPrevMenu(idx)
+    breadcrumbMenusStore.jumpPrevMenu(idx)
   }
 
   clearEditMenus()
@@ -220,31 +224,42 @@
 <style lang="less">
   .fix-human-header {
     height: 100%;
-    padding: 0 20px;
+    padding: 0;
     .left-menus-area {
+      padding-left: 20px;
       height: 100%;
+      flex: 1;
+      overflow: hidden;
       .human-header-logo {
         height: 40px;
         width: 80px;
       }
       .header-breadcrumb-menus {
-        margin-left: 25px;
+        flex: 1;
+        flex-shrink: 0;
         font-size: 14px;
         color: var(--c-white-1);
         .breadcrumb-menus-return-icon {
-          margin-right: 10px;
-        }
-        .bread-menu-item {
+          width: 16px;
+          height: 16px;
         }
       }
-      .header-edit-menus {
+      .header-save-menu {
         height: 100%;
-        margin-left: 90px;
         .edit-save-btn {
           margin: 0 10px;
           height: 28px;
           width: 72px;
         }
+        
+      }
+    }
+    .right-menus-area {
+      padding-right: 20px;
+      height: 100%;
+      .edit-menus {
+        flex: 1;
+        height: 100%;
         .edit-menu-icon {
           height: 100%;
           width: 50px;
@@ -261,9 +276,6 @@
           }
         }
       }
-    }
-    .user-info-area {
-      height: 100%;
       .user-nav-body {
         // height: 100%;
         padding: 13px 0;
@@ -282,5 +294,14 @@
         }
       }
     }
+  }
+  .header-breadcrumb-menus {
+    margin-left: 25px;
+    .breadcrumb-menus-return-icon {
+      margin-right: 10px;
+    }
+  }
+  .right-menus-area {
+    width: 975px;
   }
 </style>

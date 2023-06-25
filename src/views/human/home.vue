@@ -3,14 +3,14 @@
     <div class="human-edit-area flex-between">
       <div class="edit-left-area">
         <!-- 根据导航栏上的编辑按钮动态切换左边的菜单组件 -->
-        <BodySummaryParts v-show="breadMenus.length > 1 && selectedEditCompNameStore.selectedCompName === EEditCompName.EditHeaderPart" />
+        <BodySummaryParts v-show="breadcrumbMenusStore.breadMenus.length > 1 && selectedEditCompNameStore.selectedCompName === EEditCompName.EditHeaderPart" />
       </div>
       <div class="edit-right-area">
         <!-- 根据 默认显示模型列表， 导航栏上的编辑按钮动态切换下面的组件 -->
         <!-- 这里放置 模型列表/模型编辑/表情/动作 组件切换 -->
-        <HumanModelLists v-show="breadMenus.length < 2" />
+        <HumanModelLists v-show="breadcrumbMenusStore.breadMenus.length < 2" />
         <component
-          v-show="breadMenus.length > 1"
+          v-show="breadcrumbMenusStore.breadMenus.length > 1"
           :is="comps[selectedEditCompNameStore.selectedCompName || EEditCompName.EditHeaderPart]"
         ></component>
         <!-- <EditHeaderPart />
@@ -41,7 +41,7 @@
   import EditActions from "./components/EditActions.vue"
   import Player from "./components/Player.vue"
 
-  const { breadMenus, addBreadMenu } = useBreadcrumbMenusStore()
+  const breadcrumbMenusStore = useBreadcrumbMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
   const launchInitInfosStore = useLaunchInitInfosStore()
 
@@ -52,7 +52,7 @@
   }
 
   watchEffect(async () => {
-    if (!breadMenus.length) {
+    if (!breadcrumbMenusStore.breadMenus.length) {
       // 如果用户模型列表有数据则默认显示用户列表，HumanModelCatgs[1]
       // 否则默认显示内置模型列表 HumanModelCatgs[0]
       // addBreadMenu(HumanModelCatgs[0])
@@ -70,11 +70,11 @@
         let catg: EModelCatg | undefined
 
         if (results[0].rows.length) {
-          addBreadMenu(HumanModelCatgs[1])
+          breadcrumbMenusStore.addBreadMenu({...HumanModelCatgs[1], canJump: true})
           info = results[0].rows[0]
           catg = ModelCatg.User
         } else {
-          addBreadMenu(HumanModelCatgs[0])
+          breadcrumbMenusStore.addBreadMenu({...HumanModelCatgs[0], canJump: true})
           info = results[1][0]
           catg = ModelCatg.Buildin
         }
@@ -88,31 +88,6 @@
       } catch (e) {
         console.error(e)
       }
-
-      // Promise.all([
-      //   getUserHumanLists({
-      //     pageNo: 1,
-      //     pageSize: 1
-      //   }),
-      //   getPlatformHumanLists()
-      // ]).then((results) => {
-      //   console.log(results)
-      //   let info: THumanModelInfos | null
-      //   let catg: EModelCatg | undefined
-      //   if (results[0].rows.length) {
-      //     addBreadMenu(HumanModelCatgs[1])
-      //     info = results[0].rows[0]
-      //     catg = ModelCatg.User
-      //   } else {
-      //     addBreadMenu(HumanModelCatgs[0])
-      //     info = results[1][0]
-      //     catg = ModelCatg.Buildin
-      //   }
-      //   startLaunchHuman({
-      //     humanId: info.humanId,
-      //     platform: catg
-      //   })
-      // })
     }
   })
 </script>
@@ -124,6 +99,8 @@
       flex: 1;
       height: 100%;
       padding-top: 4px;
+      flex-shrink: 0;
+      overflow-x: hidden;
       .edit-left-area {
         width: 85px;
         height: 100%;
