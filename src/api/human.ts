@@ -55,9 +55,9 @@ export const getUserHumanLists = function (params: TPageReqParams) {
 export const getHumanEmotionLists = function (params: TEmotionCatg) {
   return new Promise<TEmotionParams[]>((res) => {
     if (params.category === 0) {
-      res(emotionLists)
+      res(JSON.parse(JSON.stringify(emotionLists)))
     } else {
-      res(emotionLists.reverse())
+      res(JSON.parse(JSON.stringify(emotionLists.reverse())))
     }
   })
   // return request.post<TEmotionParams[]>("user/human/material/face/list", params)
