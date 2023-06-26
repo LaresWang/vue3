@@ -10,8 +10,9 @@
         class="header-breadcrumb-menus flex-start"
       >
         <svg-icon
-          class="breadcrumb-menus-return-icon"
+          class="breadcrumb-menus-return-icon pointer"
           name="icon_return"
+          @click="back()"
         />
         <template
           v-for="(menu, idx) in breadcrumbMenusStore.breadMenus"
@@ -22,7 +23,6 @@
             class="bread-menu-item single-line-text-ellipsis"
             :class="menu.canJump && idx !== breadcrumbMenusStore.breadMenus.length - 1 ? 'can-jump pointer' : ''"
             @click="breadMenusJump(idx)"
-            :title="JSON.stringify(menu)"
           >
             {{ menu.label }}
           </span>
@@ -44,7 +44,7 @@
           @click="saveModel"
           :disabled="saveHumanModelStore.isSaving"
         >
-          保存
+          {{ $t("edit.t5") }}
         </el-button>
         
       </div>
@@ -184,6 +184,11 @@
       return
     }
     breadcrumbMenusStore.jumpPrevMenu(idx)
+  }
+
+  const back = () => {
+    // 既然出现回退按钮  长度肯定大于等于2
+    breadcrumbMenusStore.jumpPrevMenu(breadcrumbMenusStore.breadMenus.length-2)
   }
 
   clearEditMenus()
