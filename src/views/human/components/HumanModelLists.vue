@@ -6,7 +6,7 @@
         <div
           v-for="item in HumanModelCatgs"
           :key="item.value"
-          class="tab-item flex-start"
+          class="tab-item flex-center"
           :class="breadcrumbMenusStore.currentModelCat === item.value ? 'active' : 'pointer'"
           @click="changeModelList(item)"
         >
@@ -243,12 +243,9 @@
           width: 50%;
           min-width: 100px;
           height: 100%;
-          padding-left: 10px;
-          padding-right: 8px;
-          background: var(--c-black-6);
           border-radius: 4px;
           &.active {
-            background: transparent;
+            background: var(--c-black-6);
           }
         }
       }
