@@ -4,7 +4,7 @@
     v-show="props.show"
   >
     <div
-      class="models-user-inner flex-between"
+      class="models-user-inner flex-start"
       v-infinite-scroll="loadMore"
       :infinite-scroll-disabled="noMoreLists"
       infinite-scroll-distance="20"
@@ -126,10 +126,12 @@
 <style lang="less">
   .models-user {
     height: 100%;
-    overflow: auto;
-    padding: 0 10px;
+    overflow: hidden auto;
+    padding-right: 10px;
     .models-user-inner {
+      width:calc(100% + 20px);
       flex-flow: row wrap;
+
     }
   }
 </style>

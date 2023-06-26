@@ -3,7 +3,7 @@
     class="models-buildin"
     v-show="props.show"
   >
-    <div class="models-buildin-inner flex-between">
+    <div class="models-buildin-inner flex-start">
       <template
         v-for="model in buildinModels"
         :key="model.humanId"
@@ -80,9 +80,12 @@
 <style lang="less">
   .models-buildin {
     height: 100%;
-    overflow: auto;
-    padding: 0 10px;
+    overflow: hidden auto;
+    padding-right: 10px;
     .models-buildin-inner {
+      width: calc(100% + 20px);
+      // padding: 0 10px 0 10px;
+      // padding-right: 8px;
       flex-flow: row wrap;
     }
   }

@@ -128,7 +128,7 @@
   .model-item {
     width: 165px;
     height: 200px;
-    margin: 10px 0;
+    margin: 10px;
     // margin-right: 10px;
     color: var(--c-gray-1);
     .model-pic-frame {
