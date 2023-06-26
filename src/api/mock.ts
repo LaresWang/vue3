@@ -1545,52 +1545,62 @@ export const actionLists: TActionParams[] = [
   {
     actionId: "1",
     name: "1",
-    previewUrl: "aaa"
+    previewUrl: "aaa",
+    code: "CMD11001"
   },
   {
     actionId: "2",
     name: "2",
-    previewUrl: "aaa"
+    previewUrl: "aaa",
+    code: "CMD11002"
   },
   {
     actionId: "3",
     name: "3",
-    previewUrl: "aaa"
+    previewUrl: "aaa",
+    code: "CMD11003"
   },
   {
     actionId: "4",
     name: "4",
-    previewUrl: "aaa"
+    previewUrl: "aaa",
+    code: "CMD11004"
   },
   {
     actionId: "5",
     name: "5",
-    previewUrl: "aaa"
+    previewUrl: "aaa",
+    code: "CMD11005"
   },
   {
     actionId: "6",
     name: "6",
-    previewUrl: "aaa"
+    previewUrl: "aaa",
+    code: "CMD11006"
   },
   {
     actionId: "7",
     name: "7",
-    previewUrl: "aaa"
+    previewUrl: "aaa",
+    code: "CMD11007"
   },
   {
     actionId: "8",
     name: "8",
-    previewUrl: "aaa"
+    previewUrl: "aaa",
+    code: "CMD11008"
   },
   {
     actionId: "9",
     name: "9",
-    previewUrl: "aaa"
+    previewUrl: "aaa",
+    code: "CMD11009"
   },
   {
     actionId: "10",
     name: "10",
-    previewUrl: "aaa"
+    previewUrl: "aaa",
+    code: "CMD11010"
   }
 ]
 
@@ -1600,52 +1610,62 @@ export const actionLists: TActionParams[] = [
 export const emotionLists: TEmotionParams[] = [
   {
     faceId: "1",
-    name: "1",
-    previewUrl: "aaa"
+    name: "快乐",
+    previewUrl: "aaa",
+    code: "CMD10001"
   },
   {
     faceId: "2",
-    name: "2",
-    previewUrl: "aaa"
+    name: "悲哀",
+    previewUrl: "aaa",
+    code: "CMD10002"
   },
   {
     faceId: "3",
-    name: "3",
-    previewUrl: "aaa"
+    name: "发怒",
+    previewUrl: "aaa",
+    code: "CMD10003"
   },
   {
     faceId: "4",
-    name: "4",
-    previewUrl: "aaa"
+    name: "笑",
+    previewUrl: "aaa",
+    code: "CMD10004"
   },
   {
     faceId: "5",
-    name: "5",
-    previewUrl: "aaa"
+    name: "好奇",
+    previewUrl: "aaa",
+    code: "CMD10005"
   },
   {
     faceId: "6",
-    name: "6",
-    previewUrl: "aaa"
+    name: "害怕",
+    previewUrl: "aaa",
+    code: "CMD10006"
   },
   {
     faceId: "7",
-    name: "7",
-    previewUrl: "aaa"
+    name: "困惑",
+    previewUrl: "aaa",
+    code: "CMD10007"
   },
   {
     faceId: "8",
-    name: "8",
-    previewUrl: "aaa"
+    name: "固执",
+    previewUrl: "aaa",
+    code: "CMD10008"
   },
   {
     faceId: "9",
-    name: "9",
-    previewUrl: "aaa"
+    name: "无聊",
+    previewUrl: "aaa",
+    code: "CMD10009"
   },
   {
     faceId: "10",
-    name: "10",
-    previewUrl: "aaa"
+    name: "自信",
+    previewUrl: "aaa",
+    code: "CMD10010"
   }
 ]

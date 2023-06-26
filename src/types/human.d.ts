@@ -71,12 +71,14 @@ export type TEmotionParams = {
   faceId: string
   previewUrl: string
   name: string
+  code: string
 }
 
 export type TActionParams = {
   actionId: string
   previewUrl: string
   name: string
+  code: string
 }
 
 export type TModifyHumanNameReqParams = {

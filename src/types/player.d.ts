@@ -29,6 +29,16 @@ export enum EKeyboardType {
   Keypress = "keypress"
 }
 
+export enum EUESpecialKeyCode {
+  BackSpace = 8,
+  Shift = 16,
+  Control = 17,
+  Alt = 18,
+  RightShift = 253,
+  RightControl = 254,
+  RightAlt = 255
+}
+
 export type TStartLaunchHumanReqParams = {
   humanId: string
   platform: EModelCatg
