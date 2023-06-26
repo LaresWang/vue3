@@ -8,6 +8,7 @@ import { getImgDataFromVideo, transferB64toBlob } from "@/utils/screenShot"
 import { showModelLists } from "@/utils/showModelList"
 import type { TObj } from "@/types"
 import { genUUID } from "@/utils/tools"
+import { OPERATE_CMD_CODES } from "@/utils/const"
 
 // 强制刷新数字人列表
 const useRefreshHumanListsStore = defineStore("refreshHumanLists", () => {
@@ -58,7 +59,7 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
     info.value = params
 
     rtcHandlerStore.send({
-      commandId: "CMD0001",
+      commandId: OPERATE_CMD_CODES.Show,
       humanNo: params.humanNo,
       platform: params.humanCatg
     })
@@ -81,7 +82,8 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
 const useSelectedEmotionInfoStore = defineStore("selectedEmotionInfo", () => {
   const info = ref<TSelectedPresetInfo>({
     id: "",
-    name: ""
+    name: "",
+    cmdCode: ""
   })
 
   const rtcHandlerStore = useRTCHandlersStore()
@@ -91,7 +93,7 @@ const useSelectedEmotionInfoStore = defineStore("selectedEmotionInfo", () => {
     info.value = params
     // TODO 选择表情时发送的指令
     rtcHandlerStore.send({
-      commandId: "CMD0001",
+      commandId: params.cmdCode,
       humanNo: selectedModelInfoStore.info.humanNo
     })
   }
@@ -99,7 +101,8 @@ const useSelectedEmotionInfoStore = defineStore("selectedEmotionInfo", () => {
   const clearSelectedEmotionInfo = () => {
     info.value = {
       id: "",
-      name: ""
+      name: "",
+      cmdCode: ""
     }
   }
 
@@ -110,7 +113,8 @@ const useSelectedEmotionInfoStore = defineStore("selectedEmotionInfo", () => {
 const useSelectedActionInfoStore = defineStore("selectedActionInfo", () => {
   const info = ref<TSelectedPresetInfo>({
     id: "",
-    name: ""
+    name: "",
+    cmdCode: ""
   })
   const rtcHandlerStore = useRTCHandlersStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
@@ -119,7 +123,7 @@ const useSelectedActionInfoStore = defineStore("selectedActionInfo", () => {
     info.value = params
     // TODO 选择动作时发送的指令
     rtcHandlerStore.send({
-      commandId: "CMD0001",
+      commandId: params.cmdCode,
       humanNo: selectedModelInfoStore.info.humanNo
     })
   }
@@ -127,7 +131,8 @@ const useSelectedActionInfoStore = defineStore("selectedActionInfo", () => {
   const clearSelectedActionInfo = () => {
     info.value = {
       id: "",
-      name: ""
+      name: "",
+      cmdCode: ""
     }
   }
 
@@ -138,7 +143,8 @@ const useSelectedActionInfoStore = defineStore("selectedActionInfo", () => {
 const useSelectedBodyPresetStore = defineStore("selectedBodyPresetInfo", () => {
   const info = ref<TSelectedPresetInfo>({
     id: "",
-    name: ""
+    name: "",
+    cmdCode: ""
   })
 
   const setSelectedBodyPresetInfo = (params: TSelectedPresetInfo) => {
@@ -148,7 +154,8 @@ const useSelectedBodyPresetStore = defineStore("selectedBodyPresetInfo", () => {
   const clearSelectedBodyPresetInfo = () => {
     info.value = {
       id: "",
-      name: ""
+      name: "",
+      cmdCode: ""
     }
   }
 
@@ -173,7 +180,6 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
     } catch (e) {
       console.log("保存失败")
       refreshHumanListsStore.resetRefresh()
-      // refreshHumanListsStore.setRefresh()
     } finally {
       isSaving.value = false
     }
@@ -207,6 +213,8 @@ const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
   const isDeleting = ref(false)
   const deleteTaskId = ref("")
   let isDeletingId = ""
+  
+  const rtcHandlerStore = useRTCHandlersStore()
   const refreshHumanListsStore = useRefreshHumanListsStore()
 
   const reset = () => {
@@ -220,6 +228,14 @@ const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
     deleteTaskId.value = genUUID()
     try {
       await deleteHumanModel({ humanId, humanNo, platform, taskId: deleteTaskId.value })
+      // 发送指令
+      // TODO 待确定 在调用删除接口后是否需要继续调用删除指令
+      rtcHandlerStore.send({
+        commandId: OPERATE_CMD_CODES.Delete,
+        humanNo,
+        taskId: deleteTaskId.value,
+        platform
+      })
     } catch (e) {
       console.error(e)
       reset()
@@ -251,6 +267,8 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
   const isCopying = ref(false)
   const copyTaskId = ref("")
   let copyInfo: TObj = {}
+
+  const rtcHandlerStore = useRTCHandlersStore()
   const refreshHumanListsStore = useRefreshHumanListsStore()
 
   const reset = () => {
@@ -269,6 +287,14 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
         taskId: copyTaskId.value
       })
       copyInfo = res
+
+      // TODO 待确定 在调用f复制接口后是否需要继续调用复制指令
+      rtcHandlerStore.send({
+        commandId: OPERATE_CMD_CODES.Copy,
+        humanNo,
+        taskId: copyTaskId.value,
+        platform: catg
+      })
     } catch (e) {
       console.error(e)
       reset()

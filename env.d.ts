@@ -18,6 +18,5 @@ interface Window {
     setConfig: (options: any) => void
     setPlayerInfo: (options: { info: string; timestamp: string }) => void
     sendDataToApp: (data: string, messageType?: number) => void
-    webRtcPlayerObj: any
   }
 }

@@ -468,7 +468,8 @@ export type TSelectedHumanModelInfo = {
 
 export type TSelectedPresetInfo = {
   id: string
-  name: string
+  name: string,
+  cmdCode: string
 }
 
 export type TPresetListInfo = {

@@ -115,7 +115,8 @@
   const onSelectPreset = (info: TPresetListInfo) => {
     selectedBodyPresetStore.setSelectedBodyPresetInfo({
       id: info.id,
-      name: info.name
+      name: info.name,
+      cmdCode: info.cmdCode
     })
     // TODO 调指令接口
   }

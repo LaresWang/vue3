@@ -59,7 +59,8 @@
   const onSelectAction = (info: TPresetListInfo) => {
     selectedActionInfoStore.setSelectedActionInfo({
       id: info.id,
-      name: info.name
+      name: info.name,
+      cmdCode: info.cmdCode
     })
   }
 </script>

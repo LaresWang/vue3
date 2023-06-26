@@ -50,7 +50,6 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
   const sendByChannel = (data: string) => {
     //
     rtc.value!.sendDataToApp(JSON.parse(data))
-    // rtc.value?.webRtcPlayerObj.send(data)
   }
 
   const sendByApi = (cmd: string) => {

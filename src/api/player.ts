@@ -1,7 +1,5 @@
 import request from "./request"
 import type {
-  THeatBeatReqParams,
-  THeatBeatResParams,
   TStartLaunchHumanReqParams,
   TStartLaunchHumanResParams,
   TLaunchStatusReqParams,
@@ -9,12 +7,6 @@ import type {
   THumanCMDReqParams
 } from "../types/player"
 
-export const heartBeat = function (params: THeatBeatReqParams) {
-  // return httpGet<THeatBeatResParams, TResRegularError>("instance/heartbeat", params).then((data) => {
-  //   return getResData<THeatBeatResParams>(data, "code", true)
-  // })
-  return request.post<THeatBeatResParams>("instance/heartbeat", params)
-}
 
 // 启动数字人
 export const startLaunchHuman = function (params: TStartLaunchHumanReqParams) {

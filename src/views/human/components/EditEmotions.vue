@@ -94,7 +94,8 @@
   const onSelectEmotion = (info: TPresetListInfo) => {
     selectedEmotionInfoStore.setSelectedEmotionInfo({
       id: info.id,
-      name: info.name
+      name: info.name,
+      cmdCode: info.cmdCode
     })
   }
 </script>
