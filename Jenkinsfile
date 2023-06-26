@@ -40,7 +40,6 @@ pipeline {
                     echo "前端打dist包"
                     ls -l
                     npm install --registry https://registry.npm.taobao.org
-                    # npm run build
                     npm run ${params.deploy_env}
                     ls -l
                 """
