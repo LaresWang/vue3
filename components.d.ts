@@ -32,6 +32,7 @@ declare module '@vue/runtime-core' {
     SetPassword: typeof import('./src/components/SetPassword.vue')['default']
     SvgIcon: typeof import('./src/components/SvgIcon.vue')['default']
     SvgTemp: typeof import('./src/components/SvgTemp.vue')['default']
+    TextWrapper: typeof import('./src/components/TextWrapper.vue')['default']
     ThemeColorsTest: typeof import('./src/components/ThemeColorsTest.vue')['default']
     UploadWithCropper: typeof import('./src/components/UploadWithCropper.vue')['default']
   }

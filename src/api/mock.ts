@@ -107,7 +107,7 @@ export const userModels: THumanModelInfos[] = [
   {
     humanId: "21",
     humanNo: "211",
-    humanName: "2111",
+    humanName: "2111豆腐干士大夫敢死队风格士大夫敢死队风格",
     gender: 0,
     genderName: "Male",
     previewUrl: "aaaa",
@@ -117,7 +117,7 @@ export const userModels: THumanModelInfos[] = [
   {
     humanId: "22",
     humanNo: "222",
-    humanName: "2222",
+    humanName: "2222士大夫敢死队风格随风倒敢死队风格v成本",
     gender: 1,
     genderName: "Female",
     previewUrl: "bbb",
@@ -147,7 +147,7 @@ export const userModels: THumanModelInfos[] = [
   {
     humanId: "25",
     humanNo: "255",
-    humanName: "2555",
+    humanName: "2555asdfasdsfsdf",
     gender: 0,
     genderName: "Male",
     previewUrl: "aaaa",

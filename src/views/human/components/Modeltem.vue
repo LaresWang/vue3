@@ -24,7 +24,8 @@
         class="model-name-inner flex-start"
         v-if="!props.isEditName"
       >
-        <span class="single-line-text-ellipsis">{{ props.infos.humanName }}</span>
+        <!-- <span class="single-line-text-ellipsis">{{ props.infos.humanName }}</span> -->
+        <TextWrapper :text="props.infos.humanName" />
         <svg-icon
           class="pointer"
           name="icon_modify"
@@ -51,6 +52,8 @@
   import { useSelectedModelInfoStore } from "@/stores/human"
   import { EModelCatg } from "@/types/human.d"
   import type { THumanModelInfos } from "@/types/human"
+
+  import TextWrapper from "@/components/TextWrapper.vue"
 
   type TModelItemProps = {
     infos: THumanModelInfos
