@@ -71,10 +71,9 @@
       position: absolute;
       left: 0;
       top: 100%;
-      height: 30px;
-      padding: 0 5px;
+      min-height: 20px;
+      padding: 2px 5px;
       border-radius: 4px;
-      font-weight: 600;
       background: var(--c-gray-3);
       &.show {
         position: fixed;
