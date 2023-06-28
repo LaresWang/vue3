@@ -243,20 +243,21 @@
       }
       .header-breadcrumb-menus {
         flex: 1;
-        flex-shrink: 0;
         font-size: 14px;
         color: var(--c-white-1);
         .breadcrumb-menus-return-icon {
           width: 16px;
           height: 16px;
+          flex-shrink: 0;
+        }
+        .bread-menu-item {
+          max-width: 35%;
         }
       }
       .header-save-menu {
         height: 100%;
         .edit-save-btn {
-          margin: 0 10px;
           height: 28px;
-          width: 72px;
         }
       }
     }
@@ -303,8 +304,15 @@
   }
   .header-breadcrumb-menus {
     margin-left: 25px;
+    max-width: 248px;
     .breadcrumb-menus-return-icon {
       margin-right: 10px;
+    }
+  }
+  .header-save-menu {
+    .edit-save-btn {
+      margin: 0 10px;
+      width: 72px;
     }
   }
   .right-menus-area {

@@ -9,7 +9,10 @@
 
     <div class="login-home">
       <div class="login-home-body flex-center">
-        <div class="login-home-left"></div>
+        <div
+          class="login-home-left"
+          ref="loginLeft"
+        ></div>
         <div class="login-home-right">
           <div class="login-input-area flex-center">
             <LoginRegister />
@@ -42,8 +45,34 @@
   </div>
 </template>
 <script setup lang="ts">
+  import { ref, onMounted } from "vue"
   import LoginRegister from "./components/LoginRegister.vue"
   import { ICPBeianGov, PublicBeianGov } from "@/utils/jump"
+
+  const loginLeft = ref<HTMLElement>()
+
+  onMounted(() => {
+    if (!loginLeft.value) {
+      return
+    }
+    loginBgPicHandler()
+    const resizeEL = new ResizeObserver(loginBgPicHandler)
+    resizeEL.observe(loginLeft.value)
+    // loginLeft.value.onresize = loginBgPicHandler
+  })
+
+  const loginBgPicHandler = () => {
+    const el = loginLeft.value!
+    const whrate = el.offsetWidth / el.offsetHeight
+    // 背景图片的宽高比
+    const baserate = 770 / 900
+    console.log(whrate, baserate)
+    if (whrate > baserate) {
+      el.style.backgroundSize = "100%"
+    } else {
+      el.style.backgroundSize = "auto 100%"
+    }
+  }
 
   const goBeianGov = (val: number) => {
     if (val === 1) {
