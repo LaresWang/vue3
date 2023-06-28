@@ -171,6 +171,6 @@ export type TCMD = {
   humanId?: string
   name?: string
   gender?: EGender
-  faceup_config?: { commandId: string; commandValue: number | string }[],
+  faceup_config?: { commandId: string; commandValue: number | string }[]
   taskId?: string
 }

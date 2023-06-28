@@ -112,11 +112,11 @@ const formatSendCommand = (data: TMouseData | TKeyboardData | TCMD, extralInfo: 
 }
 
 const getKeyCode = (e: KeyboardEvent) => {
-  // UE 
-    if (e.keyCode === EUESpecialKeyCode.Shift && e.code === 'ShiftRight') return EUESpecialKeyCode.RightShift;
-    else if (e.keyCode === EUESpecialKeyCode.Control && e.code === 'ControlRight') return EUESpecialKeyCode.RightControl;
-    else if (e.keyCode === EUESpecialKeyCode.Alt && e.code === 'AltRight') return EUESpecialKeyCode.RightAlt;
-    else return e.keyCode;
+  // UE
+  if (e.keyCode === EUESpecialKeyCode.Shift && e.code === "ShiftRight") return EUESpecialKeyCode.RightShift
+  else if (e.keyCode === EUESpecialKeyCode.Control && e.code === "ControlRight") return EUESpecialKeyCode.RightControl
+  else if (e.keyCode === EUESpecialKeyCode.Alt && e.code === "AltRight") return EUESpecialKeyCode.RightAlt
+  else return e.keyCode
 }
 
 const isTMouseData = (data: TMouseData | TKeyboardData | TCMD): data is TMouseData => {

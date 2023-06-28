@@ -85,8 +85,8 @@ const useSelectedEmotionInfoStore = defineStore("selectedEmotionInfo", () => {
 
   const setSelectedEmotionInfo = (params: TSelectedPresetInfo) => {
     info.value = params
-    operate.selectEmotion({ 
-      ...params, 
+    operate.selectEmotion({
+      ...params,
       humanNo: selectedModelInfoStore.info.humanNo
     })
   }
@@ -115,8 +115,8 @@ const useSelectedActionInfoStore = defineStore("selectedActionInfo", () => {
 
   const setSelectedActionInfo = (params: TSelectedPresetInfo) => {
     info.value = params
-    operate.selectAction({ 
-      ...params, 
+    operate.selectAction({
+      ...params,
       humanNo: selectedModelInfoStore.info.humanNo
     })
   }
@@ -174,7 +174,7 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
 
       // TODO 待确定 在调用删除接口后是否需要继续调用保存指令
       operate.saveModel()
-      
+
       refreshHumanListsStore.refreshUserModelLists(OperateType.Save)
     } catch (e) {
       console.log("保存失败")
@@ -213,7 +213,7 @@ const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
   const deleteTaskId = ref("")
   let isDeletingId = ""
   let isDeletingNo = ""
-  
+
   const operate = useOperateModel()
   const refreshHumanListsStore = useRefreshHumanListsStore()
 
@@ -237,7 +237,6 @@ const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
         taskId: deleteTaskId.value,
         platform
       })
-      
     } catch (e) {
       console.error(e)
       reset()

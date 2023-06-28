@@ -129,9 +129,8 @@
     overflow: hidden auto;
     padding-right: 10px;
     .models-user-inner {
-      width:calc(100% + 20px);
+      width: calc(100% + 20px);
       flex-flow: row wrap;
-
     }
   }
 </style>

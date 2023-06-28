@@ -46,12 +46,14 @@
         >
           {{ $t("edit.t5") }}
         </el-button>
-        
       </div>
     </div>
-    
+
     <div class="right-menus-area flex-end">
-      <div class="edit-menus flex-start" v-if="breadcrumbMenusStore.breadMenus.length > 1">
+      <div
+        class="edit-menus flex-start"
+        v-if="breadcrumbMenusStore.breadMenus.length > 1"
+      >
         <template
           v-for="item in editMenus"
           :key="item.id"
@@ -188,7 +190,7 @@
 
   const back = () => {
     // 既然出现回退按钮  长度肯定大于等于2
-    breadcrumbMenusStore.jumpPrevMenu(breadcrumbMenusStore.breadMenus.length-2)
+    breadcrumbMenusStore.jumpPrevMenu(breadcrumbMenusStore.breadMenus.length - 2)
   }
 
   clearEditMenus()
@@ -256,7 +258,6 @@
           height: 28px;
           width: 72px;
         }
-        
       }
     }
     .right-menus-area {

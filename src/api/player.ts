@@ -7,7 +7,6 @@ import type {
   THumanCMDReqParams
 } from "../types/player"
 
-
 // 启动数字人
 export const startLaunchHuman = function (params: TStartLaunchHumanReqParams) {
   console.log(params)

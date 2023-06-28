@@ -3,7 +3,9 @@
     <div class="human-edit-area flex-between">
       <div class="edit-left-area">
         <!-- 根据导航栏上的编辑按钮动态切换左边的菜单组件 -->
-        <BodySummaryParts v-show="breadcrumbMenusStore.breadMenus.length > 1 && selectedEditCompNameStore.selectedCompName === EEditCompName.EditHeaderPart" />
+        <BodySummaryParts
+          v-show="breadcrumbMenusStore.breadMenus.length > 1 && selectedEditCompNameStore.selectedCompName === EEditCompName.EditHeaderPart"
+        />
       </div>
       <div class="edit-right-area">
         <!-- 根据 默认显示模型列表， 导航栏上的编辑按钮动态切换下面的组件 -->
@@ -70,11 +72,11 @@
         let catg: EModelCatg | undefined
 
         if (results[0].rows.length) {
-          breadcrumbMenusStore.addBreadMenu({...HumanModelCatgs[1], canJump: true})
+          breadcrumbMenusStore.addBreadMenu({ ...HumanModelCatgs[1], canJump: true })
           info = results[0].rows[0]
           catg = ModelCatg.User
         } else {
-          breadcrumbMenusStore.addBreadMenu({...HumanModelCatgs[0], canJump: true})
+          breadcrumbMenusStore.addBreadMenu({ ...HumanModelCatgs[0], canJump: true })
           info = results[1][0]
           catg = ModelCatg.Buildin
         }

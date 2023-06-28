@@ -3,21 +3,20 @@ import { useDeleteHumanModelStore, useCopyHumanModelStore } from "@/stores/human
 import type { TOperateResult } from "@/types/human"
 
 export default () => {
-    const deleteHumanModelStore = useDeleteHumanModelStore()
-    const copyHumanModelStore = useCopyHumanModelStore()
+  const deleteHumanModelStore = useDeleteHumanModelStore()
+  const copyHumanModelStore = useCopyHumanModelStore()
 
-    const messageHandler = (params: TOperateResult) => {
-        switch(params.taskId){
-            case deleteHumanModelStore.deleteTaskId: 
-            deleteHumanModelStore.deleteDone(params)
-            break
+  const messageHandler = (params: TOperateResult) => {
+    switch (params.taskId) {
+      case deleteHumanModelStore.deleteTaskId:
+        deleteHumanModelStore.deleteDone(params)
+        break
 
-            case copyHumanModelStore.copyTaskId: 
-            copyHumanModelStore.copyDone(params)
-            break
-        }
+      case copyHumanModelStore.copyTaskId:
+        copyHumanModelStore.copyDone(params)
+        break
     }
+  }
 
-    return { messageHandler }
+  return { messageHandler }
 }
-
