@@ -47,7 +47,10 @@
       </div>
     </div>
     <div class="edit-header-options">
-      <EditSliderGroups :data="editConfig[activeTabValue]" />
+      <EditSliderGroups
+        :data="editConfig[activeTabValue]"
+        :bodyPart="EBodyParts.Header"
+      />
     </div>
   </div>
 </template>
@@ -56,6 +59,7 @@
   import { getHumanHeaderEditConfig, getBodyPresetLists } from "@/api/human"
   import { useSelectedBodyPresetStore } from "@/stores/human"
   import type { TBodyPartPositionDetail, TPresetListInfo } from "@/types/human"
+  import { EBodyParts } from "@/types/human.d"
   import { formatPresetListsData } from "@/hooks/human/presetLists"
 
   import EditSliderGroups from "./EditSliderGroups.vue"

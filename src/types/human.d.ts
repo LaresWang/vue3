@@ -3,6 +3,10 @@ export enum EModelCatg {
   User = 1 // 用户创建的数字人
 }
 
+export enum EBodyParts {
+  Header = "header" // 暂时只有一个头部可编辑
+}
+
 export enum EEmotionCatg {
   Static = 0, // 静态表情
   Dynamic = 1 // 动态表情
@@ -463,7 +467,7 @@ export type TEditHumanConfigResParams = {
 export type TSelectedHumanModelInfo = {
   humanName: string
   humanId: string
-  humanNo: stirng
+  humanNo: string
   humanCatg?: EModelCatg
   gender?: EGender
 }
@@ -486,4 +490,32 @@ export type TOperateResult = {
   taskId: string
   result: boolean
   msg?: string
+}
+
+export type TEditItem = {
+  taskId: string
+  commandId: string
+  result?: boolean
+  msg?: string
+}
+
+export type TMicroAdjustItem = TEditItem & { commandValue: number }
+
+export type TWholeEditRecord = {
+  [EBodyParts.Header]?: {
+    presets?: TEditItem[] // 头部的每个部位都会有预设效果， 暂时UE端不支持
+    presetsTaskIds?: string[]
+    microAdjust?: TMicroAdjustItem[]
+    microAdjustTaskIds?: string[]
+  }
+  staticEmotion?: TEditItem
+  staticEmotionTaskId?: string
+  dynamicEmotion?: TEditItem
+  dynamicEmotionTaskId?: string
+  action?: TEditItem
+  actionTaskId?: string
+}
+
+export type TEditRecords = {
+  [x: string]: TWholeEditRecord
 }

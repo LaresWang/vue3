@@ -61,17 +61,21 @@
   import { ArrowRight, ArrowDown } from "@element-plus/icons-vue"
   import { useSelectedModelInfoStore } from "@/stores/human"
   import useRtcHandlerStore from "@/stores/rtc"
+  import useOperateModel from "@/hooks/human/operate"
 
-  import type { TBodyPartPositionDetail, TBodyPartPositionDetailInfo } from "@/types/human"
+  import type { EBodyParts, TBodyPartPositionDetail, TBodyPartPositionDetailInfo } from "@/types/human"
+  import { EBodyParts as BodyParts } from "@/types/human.d"
 
   const props = defineProps<{
     data: TBodyPartPositionDetail[]
+    bodyPart: EBodyParts
   }>()
 
   type TAdjustValue = {
     [x: string]: number
   }
 
+  const operate = useOperateModel()
   const rtcHandlerStore = useRtcHandlerStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
 
@@ -150,11 +154,13 @@
 
   const notifyChangeResult = (item: TBodyPartPositionDetailInfo, value: number) => {
     console.log("调用指令接口", item, value)
-    rtcHandlerStore.send({
-      humanNo: selectedModelInfoStore.info.humanNo,
-      commandId: item.cmd_code,
-      commandValue: value
-    })
+    if (props.bodyPart === BodyParts.Header) {
+      operate.microAdjustHeader({
+        humanNo: selectedModelInfoStore.info.humanNo,
+        commandId: item.cmd_code,
+        commandValue: value
+      })
+    }
   }
 
   /** VVVVV  点击拖动滑块的时候背景色变色处理 VVVVVV */

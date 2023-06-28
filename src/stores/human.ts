@@ -1,6 +1,7 @@
 import { ref, computed } from "vue"
 import { defineStore } from "pinia"
 import useOperateModel from "@/hooks/human/operate"
+import { useIOMethodStore } from "./io"
 import { saveHumanModel, deleteHumanModel, deleteHumanModelResult, copyHumanModel, copyHumanModelResult } from "@/api/human"
 import type { EModelCatg, EOperateModelType, TOperateResult, TSelectedHumanModelInfo, TSelectedPresetInfo } from "../types/human"
 import { EModelCatg as ModelCatg, EOperateModelType as OperateType } from "@/types/human.d"
@@ -8,6 +9,7 @@ import { getImgDataFromVideo, transferB64toBlob } from "@/utils/screenShot"
 import { showModelLists } from "@/utils/showModelList"
 import type { TObj } from "@/types"
 import { genUUID } from "@/utils/tools"
+import { EIOMethod } from "@/types/player.d"
 
 // 强制刷新数字人列表
 const useRefreshHumanListsStore = defineStore("refreshHumanLists", () => {
@@ -158,29 +160,53 @@ const useSelectedBodyPresetStore = defineStore("selectedBodyPresetInfo", () => {
 // 点击保存数字人
 const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
   const isSaving = ref(false)
-  const param = new FormData()
+  const saveTaskId = ref("")
+  let isSaveHumanNo = ""
 
+  const ioMethodStore = useIOMethodStore()
   const operate = useOperateModel()
   const refreshHumanListsStore = useRefreshHumanListsStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
 
   const startSaving = async (previewImgData: Blob) => {
+    saveTaskId.value = genUUID()
+    isSaveHumanNo = selectedModelInfoStore.info.humanNo
+    const param = new FormData()
     param.append("humanId", selectedModelInfoStore.info.humanId)
+    param.append("humanNo", isSaveHumanNo)
     param.append("previewUrl", previewImgData)
+    if (ioMethodStore.method === EIOMethod.Rtc) {
+      // TODO 待确定 调用保存指令 如何传截图信息
+      operate.saveModel({
+        humanNo: selectedModelInfoStore.info.humanNo,
+        taskId: saveTaskId.value,
+        platform: selectedModelInfoStore.info.humanCatg!,
+        gender: selectedModelInfoStore.info.gender!,
+        name: selectedModelInfoStore.info.humanName
+      })
+    } else {
+      try {
+        const res = await saveHumanModel(param)
+        console.log("保存成功", res)
+        refreshHumanListsStore.refreshUserModelLists(OperateType.Save)
+      } catch (e) {
+        console.log("保存失败")
+        refreshHumanListsStore.resetRefresh()
+      } finally {
+        isSaving.value = false
+      }
+    }
+  }
 
-    try {
-      const res = await saveHumanModel(param)
-      console.log("保存成功", res)
-
-      // TODO 待确定 在调用删除接口后是否需要继续调用保存指令
-      operate.saveModel()
-
-      refreshHumanListsStore.refreshUserModelLists(OperateType.Save)
-    } catch (e) {
-      console.log("保存失败")
-      refreshHumanListsStore.resetRefresh()
-    } finally {
+  const saveDone = (params: TOperateResult) => {
+    if (params.humanNo === isSaveHumanNo) {
       isSaving.value = false
+      if (params.result) {
+        operate.deleteEditRecord(isSaveHumanNo)
+        refreshHumanListsStore.refreshUserModelLists(OperateType.Save)
+      } else {
+        refreshHumanListsStore.resetRefresh()
+      }
     }
   }
 
@@ -203,7 +229,7 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
     startScreenShot()
   }
 
-  return { isSaving, save }
+  return { isSaving, saveTaskId, save, saveDone }
 })
 
 // 删除数字人

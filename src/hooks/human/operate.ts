@@ -1,15 +1,29 @@
 // 此文件主要作用是不让/stores/rtc 与 /stores/human循环引用
 import useRTCHandlersStore from "@/stores/rtc"
-import type { EModelCatg, TSelectedHumanModelInfo, TSelectedPresetInfo } from "@/types/human"
+import useRecordEditStore from "@/stores/recordEdit"
+import type { EGender, EModelCatg, TSelectedHumanModelInfo, TSelectedPresetInfo } from "@/types/human"
+import { EBodyParts } from "@/types/human.d"
 import { OPERATE_CMD_CODES } from "@/utils/const"
+import { genUUID } from "@/utils/tools"
 
 export default () => {
   const rtcHandlerStore = useRTCHandlersStore()
-
-  const saveModel = () => {
+  const recordEditStore = useRecordEditStore()
+  // 保存数字人
+  const saveModel = (params: { humanNo: string; taskId: string; platform: EModelCatg; name: string; gender: EGender }) => {
     console.log("在这里发送保存数字人指令")
+    const info = recordEditStore.getValidWholeEditInfo(params.humanNo)
+    rtcHandlerStore.send({
+      commandId: "", // 保存数字人没有指令
+      humanNo: params.humanNo,
+      taskId: params.taskId,
+      platform: params.platform,
+      name: params.name,
+      gender: params.gender,
+      faceup_config: info[EBodyParts.Header]?.microAdjust || []
+    })
   }
-
+  // 复制数字人
   const copyModel = (params: { humanNo: string; taskId: string; platform: EModelCatg }) => {
     rtcHandlerStore.send({
       commandId: OPERATE_CMD_CODES.Copy,
@@ -18,7 +32,7 @@ export default () => {
       platform: params.platform
     })
   }
-
+  // 删除数字人
   const deleteModel = (params: { humanNo: string; taskId: string; platform: EModelCatg }) => {
     rtcHandlerStore.send({
       commandId: OPERATE_CMD_CODES.Delete,
@@ -27,7 +41,7 @@ export default () => {
       platform: params.platform
     })
   }
-
+  // 选择数字人切换数字人
   const selectModel = (params: TSelectedHumanModelInfo) => {
     rtcHandlerStore.send({
       commandId: OPERATE_CMD_CODES.Show,
@@ -35,14 +49,14 @@ export default () => {
       platform: params.humanCatg
     })
   }
-
+  // 选择表情
   const selectEmotion = (params: TSelectedPresetInfo & { humanNo: string }) => {
     rtcHandlerStore.send({
       commandId: params.cmdCode,
       humanNo: params.humanNo
     })
   }
-
+  // 选择动作
   const selectAction = (params: TSelectedPresetInfo & { humanNo: string }) => {
     rtcHandlerStore.send({
       commandId: params.cmdCode,
@@ -50,5 +64,24 @@ export default () => {
     })
   }
 
-  return { saveModel, copyModel, deleteModel, selectModel, selectEmotion, selectAction }
+  // 头部预设
+  const presetHeader = () => {}
+  // 滑块拖动调整头部细节
+  const microAdjustHeader = (params: { humanNo: string; commandId: string; commandValue: number }) => {
+    const taskId = genUUID()
+    const param = {
+      humanNo: params.humanNo,
+      commandId: params.commandId,
+      commandValue: params.commandValue,
+      taskId
+    }
+    recordEditStore.addHeaderAdjustTask(param)
+    rtcHandlerStore.send(param)
+  }
+
+  const deleteEditRecord = (humanNo: string) => {
+    recordEditStore.deleteRecord(humanNo)
+  }
+
+  return { saveModel, copyModel, deleteModel, selectModel, selectEmotion, selectAction, presetHeader, microAdjustHeader, deleteEditRecord }
 }
