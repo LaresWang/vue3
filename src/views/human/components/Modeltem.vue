@@ -155,6 +155,7 @@
       width: 100%;
       height: 30px;
       font-size: 14px;
+      font-weight: 600;
       .model-name-inner {
         width: 100%;
         .svg-icon {
@@ -166,6 +167,9 @@
         }
         &:hover .svg-icon {
           display: inline-block;
+        }
+        .text-wrapper span{
+          font-weight: 600;
         }
       }
       .edit-name-area {
