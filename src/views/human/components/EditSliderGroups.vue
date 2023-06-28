@@ -60,7 +60,6 @@
   import { ref, watchEffect, onMounted, onBeforeUnmount, inject } from "vue"
   import { ArrowRight, ArrowDown } from "@element-plus/icons-vue"
   import { useSelectedModelInfoStore } from "@/stores/human"
-  import useRtcHandlerStore from "@/stores/rtc"
   import useOperateModel from "@/hooks/human/operate"
 
   import type { EBodyParts, TBodyPartPositionDetail, TBodyPartPositionDetailInfo } from "@/types/human"
@@ -76,7 +75,6 @@
   }
 
   const operate = useOperateModel()
-  const rtcHandlerStore = useRtcHandlerStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
 
   const needFix = inject("needFix")
