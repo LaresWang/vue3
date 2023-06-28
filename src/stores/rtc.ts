@@ -1,10 +1,10 @@
 import { ref, computed } from "vue"
 import { defineStore } from "pinia"
 import { sendCommand } from "@/api/player"
-import { useDeleteHumanModelStore, useCopyHumanModelStore } from "./human"
 import { useLaunchInitInfosStore } from "./player"
 import useUserInfoStore from "./user"
 import { useIOMethodStore } from "./io"
+import useOperateRes from "@/hooks/human/operateRes"
 import type { TCMD, TKeyboardData, TMouseData, TRtcSDK } from "@/types/player"
 import { EIOMethod, EKeyboardType, EMouseType, EUESpecialKeyCode } from "@/types/player.d"
 import type { TObj } from "@/types"
@@ -17,8 +17,7 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
   const launchInitInfosStore = useLaunchInitInfosStore()
   const userInfoStore = useUserInfoStore()
   const IOMethodStore = useIOMethodStore()
-  const deleteHumanModelStore = useDeleteHumanModelStore()
-  const copyHumanModelStore = useCopyHumanModelStore()
+  const operateRes = useOperateRes()
 
   const userId = computed(() => userInfoStore.userInfo?.userId)
 
@@ -62,10 +61,10 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
   }
 
   const receive = (data: number[]) => {
-    resolveMessage(data)
-    // TODO
-    // deleteHumanModelStore.deleteDone()
-    // copyHumanModelStore.copyDone()
+    const msg = resolveMessage(data)
+    if (msg && typeof msg === "object" && msg.taskId) {
+      operateRes.messageHandler(msg)
+    }
   }
 
   return { rtc, ready, setRtc, send, receive }
@@ -80,6 +79,7 @@ const resolveMessage = (data: number[]) => {
       const res = JSON.parse(new TextDecoder("utf-16").decode(view.slice(1)))
 
       console.log("onReceiveMessage res", res)
+      return res
     } catch (e) {
       console.log(e)
     }

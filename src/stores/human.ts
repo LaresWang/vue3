@@ -1,14 +1,13 @@
 import { ref, computed } from "vue"
 import { defineStore } from "pinia"
-import useRTCHandlersStore from "./rtc"
+import useOperateModel from "@/hooks/human/operate"
 import { saveHumanModel, deleteHumanModel, deleteHumanModelResult, copyHumanModel, copyHumanModelResult } from "@/api/human"
-import type { EModelCatg, EOperateModelType, TSelectedHumanModelInfo, TSelectedPresetInfo } from "../types/human"
+import type { EModelCatg, EOperateModelType, TOperateResult, TSelectedHumanModelInfo, TSelectedPresetInfo } from "../types/human"
 import { EModelCatg as ModelCatg, EOperateModelType as OperateType } from "@/types/human.d"
 import { getImgDataFromVideo, transferB64toBlob } from "@/utils/screenShot"
 import { showModelLists } from "@/utils/showModelList"
 import type { TObj } from "@/types"
 import { genUUID } from "@/utils/tools"
-import { OPERATE_CMD_CODES } from "@/utils/const"
 
 // 强制刷新数字人列表
 const useRefreshHumanListsStore = defineStore("refreshHumanLists", () => {
@@ -52,17 +51,12 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
     gender: undefined
   })
 
-  const rtcHandlerStore = useRTCHandlersStore()
+  const operate = useOperateModel()
   const selectedHumanModelId = computed(() => info.value.humanId)
 
   const setSelectedModelInfo = (params: TSelectedHumanModelInfo) => {
     info.value = params
-
-    rtcHandlerStore.send({
-      commandId: OPERATE_CMD_CODES.Show,
-      humanNo: params.humanNo,
-      platform: params.humanCatg
-    })
+    operate.selectModel(params)
   }
 
   const clearSelectedModelInfo = () => {
@@ -86,14 +80,13 @@ const useSelectedEmotionInfoStore = defineStore("selectedEmotionInfo", () => {
     cmdCode: ""
   })
 
-  const rtcHandlerStore = useRTCHandlersStore()
+  const operate = useOperateModel()
   const selectedModelInfoStore = useSelectedModelInfoStore()
 
   const setSelectedEmotionInfo = (params: TSelectedPresetInfo) => {
     info.value = params
-    // TODO 选择表情时发送的指令
-    rtcHandlerStore.send({
-      commandId: params.cmdCode,
+    operate.selectEmotion({ 
+      ...params, 
       humanNo: selectedModelInfoStore.info.humanNo
     })
   }
@@ -116,14 +109,14 @@ const useSelectedActionInfoStore = defineStore("selectedActionInfo", () => {
     name: "",
     cmdCode: ""
   })
-  const rtcHandlerStore = useRTCHandlersStore()
+
+  const operate = useOperateModel()
   const selectedModelInfoStore = useSelectedModelInfoStore()
 
   const setSelectedActionInfo = (params: TSelectedPresetInfo) => {
     info.value = params
-    // TODO 选择动作时发送的指令
-    rtcHandlerStore.send({
-      commandId: params.cmdCode,
+    operate.selectAction({ 
+      ...params, 
       humanNo: selectedModelInfoStore.info.humanNo
     })
   }
@@ -166,6 +159,8 @@ const useSelectedBodyPresetStore = defineStore("selectedBodyPresetInfo", () => {
 const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
   const isSaving = ref(false)
   const param = new FormData()
+
+  const operate = useOperateModel()
   const refreshHumanListsStore = useRefreshHumanListsStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
 
@@ -176,6 +171,10 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
     try {
       const res = await saveHumanModel(param)
       console.log("保存成功", res)
+
+      // TODO 待确定 在调用删除接口后是否需要继续调用保存指令
+      operate.saveModel()
+      
       refreshHumanListsStore.refreshUserModelLists(OperateType.Save)
     } catch (e) {
       console.log("保存失败")
@@ -213,41 +212,44 @@ const useDeleteHumanModelStore = defineStore("deleteHumanModel", () => {
   const isDeleting = ref(false)
   const deleteTaskId = ref("")
   let isDeletingId = ""
+  let isDeletingNo = ""
   
-  const rtcHandlerStore = useRTCHandlersStore()
+  const operate = useOperateModel()
   const refreshHumanListsStore = useRefreshHumanListsStore()
 
   const reset = () => {
     isDeleting.value = false
     isDeletingId = ""
+    isDeletingNo = ""
   }
 
   const startDelete = async (humanId: string, humanNo: string, platform: EModelCatg) => {
     isDeleting.value = true
     isDeletingId = humanId
+    isDeletingNo = humanNo
     deleteTaskId.value = genUUID()
     try {
       await deleteHumanModel({ humanId, humanNo, platform, taskId: deleteTaskId.value })
       // 发送指令
       // TODO 待确定 在调用删除接口后是否需要继续调用删除指令
-      rtcHandlerStore.send({
-        commandId: OPERATE_CMD_CODES.Delete,
+      operate.deleteModel({
         humanNo,
         taskId: deleteTaskId.value,
         platform
       })
+      
     } catch (e) {
       console.error(e)
       reset()
     }
   }
 
-  const deleteDone = async (humanId: string, result: boolean) => {
-    if (humanId === isDeletingId) {
+  const deleteDone = async (params: TOperateResult) => {
+    if (params.humanNo === isDeletingNo) {
       try {
         await deleteHumanModelResult({
-          humanId,
-          result
+          humanId: isDeletingId,
+          result: params.result
         })
         reset()
         refreshHumanListsStore.refreshUserModelLists(OperateType.Delete)
@@ -268,7 +270,7 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
   const copyTaskId = ref("")
   let copyInfo: TObj = {}
 
-  const rtcHandlerStore = useRTCHandlersStore()
+  const operate = useOperateModel()
   const refreshHumanListsStore = useRefreshHumanListsStore()
 
   const reset = () => {
@@ -276,24 +278,23 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
     copyInfo = {}
   }
 
-  const startCopy = async (humanId: string, catg: EModelCatg, humanNo: string) => {
+  const startCopy = async (humanId: string, platform: EModelCatg, humanNo: string) => {
     isCopying.value = true
     copyTaskId.value = genUUID()
     try {
       const res = await copyHumanModel({
         sourceHumanId: humanId,
-        source: catg,
+        source: platform,
         sourceHumanNo: humanNo,
         taskId: copyTaskId.value
       })
       copyInfo = res
 
       // TODO 待确定 在调用f复制接口后是否需要继续调用复制指令
-      rtcHandlerStore.send({
-        commandId: OPERATE_CMD_CODES.Copy,
-        humanNo,
+      operate.copyModel({
+        humanNo: res.humanNo,
         taskId: copyTaskId.value,
-        platform: catg
+        platform
       })
     } catch (e) {
       console.error(e)
@@ -301,12 +302,12 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
     }
   }
 
-  const copyDone = async (humanId: string, result: boolean) => {
-    if (humanId === copyInfo.humanId) {
+  const copyDone = async (params: TOperateResult) => {
+    if (params.humanNo === copyInfo.humanNo) {
       try {
         await copyHumanModelResult({
-          humanId,
-          result
+          humanId: copyInfo.humanId,
+          result: params.result
         })
         reset()
         refreshHumanListsStore.refreshUserModelLists(OperateType.Copy)

@@ -109,7 +109,7 @@ export type TCopyHumanReqParams = {
 
 export type TCopyHumanResParams = {
   humanId: string
-  humanNo: EModelCatg
+  humanNo: string
 }
 
 export type TCopyHumanResultReqParams = TDeleteHumanResultReqParams & {
@@ -479,4 +479,11 @@ export type TPresetListInfo = {
   previewUrl: string
   name: string
   cmdCode: string
+}
+
+export type TOperateResult = {
+  humanNo: string
+  taskId: string
+  result: boolean
+  msg?: string
 }

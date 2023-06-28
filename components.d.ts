@@ -20,6 +20,7 @@ declare module '@vue/runtime-core' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElSlider: typeof import('element-plus/es')['ElSlider']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     HumanHeader: typeof import('./src/components/HumanHeader.vue')['default']
     IconError: typeof import('./src/components/IconError.vue')['default']
     IconInfo: typeof import('./src/components/IconInfo.vue')['default']
