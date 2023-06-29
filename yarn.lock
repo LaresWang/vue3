@@ -4802,10 +4802,10 @@
   "resolved" "https://registry.npmjs.org/webpack-virtual-modules/-/webpack-virtual-modules-0.5.0.tgz"
   "version" "0.5.0"
 
-"webrtcsdk_new@^1.6.7":
-  "integrity" "sha512-Dq5oa2tGciH3rLYaGS0HUp5e1+WiVhK1FRhRV3FnUU1VqHnEnFSm8kcN1UQhaODzT8pAhnclqQpWhARDxu0Gpw=="
-  "resolved" "https://registry.npmjs.org/webrtcsdk_new/-/webrtcsdk_new-1.6.7.tgz"
-  "version" "1.6.7"
+"webrtcsdk_new@^1.6.8":
+  "integrity" "sha512-Hj9eWSBslpzi65VrzwfREBZXPKQufD2nNaeLARtjxm2ZcSe+GKNI9EIobOdf89DjQgX6Dps+frAqDHcZTLj/EQ=="
+  "resolved" "https://registry.npmjs.org/webrtcsdk_new/-/webrtcsdk_new-1.6.8.tgz"
+  "version" "1.6.8"
   dependencies:
     "axios" "^0.27.2"
     "got" "^12.3.1"
