@@ -140,7 +140,7 @@
       min-height: 0;
       overflow: hidden;
       .emotion-lists-inner-wrapper {
-        padding: 0 20px;
+        padding: 24px 20px 0 20px;
         width: 100%;
         height: 100%;
         overflow: auto;
@@ -150,7 +150,7 @@
           .emotion-list {
             width: 108px;
             height: 138px;
-            margin-top: 15px;
+            margin-bottom: 15px;
           }
         }
       }

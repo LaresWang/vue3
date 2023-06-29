@@ -105,7 +105,7 @@
       min-height: 0;
       overflow: hidden;
       .action-lists-inner-wrapper {
-        padding: 0 20px;
+        padding: 24px 20px 0 20px;
         width: 100%;
         height: 100%;
         overflow: auto;
@@ -115,7 +115,7 @@
           .action-list {
             width: 108px;
             height: 138px;
-            margin-top: 15px;
+            margin-bottom: 15px;
           }
         }
       }

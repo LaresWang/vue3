@@ -89,6 +89,7 @@
       .short-cuts-lists {
         font-weight: 500;
         font-size: 10px;
+        padding: 16px 0;
         color: var(--c-gray-1);
         background: var(--c-black-7);
         border-radius: 4px;

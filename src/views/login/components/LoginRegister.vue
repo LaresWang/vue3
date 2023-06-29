@@ -105,7 +105,10 @@
           </div>
         </div>
       </div>
-      <div class="login-btn">
+      <div
+        class="login-btn"
+        :class="rdata.loginType === 2 ? 'pwd' : ''"
+      >
         <el-button
           type="primary"
           :disabled="rdata.loginBtnDisabled"
@@ -333,6 +336,7 @@
   .nt-login-register {
     margin-top: 24px;
     width: 400px;
+    height: 420px;
     .login-register-title {
       font-family: "PingFang SC";
       font-style: normal;
@@ -441,7 +445,9 @@
         }
       }
       .login-btn {
-        margin-top: 40px;
+        &.pwd {
+          margin-top: 40px;
+        }
         .el-button {
           width: 100%;
           height: 40px;

@@ -241,14 +241,22 @@
     width: 100%;
     height: 100%;
     font-size: 12px;
-    padding-right: 5px;
+    padding-right: 2px;
     padding-left: 2px;
     overflow: hidden;
     .slider-groups-wrapper {
       width: 100%;
       height: 100%;
-      padding-right: 5px;
+      // padding-right: 5px;
       overflow: auto;
+      &::-webkit-scrollbar {
+        width: 12px;
+      }
+      &::-webkit-scrollbar-thumb {
+        border: 2px solid transparent;
+        border-radius: 6px;
+        background-clip: content-box;
+      }
       .slider-group-item {
         .level-one-list {
           height: 64px;

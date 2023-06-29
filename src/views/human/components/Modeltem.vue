@@ -131,7 +131,7 @@
   .model-item {
     width: 165px;
     height: 200px;
-    margin: 10px;
+    margin: 0 10px 24px 10px;
     // margin-right: 10px;
     color: var(--c-gray-1);
     .model-pic-frame {
@@ -168,7 +168,7 @@
         &:hover .svg-icon {
           display: inline-block;
         }
-        .text-wrapper span{
+        .text-wrapper span {
           font-weight: 600;
         }
       }

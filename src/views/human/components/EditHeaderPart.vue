@@ -26,7 +26,7 @@
         </el-tab-pane>
       </el-tabs> -->
     </div>
-    <div
+    <!-- <div
       class="preset-lists-wrapper"
       v-if="presetConfig[activeTabValue]"
     >
@@ -45,7 +45,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="edit-header-options">
       <EditSliderGroups
         :data="editConfig[activeTabValue]"
@@ -63,7 +63,7 @@
   import { formatPresetListsData } from "@/hooks/human/presetLists"
 
   import EditSliderGroups from "./EditSliderGroups.vue"
-  import PresetList from "./PresetList.vue"
+  // import PresetList from "./PresetList.vue"
   console.log("editheader")
 
   type THeaderPartsTab = {
@@ -185,7 +185,7 @@
     .edit-header-options {
       width: 100%;
       flex: 1;
-      margin-top: 2px;
+      margin-top: 24px;
       min-height: 0;
       overflow: hidden;
     }

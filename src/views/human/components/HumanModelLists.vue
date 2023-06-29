@@ -26,7 +26,7 @@
         @submitName="onSubmitName"
       />
     </div>
-    <div class="model-operate-area flex-between">
+    <div class="model-operate-area fix-model-operate-area flex-between">
       <div class="icons-group flex-center">
         <div
           class="icon-wrapper flex-center"
@@ -253,18 +253,25 @@
     .model-lists {
       width: 100%;
       flex: 1;
-      padding: 5px;
+      padding: 24px 5px 0 5px;
       min-height: 0;
       overflow: hidden;
     }
     .model-operate-area {
-      width: 100%;
-      height: 56px;
       padding: 0 20px 0 8px;
-      background: var(--c-black-5);
       .icons-group {
         .icon-wrapper {
           margin-left: 8px;
+        }
+      }
+    }
+    .fix-model-operate-area {
+      width: 100%;
+      height: 56px;
+
+      background: var(--c-black-5);
+      .icons-group {
+        .icon-wrapper {
           width: 28px;
           height: 28px;
           background: var(--c-gray-5);
@@ -275,9 +282,8 @@
         }
       }
       .operate-btn {
-        width: fit-content;
-        height: fit-content;
-        padding: 4px 8px;
+        width: 72px;
+        height: 28px;
       }
     }
   }
