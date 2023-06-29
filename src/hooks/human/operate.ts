@@ -5,6 +5,7 @@ import type { EGender, EModelCatg, TSelectedHumanModelInfo, TSelectedPresetInfo 
 import { EBodyParts } from "@/types/human.d"
 import { OPERATE_CMD_CODES } from "@/utils/const"
 import { genUUID } from "@/utils/tools"
+import type { TCMD, TKeyboardData, TMouseData } from "@/types/player"
 
 export default () => {
   const rtcHandlerStore = useRTCHandlersStore()
@@ -83,5 +84,9 @@ export default () => {
     recordEditStore.deleteRecord(humanNo)
   }
 
-  return { saveModel, copyModel, deleteModel, selectModel, selectEmotion, selectAction, presetHeader, microAdjustHeader, deleteEditRecord }
+  const sendCmd = (params: TMouseData | TKeyboardData | TCMD) => {
+    rtcHandlerStore.send(params)
+  }
+
+  return { saveModel, copyModel, deleteModel, selectModel, selectEmotion, selectAction, presetHeader, microAdjustHeader, deleteEditRecord, sendCmd }
 }

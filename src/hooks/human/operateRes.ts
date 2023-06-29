@@ -21,6 +21,9 @@ export default () => {
       case saveHumanModelStore.saveTaskId:
         saveHumanModelStore.saveDone(params)
         break
+      case saveHumanModelStore.showHeaderTaskId:
+        saveHumanModelStore.showHeaderAreaDone(params)
+        break
       default:
         editorBodyTaskHandler(params)
     }
