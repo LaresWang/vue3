@@ -8,6 +8,7 @@ import { getImgDataFromVideo, transferB64toBlob } from "@/utils/screenShot"
 import { showModelLists } from "@/utils/showModelList"
 import type { TObj } from "@/types"
 import { genUUID } from "@/utils/tools"
+import { EKeyboardType } from "@/types/player.d"
 
 // 强制刷新数字人列表
 const useRefreshHumanListsStore = defineStore("refreshHumanLists", () => {
@@ -212,8 +213,57 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
   const showHeaderArea = () => {
     showHeaderTaskId.value = genUUID()
     // TODO 发指令显示头部镜头，准备截图
-    // 发送显示头部的快捷键
-    // operate.sendCmd()
+    // 发送显示头部的快捷键 按键数字1
+    /**
+     * isTrusted: true
+      altKey: false
+      bubbles: true
+      cancelBubble: false
+      cancelable: true
+      charCode: 0
+      code: "Digit1"
+      composed: true
+      ctrlKey: false
+      currentTarget: null
+      defaultPrevented: false
+      detail: 0
+      eventPhase: 0
+      isComposing: false
+      key: "1"
+      keyCode: 49
+      location: 0
+      metaKey: false
+      repeat: false
+      returnValue: true
+      shiftKey: false
+      sourceCapabilities: InputDeviceCapabilities {firesTouchEvents: false}
+      srcElement: body
+      target: body
+      timeStamp: 63264
+      type: "keyup"
+     */
+    operate.sendCmd({
+      type: EKeyboardType.Keydown,
+      event: {
+        key: "1",
+        keyCode: 49,
+        code: "Digit1",
+        repeat: false
+      },
+      taskId: showHeaderTaskId.value
+    })
+    setTimeout(() => {
+      operate.sendCmd({
+        type: EKeyboardType.Keyup,
+        event: {
+          key: "1",
+          keyCode: 49,
+          code: "Digit1",
+          repeat: false
+        },
+        taskId: "-1"
+      })
+    }, 300)
   }
 
   const saveDone = (params: TOperateResult) => {

@@ -5,7 +5,7 @@ import { useLaunchInitInfosStore } from "./player"
 import useUserInfoStore from "./user"
 import { useIOMethodStore } from "./io"
 import useOperateRes from "@/hooks/human/operateRes"
-import type { TCMD, TKeyboardData, TMouseData, TRtcSDK } from "@/types/player"
+import type { TCMD, TKeyboardData, TKeyboardEvent, TMouseData, TRtcSDK } from "@/types/player"
 import { EIOMethod, EKeyboardType, EMouseType, EUESpecialKeyCode } from "@/types/player.d"
 import type { TObj } from "@/types"
 import { genUUID } from "@/utils/tools"
@@ -111,7 +111,7 @@ const formatSendCommand = (data: TMouseData | TKeyboardData | TCMD, extralInfo: 
   return JSON.stringify(res)
 }
 
-const getKeyCode = (e: KeyboardEvent) => {
+const getKeyCode = (e: TKeyboardEvent) => {
   // UE
   if (e.keyCode === EUESpecialKeyCode.Shift && e.code === "ShiftRight") return EUESpecialKeyCode.RightShift
   else if (e.keyCode === EUESpecialKeyCode.Control && e.code === "ControlRight") return EUESpecialKeyCode.RightControl

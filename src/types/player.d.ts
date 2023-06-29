@@ -157,9 +157,12 @@ export type TMouseData = {
      */
 
 /***键盘事件 */
+export type TKeyboardEvent = Pick<KeyboardEvent, "keyCode" | "code" | "key" | "repeat">
+
 export type TKeyboardData = {
   type: EKeyboardType
-  event: KeyboardEvent
+  event: TKeyboardEvent
+  taskId?: string
 }
 
 export type TCMD = {
