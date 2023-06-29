@@ -115,6 +115,7 @@
 
     sdk = new WEBRTCSDK({
       windowBoxSelector: ".player-wrapper",
+      videoCoverType: "coverHeight",
       // autoPlayAudio: false,
       wsAddress: url,
       ioType: IOMethodStore.method,
@@ -154,6 +155,7 @@
     width: 100%;
     height: 100%;
     position: relative;
+    overflow: hidden;
     #player {
       width: 100%;
       height: 100%;
