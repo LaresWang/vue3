@@ -4,10 +4,10 @@
     @click="onSelect(props.infos)"
   >
     <div
-      class="model-pic-frame"
+      class="model-pic-frame flex-center"
       :class="selectedModelInfoStore.selectedHumanModelId === props.infos.humanId ? 'selected' : ''"
     >
-      <img
+      <!-- <img
         v-if="loadNetPic"
         :src="props.infos.previewUrl"
         @error="loadPicError"
@@ -17,6 +17,16 @@
         v-else
         src="@/assets/imgs/list_default_pic.png"
         alt=""
+      /> -->
+      <div
+        class="loading-icon"
+        v-if="isLoading"
+      >
+        <el-icon><Loading /></el-icon>
+      </div>
+      <img
+        src="@/assets/svgs/icon_modal_avatar.svg"
+        ref="avatar"
       />
     </div>
     <div class="model-name flex-start">
@@ -48,6 +58,7 @@
 </template>
 <script setup lang="ts">
   import { ref, watchEffect, onMounted, onUpdated } from "vue"
+  import { Loading } from "@element-plus/icons-vue"
   import { modifyHumanName } from "@/api/human"
   import { useSelectedModelInfoStore } from "@/stores/human"
   import { EModelCatg } from "@/types/human.d"
@@ -63,15 +74,45 @@
   const props = defineProps<TModelItemProps>()
   const emits = defineEmits(["select", "submitName", "editName"])
 
-  const loadNetPic = ref(true)
+  const isLoading = ref(true)
+  const avatar = ref<HTMLImageElement>()
   const modelName = ref("")
   const input = ref()
 
   const selectedModelInfoStore = useSelectedModelInfoStore()
 
+  const loadingPic = (src: string) => {
+    const img = new Image()
+
+    img.onload = () => {
+      if (avatar.value) {
+        avatar.value.src = src
+      } else {
+        setTimeout(() => {
+          if (avatar.value) {
+            avatar.value.src = src
+          } else {
+            isLoading.value = false
+          }
+        }, 2000)
+      }
+    }
+
+    img.onerror = () => {
+      isLoading.value = false
+    }
+
+    img.src = src
+  }
+
   watchEffect(() => {
     modelName.value = props.infos.humanName
-    loadNetPic.value = props.infos.previewUrl ? true : false
+    if (props.infos.previewUrl) {
+      loadingPic(props.infos.previewUrl)
+    }
+    if (props.infos.humanName && !props.infos.previewUrl) {
+      isLoading.value = false
+    }
   })
 
   onMounted(() => {
@@ -123,9 +164,9 @@
     }
   }
 
-  const loadPicError = () => {
-    loadNetPic.value = false
-  }
+  // const loadPicError = () => {
+  //   loadNetPic.value = false
+  // }
 </script>
 <style lang="less">
   .model-item {
@@ -139,10 +180,24 @@
       height: 165px;
       background: var(--c-gray-3);
       border-radius: 6px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
       border: 1px solid transparent;
+      position: relative;
+      .loading-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        .el-icon {
+          width: 30px;
+          height: 30px;
+          color: var(--c-gray-1);
+          svg {
+            width: 100%;
+            height: 100%;
+            animation: rotate linear 5s infinite;
+          }
+        }
+      }
       img {
         height: 100%;
         width: 100%;
