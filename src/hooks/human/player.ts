@@ -114,5 +114,15 @@ export const usePlayerHandlers = () => {
     }
   }
 
-  return { connectStatus, canStartWebrtc, stats, onStatsChange, onConnectStatusChange, onReceiveData, onRtcRecieveMessage, onRtcBeforeSendMessage }
+  return {
+    connectStatus,
+    canStartWebrtc,
+    stats,
+    loadingProgress,
+    onStatsChange,
+    onConnectStatusChange,
+    onReceiveData,
+    onRtcRecieveMessage,
+    onRtcBeforeSendMessage
+  }
 }

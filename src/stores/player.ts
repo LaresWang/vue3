@@ -4,16 +4,21 @@ import { getLaunchStatus } from "@/api/player"
 import type { TInterval } from "@/types"
 import type { ELaunchStatus } from "@/types/player"
 import { ELaunchStatus as LaunchStatus } from "@/types/player.d"
+import type { THumanModelInfos } from "@/types/human"
 
 export const useLaunchInitInfosStore = defineStore("launchInitInfos", () => {
   const humanId = ref("") // 数字人ID
+  const humanNo = ref("") // 数字人No
+  const previewUrl = ref("") // 数字人No
   const humanInstanceId = ref("") // 数字人实例ID
   const appInstanceId = ref("") // UE 应用实例ID
 
-  const setHumanIds = (instanceId: string, hid: string) => {
-    console.log("setHumanIds", instanceId, hid)
+  const setHumanInfos = (instanceId: string, info: THumanModelInfos) => {
+    console.log("setHumanIds", instanceId, info)
     humanInstanceId.value = instanceId
-    humanId.value = hid
+    humanId.value = info.humanId
+    humanNo.value = info.humanNo
+    previewUrl.value = info.previewUrl
   }
 
   const setAppInstanceId = (id: string) => {
@@ -21,7 +26,7 @@ export const useLaunchInitInfosStore = defineStore("launchInitInfos", () => {
     appInstanceId.value = id
   }
 
-  return { humanId, humanInstanceId, appInstanceId, setHumanIds, setAppInstanceId }
+  return { humanId, humanNo, previewUrl, humanInstanceId, appInstanceId, setHumanInfos, setAppInstanceId }
 })
 
 export const useLaunchStatusStore = defineStore("launchStatus", () => {

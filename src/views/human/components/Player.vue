@@ -3,29 +3,63 @@
     <div id="player">
       <!-- <video id="streamingVideo"></video> -->
     </div>
-    <ShortCut />
+    <ShortCut v-if="loadingProgress === 100" />
+    <div
+      v-if="loadingProgress < 100"
+      class="loading-wrapper flex-center"
+    >
+      <div
+        class="fix-loading-bg-pic"
+        ref="loadingBgPic"
+        :style="loadingBgStyle"
+      ></div>
+      <div class="loading-inner">
+        <div class="flex-center">
+          <el-icon><Loading /></el-icon>
+        </div>
+        <div class="tip-text">{{ $t("player.t1") }}</div>
+      </div>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
-  import { watchEffect } from "vue"
+  import { ref, watchEffect } from "vue"
+  import { Loading } from "@element-plus/icons-vue"
   import WEBRTCSDK from "webrtcsdk_new"
   import { getBrowserUUID, getCiphertext } from "@/utils/tools"
   import { PLAYER_TYPE } from "@/utils/const"
   import { useLaunchInitInfosStore, useLaunchStatusStore } from "@/stores/player"
   import { useIOMethodStore } from "@/stores/io"
   import useRtcHandlerStore from "@/stores/rtc"
+  import useBgPicSize from "@/hooks/bgPicSize"
   import { usePlayerHandlers } from "@/hooks/human/player"
   import { ELaunchStatus, type TRtcSDK } from "@/types/player.d"
+  import type { TObj } from "@/types"
 
   import ShortCut from "./ShortCut.vue"
+
+  // const bgImg = new URL("../../../assets/imgs/list_default_pic.png", import.meta.url).href
 
   const launchInitInfosStore = useLaunchInitInfosStore()
   const launchStatusStore = useLaunchStatusStore()
   const rtcHandlerStore = useRtcHandlerStore()
   const IOMethodStore = useIOMethodStore()
 
-  const { connectStatus, canStartWebrtc, onConnectStatusChange, onStatsChange, onReceiveData, onRtcBeforeSendMessage, onRtcRecieveMessage } =
-    usePlayerHandlers()
+  const loadingBgPic = ref<HTMLElement>()
+  const loadingBgStyle = ref<TObj>({})
+
+  useBgPicSize(loadingBgPic, 975 / 758)
+
+  const {
+    connectStatus,
+    canStartWebrtc,
+    onConnectStatusChange,
+    onStatsChange,
+    onReceiveData,
+    onRtcBeforeSendMessage,
+    onRtcRecieveMessage,
+    loadingProgress
+  } = usePlayerHandlers()
 
   let sdk: TRtcSDK
   const uuid = getBrowserUUID()
@@ -34,6 +68,10 @@
     if (launchInitInfosStore.humanInstanceId) {
       console.log("humanInstanceId======", launchInitInfosStore.humanInstanceId)
       launchStatusStore.start()
+    }
+    if (launchInitInfosStore.previewUrl) {
+      loadingBgStyle.value.backgroundImage = `url(${launchInitInfosStore.previewUrl})`
+      // loadingBgStyle.value.backgroundImage = `url(${bgImg})`
     }
   })
 
@@ -165,6 +203,57 @@
         height: 100%;
         position: absolute;
       }
+    }
+    .loading-wrapper {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+      background-color: var(--c-black-0);
+      overflow: hidden;
+      .fix-loading-bg-pic {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 5;
+        opacity: 0.5;
+        background-position: center center;
+        background-repeat: no-repeat;
+        filter: blur(15px);
+      }
+      .loading-inner {
+        position: relative;
+        z-index: 10;
+        .el-icon {
+          width: 124px;
+          height: 124px;
+          color: var(--c-gray-1);
+          svg {
+            width: 100%;
+            height: 100%;
+            animation: rotate linear 5s infinite;
+          }
+        }
+        .tip-text {
+          width: 100%;
+          margin-top: 56px;
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--c-white-1);
+        }
+      }
+    }
+  }
+  @keyframes rotate {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
     }
   }
 </style>

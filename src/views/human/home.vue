@@ -90,7 +90,7 @@
           platform: catg
         })
 
-        launchInitInfosStore.setHumanIds(res.instanceId, info.humanId)
+        launchInitInfosStore.setHumanInfos(res.instanceId, info)
       } catch (e) {
         console.error(e)
         // TODO 文案待定
@@ -106,10 +106,10 @@
   .human-home {
     width: 100%;
     height: 100%;
+    padding-top: 4px;
     .human-edit-area {
       flex: 1;
       height: 100%;
-      padding-top: 4px;
       flex-shrink: 0;
       overflow-x: hidden;
       .edit-left-area {

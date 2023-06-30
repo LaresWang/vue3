@@ -33,7 +33,7 @@
   const abnormalTipStore = useAbnormalTipStore()
   const abnormalPic = ref<HTMLElement>()
 
-  useBgPicSize(abnormalPic, 975 / 900)
+  useBgPicSize(abnormalPic, 975 / 812)
 </script>
 <style lang="less">
   .abnormal-tip {
@@ -43,6 +43,7 @@
     top: 0;
     bottom: 0;
     background: var(--c-black-4);
+    z-index: 10000;
     .right-area {
       width: var(--right-area-width);
       height: 100%;
