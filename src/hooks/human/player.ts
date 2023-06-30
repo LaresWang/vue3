@@ -3,6 +3,7 @@ import type { TConnectStatus, TKeyboardData, TMouseData, TStatsRTC } from "@/typ
 import { EIOMethod } from "@/types/player.d"
 import useRtcHandlerStore from "@/stores/rtc"
 import { useIOMethodStore } from "@/stores/io"
+import useAbnormalTipStore from "@/stores/abnormalTip"
 
 const wsHandler = (code: number) => {
   switch (code) {
@@ -24,8 +25,12 @@ export const usePlayerHandlers = () => {
   const canStartWebrtc = ref(false)
   const loadingProgress = ref(0)
   const stats = ref<TStatsRTC>()
+
   const rtcHandlerStore = useRtcHandlerStore()
   const IOMethodStore = useIOMethodStore()
+  const abnormalTipStore = useAbnormalTipStore()
+
+  let isError = false
 
   const onStatsChange = (info: TStatsRTC) => {
     stats.value = info
@@ -63,13 +68,33 @@ export const usePlayerHandlers = () => {
       case "error":
         // this.wsError = true
         // clearInterval(this.statusTimmer)
+        isError = true
+        abnormalTipStore.setTipInfo({
+          show: true,
+          content: "与服务器连接失败",
+          mark: "请刷新以开始新会话"
+        })
         break
       case "close":
         // this.wscloseHandle(params)
+        if (isError) {
+          isError = false
+          return
+        }
+        abnormalTipStore.setTipInfo({
+          show: true,
+          content: "与服务器断开链接",
+          mark: "请刷新以开始新会话"
+        })
         break
       case "dcclosed":
         console.log("dcclosed")
         // this.dccloseHandle()
+        abnormalTipStore.setTipInfo({
+          show: true,
+          content: "与服务器断开链接",
+          mark: "请刷新以开始新会话"
+        })
         break
     }
   }

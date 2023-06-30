@@ -40,3 +40,9 @@ export type TModal = {
   type: 0 | 1
   show?: boolean
 }
+
+export type TAbnormalTip = {
+  content?: string
+  mark?: string
+  show: boolean
+}

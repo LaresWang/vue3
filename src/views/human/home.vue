@@ -23,6 +23,7 @@
     <div class="human-player-area">
       <Player />
     </div>
+    <AbnormalTip />
   </div>
 </template>
 <script setup lang="ts">
@@ -35,6 +36,7 @@
   import type { THumanModelInfos, EModelCatg } from "@/types/human"
   import { EModelCatg as ModelCatg } from "@/types/human.d"
   import { useLaunchInitInfosStore } from "@/stores/player"
+  import useAbnormalTipStore from "@/stores/abnormalTip"
 
   import HumanModelLists from "./components/HumanModelLists.vue"
   import BodySummaryParts from "./components/BodySummaryParts.vue"
@@ -42,7 +44,9 @@
   import EditEmotions from "./components/EditEmotions.vue"
   import EditActions from "./components/EditActions.vue"
   import Player from "./components/Player.vue"
+  import AbnormalTip from "./components/AbnormalTip.vue"
 
+  const abnormalTipStore = useAbnormalTipStore()
   const breadcrumbMenusStore = useBreadcrumbMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
   const launchInitInfosStore = useLaunchInitInfosStore()
@@ -89,6 +93,11 @@
         launchInitInfosStore.setHumanIds(res.instanceId, info.humanId)
       } catch (e) {
         console.error(e)
+        // TODO 文案待定
+        abnormalTipStore.setTipInfo({
+          show: true,
+          content: "没有数字人模型数据"
+        })
       }
     }
   })
@@ -116,7 +125,7 @@
       }
     }
     .human-player-area {
-      width: 975px;
+      width: var(--right-area-width);
       height: 100%;
       color: var(--c-white-1);
     }

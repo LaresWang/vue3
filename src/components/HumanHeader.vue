@@ -316,6 +316,6 @@
     }
   }
   .right-menus-area {
-    width: 975px;
+    width: var(--right-area-width);
   }
 </style>
