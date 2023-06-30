@@ -78,27 +78,23 @@
   const avatar = ref<HTMLImageElement>()
   const modelName = ref("")
   const input = ref()
+  let loadingPicStatus = "0"
 
   const selectedModelInfoStore = useSelectedModelInfoStore()
 
   const loadingPic = (src: string) => {
     const img = new Image()
-
+    loadingPicStatus = "1"
     img.onload = () => {
+      loadingPicStatus = "2"
       if (avatar.value) {
         avatar.value.src = src
-      } else {
-        setTimeout(() => {
-          if (avatar.value) {
-            avatar.value.src = src
-          } else {
-            isLoading.value = false
-          }
-        }, 2000)
       }
+      isLoading.value = false
     }
 
     img.onerror = () => {
+      loadingPicStatus = "3"
       isLoading.value = false
     }
 
@@ -117,7 +113,13 @@
 
   onMounted(() => {
     autoFocus()
+
+    if (loadingPicStatus === "2" && avatar.value) {
+      // 理论上不走这里的逻辑的，onmounted肯定在图片加载完成前触发
+      avatar.value.src = props.infos.previewUrl
+    }
   })
+
   onUpdated(() => {
     autoFocus()
   })
