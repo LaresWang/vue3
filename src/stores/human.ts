@@ -185,7 +185,7 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
   }
 
   const startScreenShot = () => {
-    const b64 = getImgDataFromVideo("streamingVideo")
+    const b64 = getImgDataFromVideo("streamingVideo", "video-container")
     if (!b64) {
       console.log("获取数据异常")
       isSaving.value = false

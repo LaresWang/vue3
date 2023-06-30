@@ -1,5 +1,8 @@
 <template>
-  <div class="player-wrapper">
+  <div
+    class="player-wrapper"
+    id="video-container"
+  >
     <div id="player">
       <!-- <video id="streamingVideo"></video> -->
     </div>
