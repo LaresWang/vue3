@@ -102,10 +102,11 @@ export default defineConfig((params) => {
       port: 8888,
       open: true,
       proxy: {
-        "/api/realtime": {
+        "/api": {
           target: env.VITE_API_HOST,
           // ws: true,
-          changeOrigin: true
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, "")
         }
       }
     },

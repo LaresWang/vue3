@@ -131,6 +131,7 @@ const defaultInterceptor: InterceptorHooks = {
 }
 
 export const genUrl = function (options: string | IGenUrlOpts): string {
+  const isDev = import.meta.env.VITE_ENV === "development"
   if (typeof options === "string") {
     let url = options
     if (url.startsWith("http")) {
@@ -139,7 +140,12 @@ export const genUrl = function (options: string | IGenUrlOpts): string {
     if (url.startsWith("/")) {
       url = url.slice(1)
     }
-    return (import.meta.env.VITE_API_HOST || "") + "/api/realtime/" + url
+
+    if (isDev) {
+      return "/api/" + url
+    }
+
+    return (import.meta.env.VITE_API_HOST || "") + "/api/" + url
   } else {
     if (!options.path) {
       return ""
@@ -154,7 +160,12 @@ export const genUrl = function (options: string | IGenUrlOpts): string {
     if (options.host) {
       return `${options.host}${options.prefix || "/"}${url}`
     }
-    return (import.meta.env.VITE_API_HOST || "") + (options.prefix || "/api/realtime/") + url
+
+    if (isDev) {
+      return (options.prefix || "/api/") + url
+    }
+
+    return (import.meta.env.VITE_API_HOST || "") + (options.prefix || "/api/") + url
   }
 }
 
