@@ -382,6 +382,7 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
 
       // TODO 待确定 在调用f复制接口后是否需要继续调用复制指令
       operate.copyModel({
+        sourceHumanNo: humanNo,
         humanNo: res.humanNo,
         taskId: copyTaskId.value,
         platform

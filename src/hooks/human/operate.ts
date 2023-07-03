@@ -25,9 +25,10 @@ export default () => {
     })
   }
   // 复制数字人
-  const copyModel = (params: { humanNo: string; taskId: string; platform: EModelCatg }) => {
+  const copyModel = (params: { sourceHumanNo: string; humanNo: string; taskId: string; platform: EModelCatg }) => {
     rtcHandlerStore.send({
       commandId: OPERATE_CMD_CODES.Copy,
+      sourceHumanNo: params.sourceHumanNo,
       humanNo: params.humanNo,
       taskId: params.taskId,
       platform: params.platform

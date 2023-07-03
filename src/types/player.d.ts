@@ -168,6 +168,7 @@ export type TKeyboardData = {
 export type TCMD = {
   commandId: string
   humanNo: string
+  sourceHumanNo?: string // 复制
   platform?: EModelCatg // 复制删除
   commandValue?: number // 捏脸
   // 下面是保存数字人指令
