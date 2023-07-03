@@ -106,6 +106,7 @@ export default defineConfig((params) => {
           target: env.VITE_API_HOST,
           // ws: true,
           changeOrigin: true,
+          // 直接连后端开发本地电脑时需要去掉api
           rewrite: (path) => path.replace(/^\/api/, "")
         }
       }
