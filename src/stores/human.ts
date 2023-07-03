@@ -56,6 +56,10 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
   const selectedHumanModelId = computed(() => info.value.humanId)
 
   const setSelectedModelInfo = (params: TSelectedHumanModelInfo) => {
+    if (info.value.humanNo === params.humanNo) {
+      return
+    }
+
     info.value = params
     operate.selectModel(params)
   }

@@ -77,7 +77,7 @@
       background: var(--c-gray-3);
       &.show {
         position: fixed;
-        z-index: 1000;
+        z-index: 50;
       }
     }
     .fix-triangle {
@@ -89,7 +89,7 @@
       &.show {
         position: fixed;
         display: block;
-        z-index: 999;
+        z-index: 49;
       }
     }
   }

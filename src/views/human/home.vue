@@ -91,12 +91,12 @@
         })
 
         launchInitInfosStore.setHumanInfos(res.instanceId, info)
-      } catch (e) {
-        console.error(e)
+      } catch (e: any) {
+        // console.error(e)
         // TODO 文案待定
         abnormalTipStore.setTipInfo({
           show: true,
-          content: "没有数字人模型数据"
+          content: e?.msg || "没有数字人模型数据"
         })
       }
     }

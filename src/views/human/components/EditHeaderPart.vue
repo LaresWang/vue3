@@ -86,12 +86,14 @@
   watchEffect(async () => {
     console.log()
     const res = await getHumanHeaderEditConfig()
-    if (res.body_parts && res.body_parts.length) {
+    if (res && res.body_parts && res.body_parts.length) {
       const tabs: THeaderPartsTab[] = []
       const config: THeaderPartEditConfig = {}
       const presets: TPresetListsConfig = {}
-      for (let i = 0; i < res.body_parts.length; i++) {
-        const obj = res.body_parts[i]
+      // 现在只有捏脸数据
+      const headerConfigs = res.body_parts[0].detail
+      for (let i = 0; i < headerConfigs?.length; i++) {
+        const obj = headerConfigs[i]
         tabs.push({
           value: obj.code,
           label: obj.name

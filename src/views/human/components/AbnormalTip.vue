@@ -43,7 +43,7 @@
     top: 0;
     bottom: 0;
     background: var(--c-black-4);
-    z-index: 10000;
+    z-index: 100;
     .right-area {
       width: var(--right-area-width);
       height: 100%;

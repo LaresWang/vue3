@@ -454,13 +454,13 @@ export type TBodyPart = {
   detail: TBodyPartPosition[]
 }
 
-// export type TEditHumanConfigResParams = {
-//   body_parts: TBodyPart[]
-// }
-
 export type TEditHumanConfigResParams = {
-  body_parts: TBodyPartPosition[]
+  body_parts: TBodyPart[]
 }
+
+// export type TEditHumanConfigResParams = {
+//   body_parts: TBodyPartPosition[]
+// }
 
 /**编辑数字人配置 ^^^^^ */
 

@@ -52,6 +52,9 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
   }
 
   const sendByApi = (cmd: string) => {
+    if (!launchInitInfosStore.humanInstanceId || !launchInitInfosStore.appInstanceId) {
+      return
+    }
     // 调接口
     sendCommand({
       command: cmd,

@@ -213,7 +213,7 @@
       top: 0;
       right: 0;
       bottom: 0;
-      z-index: 9999;
+      z-index: 99;
       background-color: var(--c-black-0);
       overflow: hidden;
       .fix-loading-bg-pic {

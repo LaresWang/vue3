@@ -55,9 +55,7 @@
         })
       }
     }
-  })
 
-  watchEffect(() => {
     if (props.show && buildinModels.value.length) {
       selectedModelInfoStore.setSelectedModelInfo({
         humanId: buildinModels.value[0].humanId,

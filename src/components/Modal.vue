@@ -68,7 +68,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 9999;
+    z-index: 200;
     .modal-wrapper {
       width: 315px;
       // height: 200px;

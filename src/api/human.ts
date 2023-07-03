@@ -74,9 +74,18 @@ export const getHumanActionLists = function (params: TActionReqParams) {
 
 // 数字人捏脸配置
 // http://wiki.voneyun.com/pages/viewpage.action?pageId=61803609
-export const getHumanHeaderEditConfig = function () {
+export const getHumanHeaderEditConfig = function (): Promise<TEditHumanConfigResParams | undefined> {
   // return Promise.resolve(editModelConfig)
-  return request.post<TEditHumanConfigResParams>("user/human/edit/config")
+  return request.post("user/human/face/config").then((res) => {
+    try {
+      if (typeof res === "string") {
+        const temp = JSON.parse(res) as TEditHumanConfigResParams
+        return temp
+      }
+    } catch (e) {
+      return
+    }
+  })
 }
 // 获取预设列表
 export const getBodyPresetLists = function () {

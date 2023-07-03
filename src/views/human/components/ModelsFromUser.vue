@@ -49,7 +49,15 @@
   const noMoreLists = ref(false)
   const userModels = ref<THumanModelInfos[]>([])
   console.log(0)
-  watch(pageNo, async () => {
+  watch(pageNo, () => {
+    getLists()
+  })
+
+  const getLists = async () => {
+    if (pageNo.value < 1) {
+      return
+    }
+
     loading.value = true
     noMoreLists.value = true
     console.log("get list", pageNo.value)
@@ -86,7 +94,7 @@
       refreshHumanListsStore.refreshBuildinModelLists()
     }
     refreshHumanListsStore.resetRefreshReason()
-  })
+  }
 
   const loadMore = (page?: number) => {
     console.log("0000", page, Date.now())
@@ -94,12 +102,20 @@
       return
     }
     console.log("1111", page)
-    pageNo.value++
+    if (page) {
+      pageNo.value = page
+    } else {
+      pageNo.value++
+    }
   }
 
   watchEffect(() => {
-    if (props.show && pageNo.value === 0) {
-      loadMore(1)
+    if (props.show) {
+      if (pageNo.value === 0) {
+        loadMore()
+      } else if (!userModels.value.length && pageNo.value === 1) {
+        getLists()
+      }
     }
   })
 
