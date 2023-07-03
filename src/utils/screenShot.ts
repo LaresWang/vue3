@@ -19,14 +19,17 @@ const getImgDataFromVideo = (videoId: string, containerId?: string): string => {
     container = document.getElementById(containerId)
   }
   if (container) {
-    const canvasSize = Math.min(container.offsetWidth, container.offsetHeight)
+    const cwidth = container.offsetWidth
+    const cheight = container.offsetHeight
+    // video填满container高度
+    const canvasSize = Math.min(cwidth, cheight, video.width)
     console.log(canvasSize, 33333)
     // 下面是截视口内video的部分 且截正方形
     canvas.height = canvasSize
     canvas.width = canvasSize
     const ctx = canvas.getContext("2d")
     //  drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh) 剪切图像，并在画布上定位被剪切的部分
-    ctx?.drawImage(video.el, video.width / 2 - canvasSize / 2, 0, canvasSize, canvasSize, 0, 0, canvasSize, canvasSize)
+    ctx?.drawImage(video.el, Math.abs(video.width / 2 - cwidth / 2), 0, canvasSize, canvasSize, 0, 0, canvasSize, canvasSize)
   } else {
     // 下面是截video全部
     canvas.height = video.height
