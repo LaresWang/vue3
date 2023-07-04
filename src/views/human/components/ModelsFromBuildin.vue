@@ -21,7 +21,7 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, watchEffect } from "vue"
+  import { ref, watchEffect, watch } from "vue"
   import { getPlatformHumanLists } from "@/api/human"
   import { useSelectedModelInfoStore } from "@/stores/human"
   import { EModelCatg } from "@/types/human.d"
@@ -55,17 +55,23 @@
         })
       }
     }
-
-    if (props.show && buildinModels.value.length) {
-      selectedModelInfoStore.setSelectedModelInfo({
-        humanId: buildinModels.value[0].humanId,
-        humanName: buildinModels.value[0].humanName,
-        humanCatg: EModelCatg.Buildin,
-        humanNo: buildinModels.value[0].humanNo,
-        gender: buildinModels.value[0].gender
-      })
-    }
   })
+
+  watch(
+    () => props.show,
+    (show) => {
+      console.log(show)
+      if (show && buildinModels.value.length) {
+        selectedModelInfoStore.setSelectedModelInfo({
+          humanId: buildinModels.value[0].humanId,
+          humanName: buildinModels.value[0].humanName,
+          humanCatg: EModelCatg.Buildin,
+          humanNo: buildinModels.value[0].humanNo,
+          gender: buildinModels.value[0].gender
+        })
+      }
+    }
+  )
 
   const onEditName = (humanId: string) => {
     editModelId.value = humanId

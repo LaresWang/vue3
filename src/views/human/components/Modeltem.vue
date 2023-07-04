@@ -35,7 +35,7 @@
         v-if="!props.isEditName"
       >
         <!-- <span class="single-line-text-ellipsis">{{ props.infos.humanName }}</span> -->
-        <TextWrapper :text="props.infos.humanName" />
+        <TextWrapper :text="modelName" />
         <svg-icon
           class="pointer"
           name="icon_modify"

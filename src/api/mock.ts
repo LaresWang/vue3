@@ -306,1237 +306,1237 @@ export const userModels: THumanModelInfos[] = [
   }
 ]
 
-export const editModelConfig: TEditHumanConfigResParams = {
-  body_parts: [
-    {
-      name: "头型",
-      code: "001",
-      detail: [
-        {
-          name: "整体",
-          code: "001-001",
-          detail: [
-            {
-              name: "扁头",
-              setting_mode: 0,
-              code: "001-001-001-001",
-              cmd_code: "CMD01001",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "高度",
-              setting_mode: 0,
-              code: "001-001-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "宽度",
-              code: "001-001-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01003",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "变大",
-              setting_mode: 0,
-              code: "001-001-001-004",
-              cmd_code: "CMD01004",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "上部宽度",
-              setting_mode: 0,
-              code: "001-001-001-005",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "下部宽度",
-              code: "001-001-001-006",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "脖子",
-          code: "001-002",
-          detail: [
-            {
-              name: "全局粗细",
-              setting_mode: 0,
-              code: "001-002-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "前后粗细",
-              setting_mode: 0,
-              code: "001-002-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "左右粗细",
-              code: "001-002-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "锁骨",
-          code: "001-003",
-          detail: [
-            {
-              name: "锁骨强弱",
-              setting_mode: 0,
-              code: "001-003-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "锁骨上移",
-              setting_mode: 0,
-              code: "001-003-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: "面部",
-      code: "002",
-      detail: [
-        {
-          name: "整体",
-          code: "002-001",
-          detail: [
-            {
-              name: "面深",
-              setting_mode: 0,
-              code: "002-001-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "面长",
-              setting_mode: 0,
-              code: "002-001-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "面宽",
-              code: "002-001-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "侧脸融合",
-              setting_mode: 0,
-              code: "002-001-001-004",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "口轮匝肌",
-              setting_mode: 0,
-              code: "002-001-001-005",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "上庭",
-          code: "002-002",
-          detail: [
-            {
-              name: "深度",
-              setting_mode: 0,
-              code: "002-002-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "宽度",
-              setting_mode: 0,
-              code: "002-002-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "高度",
-              code: "002-002-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "中庭",
-          code: "002-003",
-          detail: [
-            {
-              name: "深度",
-              setting_mode: 0,
-              code: "002-003-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "宽度",
-              setting_mode: 0,
-              code: "002-003-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "高度",
-              setting_mode: 0,
-              code: "002-003-001-003",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "下庭",
-          code: "002-004",
-          detail: [
-            {
-              name: "深度",
-              setting_mode: 0,
-              code: "002-004-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "宽度",
-              setting_mode: 0,
-              code: "002-004-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "高度",
-              setting_mode: 0,
-              code: "002-004-001-003",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "人中高度",
-              setting_mode: 0,
-              code: "002-004-001-004",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: "眼睛",
-      code: "003",
-      detail: [
-        {
-          name: "整体",
-          code: "001-001",
-          detail: [
-            {
-              name: "扁头",
-              setting_mode: 0,
-              code: "001-001-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "高度",
-              setting_mode: 0,
-              code: "001-001-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "宽度",
-              code: "001-001-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "变大",
-              setting_mode: 0,
-              code: "001-001-001-004",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "上部宽度",
-              setting_mode: 0,
-              code: "001-001-001-005",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "下部宽度",
-              code: "001-001-001-006",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "脖子",
-          code: "001-002",
-          detail: [
-            {
-              name: "全局粗细",
-              setting_mode: 0,
-              code: "001-002-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "前后粗细",
-              setting_mode: 0,
-              code: "001-002-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "左右粗细",
-              code: "001-002-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "锁骨",
-          code: "001-003",
-          detail: [
-            {
-              name: "锁骨强弱",
-              setting_mode: 0,
-              code: "001-003-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "锁骨上移",
-              setting_mode: 0,
-              code: "001-003-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: "耳朵",
-      code: "004",
-      detail: [
-        {
-          name: "整体",
-          code: "001-001",
-          detail: [
-            {
-              name: "扁头",
-              setting_mode: 0,
-              code: "001-001-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "高度",
-              setting_mode: 0,
-              code: "001-001-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "宽度",
-              code: "001-001-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "变大",
-              setting_mode: 0,
-              code: "001-001-001-004",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "上部宽度",
-              setting_mode: 0,
-              code: "001-001-001-005",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "下部宽度",
-              code: "001-001-001-006",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "脖子",
-          code: "001-002",
-          detail: [
-            {
-              name: "全局粗细",
-              setting_mode: 0,
-              code: "001-002-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "前后粗细",
-              setting_mode: 0,
-              code: "001-002-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "左右粗细",
-              code: "001-002-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "锁骨",
-          code: "001-003",
-          detail: [
-            {
-              name: "锁骨强弱",
-              setting_mode: 0,
-              code: "001-003-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "锁骨上移",
-              setting_mode: 0,
-              code: "001-003-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: "鼻子",
-      code: "005",
-      detail: [
-        {
-          name: "整体",
-          code: "001-001",
-          detail: [
-            {
-              name: "扁头",
-              setting_mode: 0,
-              code: "001-001-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "高度",
-              setting_mode: 0,
-              code: "001-001-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "宽度",
-              code: "001-001-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "变大",
-              setting_mode: 0,
-              code: "001-001-001-004",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "上部宽度",
-              setting_mode: 0,
-              code: "001-001-001-005",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "下部宽度",
-              code: "001-001-001-006",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "脖子",
-          code: "001-002",
-          detail: [
-            {
-              name: "全局粗细",
-              setting_mode: 0,
-              code: "001-002-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "前后粗细",
-              setting_mode: 0,
-              code: "001-002-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "左右粗细",
-              code: "001-002-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "锁骨",
-          code: "001-003",
-          detail: [
-            {
-              name: "锁骨强弱",
-              setting_mode: 0,
-              code: "001-003-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "锁骨上移",
-              setting_mode: 0,
-              code: "001-003-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: "嘴巴",
-      code: "006",
-      detail: [
-        {
-          name: "整体",
-          code: "001-001",
-          detail: [
-            {
-              name: "扁头",
-              setting_mode: 0,
-              code: "001-001-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "高度",
-              setting_mode: 0,
-              code: "001-001-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "宽度",
-              code: "001-001-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "变大",
-              setting_mode: 0,
-              code: "001-001-001-004",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "上部宽度",
-              setting_mode: 0,
-              code: "001-001-001-005",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "下部宽度",
-              code: "001-001-001-006",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "脖子",
-          code: "001-002",
-          detail: [
-            {
-              name: "全局粗细",
-              setting_mode: 0,
-              code: "001-002-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "前后粗细",
-              setting_mode: 0,
-              code: "001-002-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "左右粗细",
-              code: "001-002-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "锁骨",
-          code: "001-003",
-          detail: [
-            {
-              name: "锁骨强弱",
-              setting_mode: 0,
-              code: "001-003-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "锁骨上移",
-              setting_mode: 0,
-              code: "001-003-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: "牙齿",
-      code: "007",
-      detail: [
-        {
-          name: "整体",
-          code: "001-001",
-          detail: [
-            {
-              name: "扁头",
-              setting_mode: 0,
-              code: "001-001-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "高度",
-              setting_mode: 0,
-              code: "001-001-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "宽度",
-              code: "001-001-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "变大",
-              setting_mode: 0,
-              code: "001-001-001-004",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "上部宽度",
-              setting_mode: 0,
-              code: "001-001-001-005",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "下部宽度",
-              code: "001-001-001-006",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "脖子",
-          code: "001-002",
-          detail: [
-            {
-              name: "全局粗细",
-              setting_mode: 0,
-              code: "001-002-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "前后粗细",
-              setting_mode: 0,
-              code: "001-002-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "左右粗细",
-              code: "001-002-001-003",
-              setting_mode: 0,
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        },
-        {
-          name: "锁骨",
-          code: "001-003",
-          detail: [
-            {
-              name: "锁骨强弱",
-              setting_mode: 0,
-              code: "001-003-001-001",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            },
-            {
-              name: "锁骨上移",
-              setting_mode: 0,
-              code: "001-003-001-002",
-              cmd_code: "CMD01002",
-              range: {
-                left_value: "-1",
-                right_value: "1",
-                inclusive_left_range: "1",
-                inclusive_right_range: "1",
-                scale: 8
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
+// export const editModelConfig: TEditHumanConfigResParams = {
+//   body_parts: [
+//     {
+//       name: "头型",
+//       code: "001",
+//       detail: [
+//         {
+//           name: "整体",
+//           code: "001-001",
+//           detail: [
+//             {
+//               name: "扁头",
+//               setting_mode: 0,
+//               code: "001-001-001-001",
+//               cmd_code: "CMD01001",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "高度",
+//               setting_mode: 0,
+//               code: "001-001-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "宽度",
+//               code: "001-001-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01003",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "变大",
+//               setting_mode: 0,
+//               code: "001-001-001-004",
+//               cmd_code: "CMD01004",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "上部宽度",
+//               setting_mode: 0,
+//               code: "001-001-001-005",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "下部宽度",
+//               code: "001-001-001-006",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "脖子",
+//           code: "001-002",
+//           detail: [
+//             {
+//               name: "全局粗细",
+//               setting_mode: 0,
+//               code: "001-002-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "前后粗细",
+//               setting_mode: 0,
+//               code: "001-002-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "左右粗细",
+//               code: "001-002-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "锁骨",
+//           code: "001-003",
+//           detail: [
+//             {
+//               name: "锁骨强弱",
+//               setting_mode: 0,
+//               code: "001-003-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "锁骨上移",
+//               setting_mode: 0,
+//               code: "001-003-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         }
+//       ]
+//     },
+//     {
+//       name: "面部",
+//       code: "002",
+//       detail: [
+//         {
+//           name: "整体",
+//           code: "002-001",
+//           detail: [
+//             {
+//               name: "面深",
+//               setting_mode: 0,
+//               code: "002-001-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "面长",
+//               setting_mode: 0,
+//               code: "002-001-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "面宽",
+//               code: "002-001-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "侧脸融合",
+//               setting_mode: 0,
+//               code: "002-001-001-004",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "口轮匝肌",
+//               setting_mode: 0,
+//               code: "002-001-001-005",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "上庭",
+//           code: "002-002",
+//           detail: [
+//             {
+//               name: "深度",
+//               setting_mode: 0,
+//               code: "002-002-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "宽度",
+//               setting_mode: 0,
+//               code: "002-002-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "高度",
+//               code: "002-002-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "中庭",
+//           code: "002-003",
+//           detail: [
+//             {
+//               name: "深度",
+//               setting_mode: 0,
+//               code: "002-003-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "宽度",
+//               setting_mode: 0,
+//               code: "002-003-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "高度",
+//               setting_mode: 0,
+//               code: "002-003-001-003",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "下庭",
+//           code: "002-004",
+//           detail: [
+//             {
+//               name: "深度",
+//               setting_mode: 0,
+//               code: "002-004-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "宽度",
+//               setting_mode: 0,
+//               code: "002-004-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "高度",
+//               setting_mode: 0,
+//               code: "002-004-001-003",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "人中高度",
+//               setting_mode: 0,
+//               code: "002-004-001-004",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         }
+//       ]
+//     },
+//     {
+//       name: "眼睛",
+//       code: "003",
+//       detail: [
+//         {
+//           name: "整体",
+//           code: "001-001",
+//           detail: [
+//             {
+//               name: "扁头",
+//               setting_mode: 0,
+//               code: "001-001-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "高度",
+//               setting_mode: 0,
+//               code: "001-001-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "宽度",
+//               code: "001-001-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "变大",
+//               setting_mode: 0,
+//               code: "001-001-001-004",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "上部宽度",
+//               setting_mode: 0,
+//               code: "001-001-001-005",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "下部宽度",
+//               code: "001-001-001-006",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "脖子",
+//           code: "001-002",
+//           detail: [
+//             {
+//               name: "全局粗细",
+//               setting_mode: 0,
+//               code: "001-002-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "前后粗细",
+//               setting_mode: 0,
+//               code: "001-002-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "左右粗细",
+//               code: "001-002-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "锁骨",
+//           code: "001-003",
+//           detail: [
+//             {
+//               name: "锁骨强弱",
+//               setting_mode: 0,
+//               code: "001-003-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "锁骨上移",
+//               setting_mode: 0,
+//               code: "001-003-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         }
+//       ]
+//     },
+//     {
+//       name: "耳朵",
+//       code: "004",
+//       detail: [
+//         {
+//           name: "整体",
+//           code: "001-001",
+//           detail: [
+//             {
+//               name: "扁头",
+//               setting_mode: 0,
+//               code: "001-001-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "高度",
+//               setting_mode: 0,
+//               code: "001-001-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "宽度",
+//               code: "001-001-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "变大",
+//               setting_mode: 0,
+//               code: "001-001-001-004",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "上部宽度",
+//               setting_mode: 0,
+//               code: "001-001-001-005",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "下部宽度",
+//               code: "001-001-001-006",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "脖子",
+//           code: "001-002",
+//           detail: [
+//             {
+//               name: "全局粗细",
+//               setting_mode: 0,
+//               code: "001-002-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "前后粗细",
+//               setting_mode: 0,
+//               code: "001-002-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "左右粗细",
+//               code: "001-002-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "锁骨",
+//           code: "001-003",
+//           detail: [
+//             {
+//               name: "锁骨强弱",
+//               setting_mode: 0,
+//               code: "001-003-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "锁骨上移",
+//               setting_mode: 0,
+//               code: "001-003-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         }
+//       ]
+//     },
+//     {
+//       name: "鼻子",
+//       code: "005",
+//       detail: [
+//         {
+//           name: "整体",
+//           code: "001-001",
+//           detail: [
+//             {
+//               name: "扁头",
+//               setting_mode: 0,
+//               code: "001-001-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "高度",
+//               setting_mode: 0,
+//               code: "001-001-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "宽度",
+//               code: "001-001-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "变大",
+//               setting_mode: 0,
+//               code: "001-001-001-004",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "上部宽度",
+//               setting_mode: 0,
+//               code: "001-001-001-005",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "下部宽度",
+//               code: "001-001-001-006",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "脖子",
+//           code: "001-002",
+//           detail: [
+//             {
+//               name: "全局粗细",
+//               setting_mode: 0,
+//               code: "001-002-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "前后粗细",
+//               setting_mode: 0,
+//               code: "001-002-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "左右粗细",
+//               code: "001-002-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "锁骨",
+//           code: "001-003",
+//           detail: [
+//             {
+//               name: "锁骨强弱",
+//               setting_mode: 0,
+//               code: "001-003-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "锁骨上移",
+//               setting_mode: 0,
+//               code: "001-003-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         }
+//       ]
+//     },
+//     {
+//       name: "嘴巴",
+//       code: "006",
+//       detail: [
+//         {
+//           name: "整体",
+//           code: "001-001",
+//           detail: [
+//             {
+//               name: "扁头",
+//               setting_mode: 0,
+//               code: "001-001-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "高度",
+//               setting_mode: 0,
+//               code: "001-001-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "宽度",
+//               code: "001-001-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "变大",
+//               setting_mode: 0,
+//               code: "001-001-001-004",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "上部宽度",
+//               setting_mode: 0,
+//               code: "001-001-001-005",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "下部宽度",
+//               code: "001-001-001-006",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "脖子",
+//           code: "001-002",
+//           detail: [
+//             {
+//               name: "全局粗细",
+//               setting_mode: 0,
+//               code: "001-002-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "前后粗细",
+//               setting_mode: 0,
+//               code: "001-002-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "左右粗细",
+//               code: "001-002-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "锁骨",
+//           code: "001-003",
+//           detail: [
+//             {
+//               name: "锁骨强弱",
+//               setting_mode: 0,
+//               code: "001-003-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "锁骨上移",
+//               setting_mode: 0,
+//               code: "001-003-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         }
+//       ]
+//     },
+//     {
+//       name: "牙齿",
+//       code: "007",
+//       detail: [
+//         {
+//           name: "整体",
+//           code: "001-001",
+//           detail: [
+//             {
+//               name: "扁头",
+//               setting_mode: 0,
+//               code: "001-001-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "高度",
+//               setting_mode: 0,
+//               code: "001-001-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "宽度",
+//               code: "001-001-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "变大",
+//               setting_mode: 0,
+//               code: "001-001-001-004",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "上部宽度",
+//               setting_mode: 0,
+//               code: "001-001-001-005",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "下部宽度",
+//               code: "001-001-001-006",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "脖子",
+//           code: "001-002",
+//           detail: [
+//             {
+//               name: "全局粗细",
+//               setting_mode: 0,
+//               code: "001-002-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "前后粗细",
+//               setting_mode: 0,
+//               code: "001-002-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "左右粗细",
+//               code: "001-002-001-003",
+//               setting_mode: 0,
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         },
+//         {
+//           name: "锁骨",
+//           code: "001-003",
+//           detail: [
+//             {
+//               name: "锁骨强弱",
+//               setting_mode: 0,
+//               code: "001-003-001-001",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             },
+//             {
+//               name: "锁骨上移",
+//               setting_mode: 0,
+//               code: "001-003-001-002",
+//               cmd_code: "CMD01002",
+//               range: {
+//                 left_value: "-1",
+//                 right_value: "1",
+//                 inclusive_left_range: "1",
+//                 inclusive_right_range: "1",
+//                 scale: 8
+//               }
+//             }
+//           ]
+//         }
+//       ]
+//     }
+//   ]
+// }
 
 /**
  * 动作数据

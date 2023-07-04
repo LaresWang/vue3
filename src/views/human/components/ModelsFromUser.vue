@@ -119,17 +119,21 @@
     }
   })
 
-  watchEffect(() => {
-    if (props.show && userModels.value.length) {
-      selectedModelInfoStore.setSelectedModelInfo({
-        humanId: userModels.value[0].humanId,
-        humanName: userModels.value[0].humanName,
-        humanCatg: EModelCatg.User,
-        humanNo: userModels.value[0].humanNo,
-        gender: userModels.value[0].gender
-      })
+  watch(
+    () => props.show,
+    (show) => {
+      console.log(show)
+      if (show && userModels.value.length) {
+        selectedModelInfoStore.setSelectedModelInfo({
+          humanId: userModels.value[0].humanId,
+          humanName: userModels.value[0].humanName,
+          humanCatg: EModelCatg.User,
+          humanNo: userModels.value[0].humanNo,
+          gender: userModels.value[0].gender
+        })
+      }
     }
-  })
+  )
 
   const onEditName = (humanId: string) => {
     editModelId.value = humanId

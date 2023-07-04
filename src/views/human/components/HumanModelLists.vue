@@ -30,7 +30,7 @@
       <div class="icons-group flex-center">
         <div
           class="icon-wrapper flex-center"
-          :class="deleteHumanModelStore.isDeleting ? '' : 'pointer'"
+          :class="deleteHumanModelStore.isDeleting || breadcrumbMenusStore.currentModelCat === EModelCatg.Buildin ? 'forbidden' : 'pointer'"
           @click="deleteModel"
         >
           <svg-icon name="icon_delete" />
@@ -174,7 +174,7 @@
 
   const deleteModel = () => {
     console.log("deleteModel")
-    if (deleteHumanModelStore.isDeleting) {
+    if (deleteHumanModelStore.isDeleting || breadcrumbMenusStore.currentModelCat === EModelCatg.Buildin) {
       return
     }
 
