@@ -37,6 +37,7 @@
         <!-- <span class="single-line-text-ellipsis">{{ props.infos.humanName }}</span> -->
         <TextWrapper :text="modelName" />
         <svg-icon
+          v-if="props.type !== EModelCatg.Buildin"
           class="pointer"
           name="icon_modify"
           @click="onEditName(props.infos.humanId)"
@@ -182,7 +183,7 @@
       height: 165px;
       background: var(--c-gray-3);
       border-radius: 6px;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
       position: relative;
       .loading-icon {
         position: absolute;

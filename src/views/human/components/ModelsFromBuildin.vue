@@ -3,6 +3,9 @@
     class="models-buildin"
     v-show="props.show"
   >
+    <div class="top-tip-line flex-center">
+      {{ $t("edit.t13") }}
+    </div>
     <div class="models-buildin-inner flex-start">
       <template
         v-for="model in buildinModels"
@@ -86,6 +89,14 @@
     height: 100%;
     overflow: hidden auto;
     padding-right: 10px;
+    .top-tip-line {
+      width: 100%;
+      padding-left: 10px;
+      height: 16px;
+      margin: 8px 0;
+      font-size: 12px;
+      font-weight: 700;
+    }
     .models-buildin-inner {
       width: calc(100% + 20px);
       // padding: 0 10px 0 10px;

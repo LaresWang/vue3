@@ -14,7 +14,10 @@
         </div>
       </div>
     </div>
-    <div class="model-lists">
+    <div
+      class="model-lists"
+      :class="breadcrumbMenusStore.currentModelCat === EModelCatg.Buildin ? 'builin-lists' : ''"
+    >
       <ModelsFromBuildin
         :key="modelBuildinKey"
         :show="breadcrumbMenusStore.currentModelCat === EModelCatg.Buildin"
@@ -27,10 +30,13 @@
       />
     </div>
     <div class="model-operate-area fix-model-operate-area flex-between">
-      <div class="icons-group flex-center">
+      <div
+        class="icons-group flex-center"
+        v-if="breadcrumbMenusStore.currentModelCat === EModelCatg.User"
+      >
         <div
           class="icon-wrapper flex-center"
-          :class="deleteHumanModelStore.isDeleting || breadcrumbMenusStore.currentModelCat === EModelCatg.Buildin ? 'forbidden' : 'pointer'"
+          :class="deleteHumanModelStore.isDeleting ? 'forbidden' : 'pointer'"
           @click="deleteModel"
         >
           <svg-icon name="icon_delete" />
@@ -55,12 +61,13 @@
           <svg-icon name="icon_export" />
         </div>
       </div>
+      <div v-else></div>
       <el-button
         class="operate-btn"
         type="primary"
         @click="createModel"
       >
-        {{ $t("edit.t3") }}
+        {{ breadcrumbMenusStore.currentModelCat === EModelCatg.User ? $t("edit.t3") : $t("edit.t14") }}
       </el-button>
     </div>
     <Modal
@@ -174,7 +181,7 @@
 
   const deleteModel = () => {
     console.log("deleteModel")
-    if (deleteHumanModelStore.isDeleting || breadcrumbMenusStore.currentModelCat === EModelCatg.Buildin) {
+    if (deleteHumanModelStore.isDeleting) {
       return
     }
 
@@ -256,6 +263,9 @@
       padding: 24px 5px 0 5px;
       min-height: 0;
       overflow: hidden;
+      &.builin-lists {
+        padding-top: 0;
+      }
     }
     .model-operate-area {
       padding: 0 20px 0 8px;
