@@ -114,6 +114,7 @@ export type TCopyHumanReqParams = {
 export type TCopyHumanResParams = {
   humanId: string
   humanNo: string
+  humanName: string
 }
 
 export type TCopyHumanResultReqParams = TDeleteHumanResultReqParams & {
@@ -519,3 +520,5 @@ export type TWholeEditRecord = {
 export type TEditRecords = {
   [x: string]: TWholeEditRecord
 }
+
+export type THumanCopyCallback = (params: TCopyHumanResParams | string) => void

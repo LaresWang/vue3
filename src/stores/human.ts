@@ -2,11 +2,19 @@ import { ref, computed } from "vue"
 import { defineStore } from "pinia"
 import useOperateModel from "@/hooks/human/operate"
 import { saveHumanModel, deleteHumanModel, deleteHumanModelResult, copyHumanModel, copyHumanModelResult } from "@/api/human"
-import type { EModelCatg, EOperateModelType, TOperateResult, TSelectedHumanModelInfo, TSelectedPresetInfo } from "../types/human"
+import {
+  EModelCatg,
+  type EOperateModelType,
+  type TCopyHumanResParams,
+  type THumanCopyCallback,
+  type TOperateResult,
+  type TSelectedHumanModelInfo,
+  type TSelectedPresetInfo
+} from "../types/human"
 import { EModelCatg as ModelCatg, EOperateModelType as OperateType } from "@/types/human.d"
 import { getImgDataFromVideo, transferB64toBlob } from "@/utils/screenShot"
 import { showModelLists } from "@/utils/showModelList"
-import type { TObj } from "@/types"
+import type { TObjGeneric } from "@/types"
 import { genUUID } from "@/utils/tools"
 import { EKeyboardType } from "@/types/player.d"
 
@@ -170,6 +178,7 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
   const operate = useOperateModel()
   const refreshHumanListsStore = useRefreshHumanListsStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
+  const copyHumanModelStore = useCopyHumanModelStore()
 
   const startSaving = async (previewImgData: Blob) => {
     const param = new FormData()
@@ -279,19 +288,48 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
       }
     }
   }
+  // 如果是内置模版过来的话需要先复制，然后再保存
   // 待UE端处理完后再发指令显示头部区域，然后截图上传
   const save = () => {
     isSaving.value = true
-    saveTaskId.value = genUUID()
-    isSaveHumanNo = selectedModelInfoStore.info.humanNo
-    // 直接发指令给UE保存数据
-    operate.saveModel({
-      humanNo: selectedModelInfoStore.info.humanNo,
-      taskId: saveTaskId.value,
-      platform: selectedModelInfoStore.info.humanCatg!,
-      gender: selectedModelInfoStore.info.gender!,
-      name: selectedModelInfoStore.info.humanName
-    })
+
+    if (selectedModelInfoStore.info.humanCatg === ModelCatg.Buildin) {
+      // 先走复制逻辑  然后再走接下来的保存逻辑
+      copyHumanModelStore.startCopy(
+        selectedModelInfoStore.info.humanId,
+        selectedModelInfoStore.info.humanCatg,
+        selectedModelInfoStore.info.humanNo,
+        (params) => {
+          if (typeof params === "string") {
+            console.log("保存失败")
+            console.log(params)
+            isSaving.value = false
+          } else {
+            saveTaskId.value = genUUID()
+            isSaveHumanNo = params.humanNo
+            // 直接发指令给UE保存数据
+            operate.saveModel({
+              humanNo: isSaveHumanNo,
+              taskId: saveTaskId.value,
+              platform: ModelCatg.User,
+              gender: selectedModelInfoStore.info.gender!,
+              name: params.humanName
+            })
+          }
+        }
+      )
+    } else {
+      saveTaskId.value = genUUID()
+      isSaveHumanNo = selectedModelInfoStore.info.humanNo
+      // 直接发指令给UE保存数据
+      operate.saveModel({
+        humanNo: selectedModelInfoStore.info.humanNo,
+        taskId: saveTaskId.value,
+        platform: selectedModelInfoStore.info.humanCatg!,
+        gender: selectedModelInfoStore.info.gender!,
+        name: selectedModelInfoStore.info.humanName
+      })
+    }
   }
 
   return { isSaving, saveTaskId, showHeaderTaskId, save, saveDone, showHeaderAreaDone }
@@ -362,17 +400,26 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
   // 一次只能复制一个数字人，等复制完成后才能进行下一个数字人的复制操作
   const isCopying = ref(false)
   const copyTaskId = ref("")
-  let copyInfo: TObj = {}
+  let copyInfo: TCopyHumanResParams = {
+    humanId: "",
+    humanNo: "",
+    humanName: ""
+  }
+  const copyCbs: TObjGeneric<THumanCopyCallback> = {}
 
   const operate = useOperateModel()
   const refreshHumanListsStore = useRefreshHumanListsStore()
 
   const reset = () => {
     isCopying.value = false
-    copyInfo = {}
+    copyInfo = {
+      humanId: "",
+      humanNo: "",
+      humanName: ""
+    }
   }
 
-  const startCopy = async (humanId: string, platform: EModelCatg, humanNo: string) => {
+  const startCopy = async (humanId: string, platform: EModelCatg, humanNo: string, cb?: THumanCopyCallback) => {
     isCopying.value = true
     copyTaskId.value = genUUID()
     try {
@@ -384,6 +431,9 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
       })
       copyInfo = res
 
+      if (cb) {
+        copyCbs[res.humanNo] = cb
+      }
       // TODO 待确定 在调用f复制接口后是否需要继续调用复制指令
       operate.copyModel({
         sourceHumanNo: humanNo,
@@ -391,9 +441,16 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
         taskId: copyTaskId.value,
         platform
       })
-    } catch (e) {
+    } catch (e: any) {
       console.error(e)
       reset()
+
+      if (cb) {
+        cb("保存时复制前异常：" + e.msg || e.message)
+        if (copyInfo.humanNo) {
+          delete copyCbs[copyInfo.humanNo]
+        }
+      }
     }
   }
 
@@ -405,10 +462,24 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
           result: params.result
         })
         reset()
-        refreshHumanListsStore.refreshUserModelLists(OperateType.Copy)
-      } catch (e) {
+        // 保存前的copy这里不走刷新列表逻辑，保存完成后会刷新的
+        if (copyCbs[copyInfo.humanNo]) {
+          if (params.result) {
+            copyCbs[copyInfo.humanNo](copyInfo)
+          } else {
+            copyCbs[copyInfo.humanNo]("保存前复制不成功")
+          }
+          delete copyCbs[copyInfo.humanNo]
+        } else {
+          refreshHumanListsStore.refreshUserModelLists(OperateType.Copy)
+        }
+      } catch (e: any) {
         console.error(e)
         reset()
+        if (copyCbs[copyInfo.humanNo]) {
+          copyCbs[copyInfo.humanNo]("保存时复制后异常：" + e.msg || e.message)
+          delete copyCbs[copyInfo.humanNo]
+        }
       }
     }
   }
