@@ -46,6 +46,7 @@ export type TStartLaunchHumanReqParams = {
 
 export type TStartLaunchHumanResParams = {
   instanceId: string
+  bizId: string
 }
 
 export type TLaunchStatusReqParams = {

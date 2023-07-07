@@ -13,9 +13,10 @@ export const useLaunchInitInfosStore = defineStore("launchInitInfos", () => {
   const humanInstanceId = ref("") // 数字人实例ID
   const appInstanceId = ref("") // UE 应用实例ID
 
-  const setHumanInfos = (instanceId: string, info: THumanModelInfos) => {
+  const setHumanInfos = (instanceId: string, appInstId: string, info: THumanModelInfos) => {
     console.log("setHumanIds", instanceId, info)
     humanInstanceId.value = instanceId
+    appInstanceId.value = appInstId
     humanId.value = info.humanId
     humanNo.value = info.humanNo
     previewUrl.value = info.previewUrl
@@ -43,9 +44,9 @@ export const useLaunchStatusStore = defineStore("launchStatus", () => {
         humanId: launchInitInfosStore.humanId
       })
       status.value = res.status
-      if (res.channelInstanceId && !launchInitInfosStore.appInstanceId) {
-        launchInitInfosStore.setAppInstanceId(res.channelInstanceId)
-      }
+      // if (res.channelInstanceId && !launchInitInfosStore.appInstanceId) {
+      //   launchInitInfosStore.setAppInstanceId(res.channelInstanceId)
+      // }
       if (res.status !== LaunchStatus.Launching) {
         stop()
       }

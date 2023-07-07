@@ -15,7 +15,7 @@ export default () => {
     console.log("在这里发送保存数字人指令")
     const info = recordEditStore.getValidWholeEditInfo(params.humanNo)
     rtcHandlerStore.send({
-      commandId: "", // 保存数字人没有指令
+      commandId: OPERATE_CMD_CODES.Save, // 保存数字人没有指令
       humanNo: params.humanNo,
       taskId: params.taskId,
       platform: params.platform,

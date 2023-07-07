@@ -90,13 +90,13 @@
           platform: catg
         })
 
-        launchInitInfosStore.setHumanInfos(res.instanceId, info)
+        launchInitInfosStore.setHumanInfos(res.bizId, res.instanceId, info)
       } catch (e: any) {
         // console.error(e)
         // TODO 文案待定
         abnormalTipStore.setTipInfo({
           show: true,
-          content: e?.msg || "没有数字人模型数据"
+          content: e.msg || e.message || "没有数字人模型数据"
         })
       }
     }
