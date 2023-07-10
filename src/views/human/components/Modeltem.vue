@@ -182,6 +182,7 @@
       width: 100%;
       height: 165px;
       background: var(--c-gray-3);
+      overflow: hidden;
       border-radius: 6px;
       border: 2px solid transparent;
       position: relative;
