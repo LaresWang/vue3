@@ -76,8 +76,8 @@ export const HumanActionCatgs = [
 ]
 
 export const OPERATE_CMD_CODES = {
-  Show: "CMD0001", // 显示数字人模型，切换数字人
-  Copy: "CMD0002", // 复制数字人
-  Delete: "CMD0003", // 删除数字人
+  Show: "CMD00001", // 显示数字人模型，切换数字人
+  Copy: "CMD00002", // 复制数字人
+  Delete: "CMD00003", // 删除数字人
   Save: "CMD00004" // 保存数字人
 }
