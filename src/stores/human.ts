@@ -443,7 +443,6 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
       })
     } catch (e: any) {
       console.error(e)
-      reset()
 
       if (cb) {
         cb("保存时复制前异常：" + e.msg || e.message)
@@ -451,6 +450,8 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
           delete copyCbs[copyInfo.humanNo]
         }
       }
+
+      reset()
     }
   }
 
@@ -462,7 +463,7 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
           humanNo: copyInfo.humanNo,
           result: params.result
         })
-        reset()
+
         // 保存前的copy这里不走刷新列表逻辑，保存完成后会刷新的
         if (copyCbs[copyInfo.humanNo]) {
           if (params.result) {
@@ -474,6 +475,7 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
         } else {
           refreshHumanListsStore.refreshUserModelLists(OperateType.Copy)
         }
+        reset()
       } catch (e: any) {
         console.error(e)
         reset()
