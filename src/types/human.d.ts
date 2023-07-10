@@ -118,6 +118,7 @@ export type TCopyHumanResParams = {
 }
 
 export type TCopyHumanResultReqParams = TDeleteHumanResultReqParams & {
+  humanNo: string
   assetFile?: string
   previewUrl?: FormData
 }

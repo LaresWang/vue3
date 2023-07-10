@@ -459,6 +459,7 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
       try {
         await copyHumanModelResult({
           humanId: copyInfo.humanId,
+          humanNo: copyInfo.humanNo,
           result: params.result
         })
         reset()
