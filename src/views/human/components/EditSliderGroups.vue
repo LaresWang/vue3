@@ -34,14 +34,14 @@
               <span>{{ list.name }}</span>
               <div class="fix-show-adjust-value">
                 <el-input
-                  v-model="currentAdjustValues[list.code]"
+                  v-model="currentAdjustValues[list.cmd_code]"
                   @change="changeInput(list)"
                 />
               </div>
             </div>
             <div class="slider-area">
               <el-slider
-                v-model="currentAdjustValues[list.code]"
+                v-model="currentAdjustValues[list.cmd_code]"
                 :min="+list.range.left_value"
                 :max="+list.range.right_value"
                 :step="0.01"
@@ -57,10 +57,11 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, watchEffect, onMounted, onBeforeUnmount, inject } from "vue"
+  import { ref, watch, onMounted, onBeforeUnmount, inject } from "vue"
   import { ArrowRight, ArrowDown } from "@element-plus/icons-vue"
   import { useSelectedModelInfoStore } from "@/stores/human"
   import useOperateModel from "@/hooks/human/operate"
+  import useGetEditValues from "@/hooks/human/editValues"
 
   import type { EBodyParts, TBodyPartPositionDetail, TBodyPartPositionDetailInfo } from "@/types/human"
   import { EBodyParts as BodyParts } from "@/types/human.d"
@@ -76,6 +77,7 @@
 
   const operate = useOperateModel()
   const selectedModelInfoStore = useSelectedModelInfoStore()
+  const { getHeaderEditValues } = useGetEditValues()
 
   const needFix = inject("needFix")
   const expandCode = ref("")
@@ -83,20 +85,23 @@
   // 输入框手动输入有问题的时候恢复输入前的值
   let prevAdjustValues: TAdjustValue = {}
   // 初始化数值
-  watchEffect(() => {
-    currentAdjustValues.value = {}
-    prevAdjustValues = {}
-    // 取二级的数据
-    props.data?.forEach((subData) => {
-      /** subData
+  watch(
+    () => props.data,
+    () => {
+      currentAdjustValues.value = {}
+      prevAdjustValues = {}
+      const record = getHeaderEditValues(selectedModelInfoStore.info.humanNo)
+      // 取二级的数据
+      props.data?.forEach((subData) => {
+        /** subData
        * {
           name: "整体",
           code: "001-001",
           detail: []
        }
        */
-      subData.detail.forEach((item) => {
-        /**
+        subData.detail.forEach((item) => {
+          /**
          * item 
          * {
               name: "扁头",
@@ -112,41 +117,45 @@
               }
             },
          */
-        const avg = (+item.range.left_value + +item.range.right_value) / 2
-        currentAdjustValues.value[item.code] = avg
-        prevAdjustValues[item.code] = avg
+          const avg = (+item.range.left_value + +item.range.right_value) / 2
+          currentAdjustValues.value[item.cmd_code] = record[item.cmd_code] || avg
+          prevAdjustValues[item.cmd_code] = currentAdjustValues.value[item.cmd_code]
+        })
       })
-    })
-  })
+    },
+    {
+      immediate: true
+    }
+  )
 
   const expandLists = (code: string) => {
     expandCode.value = expandCode.value === code ? "" : code
   }
 
   const sliderChange = (item: TBodyPartPositionDetailInfo) => {
-    const currentValue = currentAdjustValues.value[item.code]
+    const currentValue = currentAdjustValues.value[item.cmd_code]
     console.log(currentValue)
-    prevAdjustValues[item.code] = currentValue
+    prevAdjustValues[item.cmd_code] = currentValue
     notifyChangeResult(item, currentValue)
     handleSliderMouseUpEvents()
   }
 
   const changeInput = (item: TBodyPartPositionDetailInfo) => {
-    const currentValue = currentAdjustValues.value[item.code]
-    const prevValue = prevAdjustValues[item.code]
+    const currentValue = currentAdjustValues.value[item.cmd_code]
+    const prevValue = prevAdjustValues[item.cmd_code]
     console.log("input ", currentValue)
     if (currentValue && !isNaN(currentValue)) {
       if (currentValue < +item.range.left_value || currentValue > +item.range.right_value) {
         console.log("输入的值不在区间内")
-        currentAdjustValues.value[item.code] = +prevValue
+        currentAdjustValues.value[item.cmd_code] = +prevValue
       } else {
         // 转成数字是为了给滑块设置对应的进度值
-        currentAdjustValues.value[item.code] = +currentValue
-        prevAdjustValues[item.code] = +currentValue
+        currentAdjustValues.value[item.cmd_code] = +currentValue
+        prevAdjustValues[item.cmd_code] = +currentValue
         notifyChangeResult(item, +currentValue)
       }
     } else {
-      currentAdjustValues.value[item.code] = +prevValue
+      currentAdjustValues.value[item.cmd_code] = +prevValue
     }
   }
 

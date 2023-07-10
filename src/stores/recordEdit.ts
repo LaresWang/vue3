@@ -137,10 +137,12 @@ const useRecordEditStore = defineStore("recordEdit", () => {
 const removeInvalidItem = <T extends TEditItem | TMicroAdjustItem>(data: T[]): T[] => {
   const infos = data.filter((item) => item.result)
   if (infos.length) {
-    const taskId: string[] = []
+    const taskCmds: string[] = []
     for (let i = infos.length - 1; i >= 0; i--) {
-      if (taskId.includes(infos[i].taskId)) {
+      if (taskCmds.includes(infos[i].commandId)) {
         infos.splice(i, 1)
+      } else {
+        taskCmds.push(infos[i].commandId)
       }
     }
   }

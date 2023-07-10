@@ -37,8 +37,16 @@ export const useLaunchStatusStore = defineStore("launchStatus", () => {
   const launchInitInfosStore = useLaunchInitInfosStore()
 
   const start = () => {
+    // 清掉可能存在的旧循环
+    stop()
     console.log("开始循环查询启动状态")
     timmer = setInterval(async () => {
+      const isInPlayerPage = location.pathname === "/human/home"
+      if (!isInPlayerPage) {
+        stop()
+        return
+      }
+
       const res = await getLaunchStatus({
         instanceId: launchInitInfosStore.humanInstanceId,
         humanId: launchInitInfosStore.humanId
