@@ -173,6 +173,7 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
   const isSaving = ref(false)
   const saveTaskId = ref("")
   const showHeaderTaskId = ref("")
+  let isSaveHumanId = ""
   let isSaveHumanNo = ""
 
   const operate = useOperateModel()
@@ -182,7 +183,7 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
 
   const startSaving = async (previewImgData: Blob) => {
     const param = new FormData()
-    param.append("humanId", selectedModelInfoStore.info.humanId)
+    param.append("humanId", isSaveHumanId)
     param.append("humanNo", isSaveHumanNo)
     param.append("previewUrl", previewImgData)
     try {
@@ -313,6 +314,7 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
           } else {
             saveTaskId.value = genUUID()
             isSaveHumanNo = params.humanNo
+            isSaveHumanId = params.humanId
             // 直接发指令给UE保存数据
             operate.saveModel({
               humanNo: isSaveHumanNo,
@@ -327,9 +329,10 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
     } else {
       saveTaskId.value = genUUID()
       isSaveHumanNo = selectedModelInfoStore.info.humanNo
+      isSaveHumanId = selectedModelInfoStore.info.humanId
       // 直接发指令给UE保存数据
       operate.saveModel({
-        humanNo: selectedModelInfoStore.info.humanNo,
+        humanNo: isSaveHumanNo,
         taskId: saveTaskId.value,
         platform: selectedModelInfoStore.info.humanCatg!,
         gender: selectedModelInfoStore.info.gender!,
