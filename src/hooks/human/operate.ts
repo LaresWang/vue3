@@ -51,6 +51,15 @@ export default () => {
       platform: params.humanCatg
     })
   }
+  // 撤销编辑，恢复至初始状态
+  const resetModel = (params: { humanNo: string; taskId: string; platform: EModelCatg }) => {
+    rtcHandlerStore.send({
+      commandId: OPERATE_CMD_CODES.Reset,
+      humanNo: params.humanNo,
+      taskId: params.taskId,
+      platform: params.platform
+    })
+  }
   // 选择表情
   const selectEmotion = (params: TSelectedPresetInfo & { humanNo: string }) => {
     rtcHandlerStore.send({
@@ -89,5 +98,17 @@ export default () => {
     rtcHandlerStore.send(params)
   }
 
-  return { saveModel, copyModel, deleteModel, selectModel, selectEmotion, selectAction, presetHeader, microAdjustHeader, deleteEditRecord, sendCmd }
+  return {
+    saveModel,
+    copyModel,
+    deleteModel,
+    selectModel,
+    resetModel,
+    selectEmotion,
+    selectAction,
+    presetHeader,
+    microAdjustHeader,
+    deleteEditRecord,
+    sendCmd
+  }
 }
