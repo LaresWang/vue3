@@ -185,7 +185,7 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
     const param = new FormData()
     param.append("humanId", isSaveHumanId)
     param.append("humanNo", isSaveHumanNo)
-    param.append("previewUrl", previewImgData)
+    param.append("avatarFile", previewImgData)
     try {
       const res = await saveHumanModel(param)
       console.log("保存成功", res)
