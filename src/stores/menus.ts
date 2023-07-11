@@ -48,7 +48,7 @@ const useBreadcrumbMenusStore = defineStore("breadcrumbMenus", () => {
       // 清除编辑记录
       recordEditStore.deleteRecord(selectedModelInfoStore.info.humanNo)
       //编辑时 默认显示捏脸选项，这里强制到其他选项后，等到再次显示捏脸的时候数据可以初始化
-      selectedEditCompNameStore.setSelectCompName(EditCompName.EditEmotions)
+      selectedEditCompNameStore.setSelectCompName(EditCompName.EditEmpty)
     }
   }
 
@@ -81,7 +81,7 @@ const useEidtHumanMenusStore = defineStore("editHumanMenus", () => {
 })
 
 const useSelectedEditCompNameStore = defineStore("editCompId", () => {
-  const selectedCompName = ref<EEditCompName>()
+  const selectedCompName = ref<EEditCompName>(EditCompName.EditEmpty)
   const eidtHumanMenusStore = useEidtHumanMenusStore()
   const setSelectCompName = (id: EEditCompName) => {
     selectedCompName.value = id

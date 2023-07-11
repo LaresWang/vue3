@@ -13,7 +13,7 @@
         <HumanModelLists v-show="breadcrumbMenusStore.breadMenus.length < 2" />
         <component
           v-show="breadcrumbMenusStore.breadMenus.length > 1"
-          :is="comps[selectedEditCompNameStore.selectedCompName || EEditCompName.EditHeaderPart]"
+          :is="comps[selectedEditCompNameStore.selectedCompName]"
         ></component>
         <!-- <EditHeaderPart />
         <EditEmotions />
@@ -40,6 +40,7 @@
 
   import HumanModelLists from "./components/HumanModelLists.vue"
   import BodySummaryParts from "./components/BodySummaryParts.vue"
+  import EditEmpty from "./components/EditEmpty.vue"
   import EditHeaderPart from "./components/EditHeaderPart.vue"
   import EditEmotions from "./components/EditEmotions.vue"
   import EditActions from "./components/EditActions.vue"
@@ -52,6 +53,7 @@
   const launchInitInfosStore = useLaunchInitInfosStore()
 
   const comps = {
+    [EEditCompName.EditEmpty]: EditEmpty,
     [EEditCompName.EditHeaderPart]: EditHeaderPart,
     [EEditCompName.EditEmotions]: EditEmotions,
     [EEditCompName.EditActions]: EditActions

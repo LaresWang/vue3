@@ -8,6 +8,7 @@ export type TBreadcrumbMenu = {
 }
 
 export enum EEditCompName {
+  EditEmpty = "EditEmpty",
   EditHeaderPart = "EditHeaderPart",
   EditEmotions = "EditEmotions",
   EditActions = "EditActions"
