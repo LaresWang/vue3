@@ -200,7 +200,7 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
   const startScreenShot = () => {
     const b64 = getImgDataFromVideo("streamingVideo", "video-container")
     if (!b64) {
-      console.log("获取数据异常")
+      console.log("获取截图数据异常")
       isSaving.value = false
       return
     }
@@ -279,10 +279,16 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
     }, 300)
   }
 
+  // UE端保存结束
   const saveDone = (params: TOperateResult) => {
+    console.log("UE保存处理结束:", params)
     if (params.humanNo === isSaveHumanNo) {
       if (params.result === true) {
-        showHeaderArea()
+        // 不用前端发切换镜头指令了，UE端收到保存指令自动切换到面部镜头，收到保存指令响应后可直接截图
+        // showHeaderArea()
+
+        // 开始截图然后调后端保存接口
+        startScreenShot()
       } else {
         isSaving.value = false
       }
