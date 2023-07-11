@@ -6,7 +6,7 @@
     :modal-append-to-body="false"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
-    class="nt-set-password"
+    class="fix-set-password set-password"
     top="50vh"
   >
     <div class="set-password-inner">
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="set-pwd-inputs">
-        <div class="nt-input-item">
+        <div class="input-item">
           <!-- 密码 -->
           <div class="label">{{ $t("user.t11") }}</div>
           <div class="input-wrapper">
@@ -29,7 +29,7 @@
             />
           </div>
         </div>
-        <div class="nt-input-item">
+        <div class="input-item">
           <!-- 确认密码 -->
           <div class="label">{{ $t("user.t12") }}</div>
           <div class="input-wrapper">
@@ -177,7 +177,8 @@
   }
 </script>
 <style lang="less">
-  .nt-set-password {
+  .set-password {
+    width: 340px;
     min-height: 390px;
     color: var(--c-black-2);
     .el-dialog__header {
@@ -200,7 +201,7 @@
       .set-pwd-inputs {
         padding-left: 12px;
         margin-top: 24px;
-        .nt-input-item {
+        .input-item {
           .input-wrapper {
             padding-right: 20px;
             position: relative;
@@ -242,5 +243,8 @@
         }
       }
     }
+  }
+  .fix-set-password {
+    min-width: 250px;
   }
 </style>

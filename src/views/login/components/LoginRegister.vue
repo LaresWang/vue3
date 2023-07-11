@@ -452,6 +452,10 @@
           width: 100%;
           height: 40px;
           padding: 0;
+          span {
+            font-size: 14px;
+            font-weight: 500;
+          }
         }
       }
       .third-party-login {
