@@ -485,7 +485,11 @@ const useCopyHumanModelStore = defineStore("copyHumanModel", () => {
           }
           delete copyCbs[copyInfo.humanNo]
         } else {
-          refreshHumanListsStore.refreshUserModelLists(OperateType.Copy)
+          if (params.result) {
+            refreshHumanListsStore.refreshUserModelLists(OperateType.Copy)
+          } else {
+            console.log("复制失败")
+          }
         }
         reset()
       } catch (e: any) {
