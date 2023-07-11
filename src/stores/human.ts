@@ -22,9 +22,11 @@ import { EKeyboardType } from "@/types/player.d"
 const useRefreshHumanListsStore = defineStore("refreshHumanLists", () => {
   const refreshListType = ref<ModelCatg>()
   const refreshReason = ref<EOperateModelType>()
+  const refreshCount = ref(1)
 
   const refreshUserModelLists = (source?: EOperateModelType) => {
     refreshListType.value = ModelCatg.User
+    refreshCount.value++
     if (source) {
       refreshReason.value = source
     } else {
@@ -35,6 +37,7 @@ const useRefreshHumanListsStore = defineStore("refreshHumanLists", () => {
   }
 
   const refreshBuildinModelLists = () => {
+    refreshCount.value++
     refreshListType.value = ModelCatg.Buildin
     showModelLists(ModelCatg.Buildin)
   }
@@ -47,7 +50,7 @@ const useRefreshHumanListsStore = defineStore("refreshHumanLists", () => {
     refreshReason.value = undefined
   }
 
-  return { refreshListType, refreshReason, refreshUserModelLists, refreshBuildinModelLists, resetRefresh, resetRefreshReason }
+  return { refreshListType, refreshReason, refreshCount, refreshUserModelLists, refreshBuildinModelLists, resetRefresh, resetRefreshReason }
 })
 
 // 点击选择数字人

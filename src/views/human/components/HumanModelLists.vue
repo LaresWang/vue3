@@ -107,11 +107,11 @@
   const deleteHumanModelStore = useDeleteHumanModelStore()
 
   watchEffect(() => {
-    if (refreshHumanListsStore.refreshListType === EModelCatg.User) {
+    if (refreshHumanListsStore.refreshCount && refreshHumanListsStore.refreshListType === EModelCatg.User) {
       refreshHumanListsStore.resetRefresh()
       // 强制刷新组件
       modelUserKey.value++
-    } else if (refreshHumanListsStore.refreshListType === EModelCatg.Buildin) {
+    } else if (refreshHumanListsStore.refreshCount && refreshHumanListsStore.refreshListType === EModelCatg.Buildin) {
       refreshHumanListsStore.resetRefresh()
       modelBuildinKey.value++
     }
