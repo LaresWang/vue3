@@ -36,6 +36,7 @@
   import type { THumanModelInfos, EModelCatg } from "@/types/human"
   import { EModelCatg as ModelCatg } from "@/types/human.d"
   import { useLaunchInitInfosStore } from "@/stores/player"
+  import { useSelectedModelInfoStore } from "@/stores/human"
   import useAbnormalTipStore from "@/stores/abnormalTip"
 
   import HumanModelLists from "./components/HumanModelLists.vue"
@@ -51,6 +52,7 @@
   const breadcrumbMenusStore = useBreadcrumbMenusStore()
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
   const launchInitInfosStore = useLaunchInitInfosStore()
+  const selectedModelInfoStore = useSelectedModelInfoStore()
 
   const comps = {
     [EEditCompName.EditEmpty]: EditEmpty,
@@ -93,6 +95,16 @@
           platform: catg
         })
 
+        selectedModelInfoStore.setSelectedModelInfo(
+          {
+            humanId: info.humanId,
+            humanName: info.humanName,
+            humanCatg: catg,
+            humanNo: info.humanNo,
+            gender: info.gender
+          },
+          true
+        )
         launchInitInfosStore.setHumanInfos(res.bizId, res.instanceId, info)
       } catch (e: any) {
         // console.error(e)
