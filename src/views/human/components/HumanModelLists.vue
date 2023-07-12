@@ -186,6 +186,10 @@
   }
 
   const deleteModel = () => {
+    if (!canInteract()) {
+      return
+    }
+
     console.log("deleteModel")
     if (deleteHumanModelStore.isDeleting) {
       return
@@ -214,6 +218,10 @@
   }
 
   const copyModel = () => {
+    if (!canInteract()) {
+      return
+    }
+
     console.log("copyModel")
     if (copyHumanModelStore.isCopying) {
       return
