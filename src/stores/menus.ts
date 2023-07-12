@@ -32,7 +32,13 @@ const useBreadcrumbMenusStore = defineStore("breadcrumbMenus", () => {
   }
   const updateRootMenu = (menu: TBreadcrumbMenu) => {
     clearBreadMenus()
+    // 清除编辑前选中的模型，加载列表后再发送指令显示 第一个模型
+    selectedModelInfoStore.clearSelectedModelInfo()
+
     addBreadMenu(menu)
+
+    // 理论上只有保存后自动回到数字人列表的时候需要清除编辑配置等信息，这里不区分，只要显示数字人列表都做清除动作
+    extralInfoHandler()
   }
   const clearBreadMenus = () => {
     breadMenus.value.length = 0
@@ -45,17 +51,25 @@ const useBreadcrumbMenusStore = defineStore("breadcrumbMenus", () => {
     }
 
     if (breadMenus.value.length === 1) {
-      // 清除编辑记录
-      operate.deleteEditRecord(selectedModelInfoStore.info.humanNo)
-      // 发送恢复指令
+      // 回退到数字人列表，编辑的配置需要清除，并且恢复数字人到编辑前状态
+      extralInfoHandler(true)
+    }
+  }
+
+  const extralInfoHandler = (needResetModel?: boolean) => {
+    // 清除编辑记录
+    operate.deleteEditRecord(selectedModelInfoStore.info.humanNo)
+
+    // 发送恢复指令
+    needResetModel &&
       operate.resetModel({
         humanNo: selectedModelInfoStore.info.humanNo,
         taskId: uuid(),
         platform: selectedModelInfoStore.info.humanCatg!
       })
-      //编辑时 默认显示捏脸选项，这里强制到其他选项后，等到再次显示捏脸的时候数据可以初始化
-      selectedEditCompNameStore.setSelectCompName(EditCompName.EditEmpty)
-    }
+
+    //编辑时 默认显示捏脸选项，这里强制到其他选项后，等到再次显示捏脸的时候数据可以初始化
+    selectedEditCompNameStore.setSelectCompName(EditCompName.EditEmpty)
   }
 
   return { breadMenus, currentModelCat, addBreadMenu, jumpPrevMenu, updateRootMenu }
