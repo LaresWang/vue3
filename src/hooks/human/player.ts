@@ -63,7 +63,7 @@ export const usePlayerHandlers = () => {
         break
       case "done":
         loadingProgress.value = 100
-        rtcHandlerStore.ready()
+        // rtcHandlerStore.ready()
         break
       case "error":
         // this.wsError = true

@@ -16,6 +16,7 @@ import { getImgDataFromVideo, transferB64toBlob } from "@/utils/screenShot"
 import { showModelLists } from "@/utils/showModelList"
 import type { TObjGeneric } from "@/types"
 import { genUUID } from "@/utils/tools"
+import { canInteract } from "@/utils/player"
 import { EKeyboardType } from "@/types/player.d"
 
 // 强制刷新数字人列表
@@ -67,6 +68,10 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
   const selectedHumanModelId = computed(() => info.value.humanId)
 
   const setSelectedModelInfo = (params: TSelectedHumanModelInfo) => {
+    if (!canInteract()) {
+      return
+    }
+
     if (info.value.humanNo === params.humanNo) {
       return
     }

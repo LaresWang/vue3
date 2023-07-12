@@ -33,6 +33,7 @@ export const useLaunchInitInfosStore = defineStore("launchInitInfos", () => {
 export const useLaunchStatusStore = defineStore("launchStatus", () => {
   let timmer: TInterval = 0
   const status = ref<ELaunchStatus>()
+  const canInteract = ref(false)
 
   const launchInitInfosStore = useLaunchInitInfosStore()
 
@@ -65,5 +66,9 @@ export const useLaunchStatusStore = defineStore("launchStatus", () => {
     timmer && clearInterval(timmer)
   }
 
-  return { status, start, stop }
+  const ready = () => {
+    canInteract.value = true
+  }
+
+  return { status, canInteract, start, stop, ready }
 })

@@ -87,6 +87,8 @@
     if (status === "done") {
       // 可以直接给UE发信息了
       // sdk.sendDataToApp(data)
+      rtcHandlerStore.ready()
+      launchStatusStore.ready()
     }
   })
 

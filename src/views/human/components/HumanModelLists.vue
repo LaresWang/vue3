@@ -89,6 +89,7 @@
   import type { THumanModelInfos } from "@/types/human"
   import type { TBreadcrumbMenu } from "@/types/menus"
   import message from "@/utils/message"
+  import { canInteract } from "@/utils/player"
   import { t } from "@/locale"
 
   import ModelsFromBuildin from "./ModelsFromBuildin.vue"
@@ -145,6 +146,10 @@
 
   let isCreatingModel = false
   const createModel = () => {
+    if (!canInteract()) {
+      return
+    }
+
     if (isCreatingModel) {
       return
     }
