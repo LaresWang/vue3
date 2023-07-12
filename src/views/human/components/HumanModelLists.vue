@@ -119,6 +119,10 @@
   })
 
   const changeModelList = (item: TBreadcrumbMenu) => {
+    if (!canInteract()) {
+      return
+    }
+
     if (breadcrumbMenusStore.currentModelCat === item.value) {
       return
     }
