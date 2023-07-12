@@ -68,11 +68,11 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
   const selectedHumanModelId = computed(() => info.value.humanId)
 
   const setSelectedModelInfo = (params: TSelectedHumanModelInfo) => {
-    if (!canInteract()) {
+    if (info.value.humanNo === params.humanNo) {
       return
     }
 
-    if (info.value.humanNo === params.humanNo) {
+    if (!canInteract()) {
       return
     }
 
