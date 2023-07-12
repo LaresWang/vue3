@@ -103,8 +103,10 @@
             humanNo: info.humanNo,
             gender: info.gender
           },
+          true,
           true
         )
+
         launchInitInfosStore.setHumanInfos(res.bizId, res.instanceId, info)
       } catch (e: any) {
         // console.error(e)

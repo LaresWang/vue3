@@ -119,11 +119,11 @@
   })
 
   const changeModelList = (item: TBreadcrumbMenu) => {
-    if (!canInteract()) {
+    if (breadcrumbMenusStore.currentModelCat === item.value) {
       return
     }
 
-    if (breadcrumbMenusStore.currentModelCat === item.value) {
+    if (!canInteract()) {
       return
     }
 
