@@ -28,8 +28,22 @@ const getImgDataFromVideo = (videoId: string, containerId?: string): string => {
     canvas.height = canvasSize
     canvas.width = canvasSize
     const ctx = canvas.getContext("2d")
-    //  drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh) 剪切图像，并在画布上定位被剪切的部分
-    ctx?.drawImage(video.el, Math.abs(video.width / 2 - cwidth / 2), 0, canvasSize, canvasSize, 0, 0, canvasSize, canvasSize)
+
+    if (video.width < cwidth) {
+      ctx?.drawImage(video.el, 0, 0, video.width, video.height, 0, 0, canvasSize, canvasSize)
+    } else {
+      const vrate = video.width / video.height
+      const sh = canvasSize / vrate
+      if (sh < canvasSize) {
+        const ncanvasSize = sh
+        canvas.height = ncanvasSize
+        canvas.width = ncanvasSize
+      }
+      
+      //  drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh) 剪切图像，并在画布上定位被剪切的部分
+      ctx?.drawImage(video.el, video.width / 2 - cwidth / 2, (video.height - sh) / 2, canvasSize, sh, 0, 0, canvas.width, canvas.height)
+    }
+
   } else {
     // 下面是截video全部
     canvas.height = video.height
