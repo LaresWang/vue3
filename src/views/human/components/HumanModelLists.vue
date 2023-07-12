@@ -140,9 +140,6 @@
     if (!isSubmiting && isCreatingModel && infos.humanId === selectedModelInfoStore.info.humanId) {
       isCreatingModel = false
       showEditModelPage()
-    } else {
-      delete submitNameRecord[infos.humanId]
-      delete submitStatusRecord[infos.humanId]
     }
   }
 
@@ -160,7 +157,7 @@
     }
     // 在点击创建的时候可能会触发修改名称输入框的blur事件，需要等修改提交响应结果后再进入下一步
     setTimeout(() => {
-      if (!submitStatusRecord[selectedModelInfoStore.info.humanId]) {
+      if (!submitStatusRecord[selectedModelInfoStore.info.humanId] && isCreatingModel) {
         isCreatingModel = false
         showEditModelPage()
       }
@@ -175,8 +172,8 @@
       label: submitNameRecord[humanId] || selectedModelInfoStore.info.humanName
     })
 
-    delete submitNameRecord[humanId]
-    delete submitStatusRecord[humanId]
+    // delete submitNameRecord[humanId]
+    // delete submitStatusRecord[humanId]
   }
 
   const deleteModel = () => {
