@@ -89,6 +89,7 @@
 
         const res = await startLaunchHuman({
           humanId: info.humanId,
+          humanNo: info.humanNo,
           platform: catg
         })
 

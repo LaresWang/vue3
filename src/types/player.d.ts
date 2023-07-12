@@ -41,6 +41,7 @@ export enum EUESpecialKeyCode {
 
 export type TStartLaunchHumanReqParams = {
   humanId: string
+  humanNo: string
   platform: EModelCatg
 }
 
