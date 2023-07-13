@@ -334,6 +334,8 @@ const useSaveHumanModelStore = defineStore("saveHumanModel", () => {
             // 直接发指令给UE保存数据
             operate.saveModel({
               humanNo: isSaveHumanNo,
+              // 经过复制后的humanNo是新的值，获取捏脸数据获取的是当前被选中的humanNo
+              oriHumanNo: selectedModelInfoStore.info.humanNo,
               taskId: saveTaskId.value,
               platform: ModelCatg.User,
               gender: selectedModelInfoStore.info.gender!,
