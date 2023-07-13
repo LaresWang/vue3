@@ -68,32 +68,26 @@
       // addBreadMenu(HumanModelCatgs[0])
       try {
         const results = await Promise.all([
+          getPlatformHumanLists(),
           getUserHumanLists({
             pageNo: 1,
             pageSize: 1
-          }),
-          getPlatformHumanLists()
+          })
         ])
 
         console.log(results)
         let info: THumanModelInfos | null
         let catg: EModelCatg | undefined
 
-        if (results[0].rows.length) {
+        if (results[1].rows?.length) {
           breadcrumbMenusStore.addBreadMenu({ ...HumanModelCatgs[1], canJump: true })
-          info = results[0].rows[0]
+          info = results[1].rows[0]
           catg = ModelCatg.User
         } else {
           breadcrumbMenusStore.addBreadMenu({ ...HumanModelCatgs[0], canJump: true })
-          info = results[1][0]
+          info = results[0][0]
           catg = ModelCatg.Buildin
         }
-
-        const res = await startLaunchHuman({
-          humanId: info.humanId,
-          humanNo: info.humanNo,
-          platform: catg
-        })
 
         selectedModelInfoStore.setSelectedModelInfo(
           {
@@ -106,6 +100,12 @@
           true,
           true
         )
+
+        const res = await startLaunchHuman({
+          humanId: info.humanId,
+          humanNo: info.humanNo,
+          platform: catg
+        })
 
         launchInitInfosStore.setHumanInfos(res.bizId, res.instanceId, info)
       } catch (e: any) {
