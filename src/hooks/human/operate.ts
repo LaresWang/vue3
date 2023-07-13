@@ -11,9 +11,9 @@ export default () => {
   const rtcHandlerStore = useRTCHandlersStore()
   const recordEditStore = useRecordEditStore()
   // 保存数字人
-  const saveModel = (params: { humanNo: string; taskId: string; platform: EModelCatg; name: string; gender: EGender }) => {
+  const saveModel = (params: { humanNo: string; taskId: string; platform: EModelCatg; name: string; gender: EGender; oriHumanNo?: string }) => {
     console.log("在这里发送保存数字人指令")
-    const info = recordEditStore.getValidWholeEditInfo(params.humanNo)
+    const info = recordEditStore.getValidWholeEditInfo(params.oriHumanNo || params.humanNo)
     rtcHandlerStore.send({
       commandId: OPERATE_CMD_CODES.Save, // 保存数字人没有指令
       humanNo: params.humanNo,
