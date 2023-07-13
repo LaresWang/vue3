@@ -8,8 +8,12 @@ export default (element: Ref<HTMLElement | undefined>, rate: number) => {
     }
     el = element.value
     bgPicHandler()
-    const resizeEL = new ResizeObserver(bgPicHandler)
-    resizeEL.observe(el)
+    if (typeof ResizeObserver !== "undefined") {
+      const resizeEL = new ResizeObserver(bgPicHandler)
+      resizeEL.observe(el)
+    } else {
+      window.addEventListener("resize", bgPicHandler)
+    }
   })
 
   const bgPicHandler = () => {
