@@ -258,6 +258,7 @@
         height: 100%;
         .edit-save-btn {
           height: 28px;
+          padding: 0;
         }
       }
     }

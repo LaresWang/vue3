@@ -308,6 +308,7 @@
       .operate-btn {
         width: 72px;
         height: 28px;
+        padding: 0;
       }
     }
   }
