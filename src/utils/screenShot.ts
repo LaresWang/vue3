@@ -49,10 +49,10 @@ const getImgDataFromVideo = (videoId: string, containerId?: string): string => {
       // 视频宽度大于等于容器宽度
       if (crate > 1) {
         // 容器 宽大于高 canvasSize=vheight  canvasSize < cwidth
-        ctx?.drawImage(video.el, (cwidth - canvasSize) / 2, 0, vheight, vheight, 0, 0, canvasSize, canvasSize)
+        ctx?.drawImage(video.el, (vwidth - cwidth) / 2, 0, vheight, vheight, 0, 0, canvasSize, canvasSize)
       } else {
         // 容器 宽小于等于高 canvasSize=cwidth  canvasSize < cheight
-        ctx?.drawImage(video.el, (cwidth - canvasSize) / 2, 0, cwidth, cwidth, 0, 0, canvasSize, canvasSize)
+        ctx?.drawImage(video.el, (vwidth - cwidth) / 2, 0, cwidth, cwidth, 0, 0, canvasSize, canvasSize)
       }
       // const sh = canvasSize / vrate
       // if (sh < canvasSize) {
