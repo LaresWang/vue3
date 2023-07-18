@@ -16,7 +16,7 @@ export const useCaptchaInitSMS = () => {
   const getMsgCode = (mb: string) => {
     mobile = mb
     captchaObj.showCaptcha()
-    computedPosition(".nt-login-register")
+    computedPosition(".login-register")
   }
 
   const startInitGeetest = (captchaId: string) => {
@@ -70,7 +70,7 @@ export const useCaptchaInitPWD = () => {
   const loginByPwd = (options: TPWDInputValues) => {
     pwdLoginPartialParams = options
     captchaObj.showCaptcha()
-    computedPosition(".nt-login-register")
+    computedPosition(".login-register")
   }
 
   const setLogingStatus = (status: boolean) => {

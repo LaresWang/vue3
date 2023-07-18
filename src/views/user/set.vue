@@ -1,5 +1,5 @@
 <template>
-  <div class="nt-account-set">
+  <div class="account-set">
     <div class="user-infos-down">
       <div class="upload-comp">
         <UploadCropper
@@ -133,7 +133,7 @@
             <div>{{ $t("user.t47", { value: userInfoStore.userInfo?.mobile }) }}</div>
             <!-- 短信验证码 -->
             <div
-              class="nt-input-item with-button mt20"
+              class="input-item with-button mt20"
               :class="rdata.prevsetInfos.error ? 'is-error' : ''"
             >
               <el-input
@@ -190,7 +190,7 @@
             <div class="modal-body-content flex-v-start">
               <!-- 输入手机号 -->
               <div
-                class="nt-input-item flex-start"
+                class="input-item flex-start"
                 :class="rdata.mobileInfos.error ? 'is-error' : ''"
               >
                 <el-input
@@ -213,7 +213,7 @@
 
               <!-- 短信验证码 -->
               <div
-                class="nt-input-item with-button"
+                class="input-item with-button"
                 :class="rdata.msgcodeInfos.error ? 'is-error' : ''"
               >
                 <el-input
@@ -268,7 +268,7 @@
             <div class="modal-body-content flex-v-start">
               <!-- 用户名 -->
               <div
-                class="nt-input-item flex-start"
+                class="input-item flex-start"
                 :class="rdata.usernameInfos.error ? 'is-error' : ''"
               >
                 <el-input
@@ -305,7 +305,7 @@
           >
             <!-- 设置密码 -->
             <div class="modal-body-content flex-v-start set-pwd-inputs">
-              <div class="nt-input-item">
+              <div class="input-item">
                 <div class="input-wrapper">
                   <PasswordInput
                     from="2"
@@ -314,7 +314,7 @@
                   />
                 </div>
               </div>
-              <div class="nt-input-item">
+              <div class="input-item">
                 <div class="input-wrapper">
                   <PasswordInput
                     from="3"
@@ -691,7 +691,7 @@
 </script>
 
 <style lang="less">
-  .nt-account-set {
+  .account-set {
     .user-infos-down {
       padding: 20px 24px;
       // .upload-tip {
@@ -803,7 +803,7 @@
             //   // width: 100%;
             // }
           }
-          .nt-input-item {
+          .input-item {
             position: relative;
             padding: 0 0 20px 0;
             width: 100%;
@@ -864,7 +864,7 @@
             }
           }
           .set-pwd-inputs {
-            .nt-input-item {
+            .input-item {
               padding: 0;
               .input-wrapper {
                 .err-msg {

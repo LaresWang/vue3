@@ -1,5 +1,5 @@
 <template>
-  <div class="nt-forget-pwd">
+  <div class="forget-pwd">
     <div class="forget-pwd-inner">
       <div v-if="rdata.step === 1">
         <div class="login-type-btns-group flex-start">
@@ -10,7 +10,7 @@
         <div class="login-inputs-area mt30">
           <!-- 输入手机号 -->
           <div
-            class="nt-input-item flex-start without-status-icon"
+            class="input-item flex-start without-status-icon"
             :class="rdata.mobileInfos.error ? 'is-error' : ''"
           >
             <el-input
@@ -34,7 +34,7 @@
           <!-- 短信验证码 -->
           <div
             v-show="rdata.loginType === 1"
-            class="nt-input-item with-button without-status-icon"
+            class="input-item with-button without-status-icon"
             :class="rdata.msgcodeInfos.error ? 'is-error' : ''"
           >
             <el-input
@@ -72,7 +72,7 @@
           <!-- 密码组件 -->
           <div
             v-if="rdata.loginType === 2"
-            class="nt-input-item without-status-icon without-pb"
+            class="input-item without-status-icon without-pb"
           >
             <PasswordInput @validate="validatePwd" />
           </div>
@@ -98,7 +98,7 @@
           </div>
         </div>
         <div class="set-pwd-inputs mt30">
-          <div class="nt-input-item">
+          <div class="input-item">
             <!-- 密码 -->
             <div class="input-wrapper">
               <PasswordInput
@@ -108,7 +108,7 @@
               />
             </div>
           </div>
-          <div class="nt-input-item">
+          <div class="input-item">
             <!-- 确认密码 -->
             <div class="input-wrapper">
               <PasswordInput
@@ -393,7 +393,7 @@
   })
 </script>
 <style lang="less">
-  .nt-forget-pwd {
+  .forget-pwd {
     margin-top: 24px;
     width: 400px;
 
@@ -422,7 +422,7 @@
         }
       }
       .login-inputs-area {
-        .nt-input-item {
+        .input-item {
           position: relative;
           padding: 0 0 20px 0;
           &.without-status-icon {

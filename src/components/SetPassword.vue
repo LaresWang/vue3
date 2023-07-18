@@ -6,7 +6,7 @@
     :modal-append-to-body="false"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
-    class="fix-set-password set-password"
+    class="set-password"
     top="50vh"
   >
     <div class="set-password-inner">
@@ -237,14 +237,15 @@
           height: 36px;
           width: 120px;
           padding: 0;
+          span {
+            font-size: 14px;
+            font-weight: 500;
+          }
         }
         .later-set {
           font-size: 12px;
         }
       }
     }
-  }
-  .fix-set-password {
-    min-width: 250px;
   }
 </style>

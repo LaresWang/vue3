@@ -1,5 +1,5 @@
 <template>
-  <div class="nt-pwd-input">
+  <div class="pwd-input">
     <div
       class="pwd-input-inner flex-center"
       :class="data.errTipContent ? 'is-error' : ''"
@@ -338,7 +338,7 @@
 </script>
 
 <style lang="less">
-  .nt-pwd-input {
+  .pwd-input {
     width: 100%;
     padding-bottom: 20px;
     .pwd-input-inner {

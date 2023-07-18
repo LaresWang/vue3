@@ -1,5 +1,5 @@
 <template>
-  <div class="nt-login-register">
+  <div class="login-register">
     <div class="login-register-title">{{ $t("common.welcome_text") }}</div>
     <div class="login-register-inner">
       <div class="login-type-btns-group flex-start">
@@ -23,7 +23,7 @@
       <div class="login-inputs-area mt30">
         <!-- 输入手机号 -->
         <div
-          class="nt-input-item flex-start without-status-icon"
+          class="input-item flex-start without-status-icon"
           :class="rdata.mobileInfos.error ? 'is-error' : ''"
         >
           <el-input
@@ -49,7 +49,7 @@
         <!-- 短信验证码 -->
         <div
           v-show="rdata.loginType === 1"
-          class="nt-input-item with-button without-status-icon"
+          class="input-item with-button without-status-icon"
           :class="rdata.msgcodeInfos.error ? 'is-error' : ''"
         >
           <el-input
@@ -89,7 +89,7 @@
         <!-- 密码组件 -->
         <div
           v-if="rdata.loginType === 2"
-          class="nt-input-item without-status-icon without-pb"
+          class="input-item without-status-icon without-pb"
         >
           <PasswordInput
             @validate="validatePwd"
@@ -333,7 +333,7 @@
   }
 </script>
 <style lang="less">
-  .nt-login-register {
+  .login-register {
     margin-top: 24px;
     width: 400px;
     height: 420px;
@@ -363,7 +363,7 @@
         }
       }
       .login-inputs-area {
-        .nt-input-item {
+        .input-item {
           position: relative;
           padding-bottom: 20px;
           .prefix-input-icon-wrapper {

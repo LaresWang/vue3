@@ -24,7 +24,7 @@ export const useCaptchaInit = () => {
   const getMsgCode = (options: TSetSMSCodeApiPartialParams) => {
     setSMSCodeParams(options)
     captchaObj.showCaptcha()
-    computedPosition(".nt-forget-pwd")
+    computedPosition(".forget-pwd")
   }
 
   const startInitGeetest = (captchaId: string) => {
