@@ -31,7 +31,7 @@
       /> -->
       <div class="icon-wrapper flex-center">
         <div
-          class="pointer"
+          class="pointer flex-center"
           @click="toggleShowType"
         >
           <img
@@ -351,6 +351,7 @@
       border-radius: 4px;
       .input-ele {
         flex: 1;
+        min-width: 100px;
         height: 32px;
         border: none;
         outline: none;

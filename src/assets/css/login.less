@@ -92,8 +92,20 @@
   }
 }
 
-// @media (min-width: 1440px) {
-//   .login-home-left {
-//     background-size: 100% 100% !important;
-//   }
-// }
+@media (min-width: 1440px) {
+  .err-msg {
+    top: calc(100% + 4px) !important;
+  }
+}
+
+@media (max-width: 1440px) and (min-width: 1150px) {
+  .err-msg {
+    top: calc(100% + 2px) !important;
+  }
+}
+
+@media (max-width: 1150px) {
+  .err-msg {
+    top: 100% !important;
+  }
+}

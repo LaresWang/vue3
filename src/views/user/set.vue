@@ -836,9 +836,9 @@
             .msg-code-btn {
               position: absolute;
               right: 1px;
-              top: 1px;
+              top: 0;
               min-width: 86px;
-              height: 34px;
+              height: 36px;
               background: #f0f5ff;
               border-radius: 4px;
               font-size: 14px;
@@ -850,8 +850,8 @@
                 color: @MainColor;
                 letter-spacing: 0;
                 padding: 0;
-                height: 34px;
-                line-height: 34px;
+                height: 36px;
+                line-height: 36px;
                 text-align: center;
                 span {
                   font-weight: 400;

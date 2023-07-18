@@ -389,7 +389,7 @@
             .err-msg {
               position: absolute;
               left: 0;
-              bottom: 2px;
+              top: calc(100% + 4px);
               line-height: 1;
               font-size: 12px;
               color: var(--c-red-2);
@@ -413,9 +413,9 @@
           .msg-code-btn {
             position: absolute;
             right: 1px;
-            top: 1px;
+            top: 0;
             min-width: 86px;
-            height: 38px;
+            height: 40px;
             background: var(--c-blue-1-light-1);
             border-radius: 4px;
             font-size: 14px;
@@ -427,8 +427,8 @@
               color: var(--c-blue-2);
               letter-spacing: 0;
               padding: 0;
-              height: 38px;
-              line-height: 38px;
+              height: 40px;
+              line-height: 40px;
               text-align: center;
               span {
                 font-weight: 400;
