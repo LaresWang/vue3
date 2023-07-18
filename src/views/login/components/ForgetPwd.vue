@@ -222,7 +222,7 @@
     msgcodeInfos: {},
     nextBtnDisabled: true,
     disabled: true,
-    step: 1,
+    step: 2,
     pwd: "",
     repwd: "",
     startNum: 3,
@@ -559,6 +559,10 @@
           height: 40px;
           width: 400px;
           padding: 0;
+          span {
+            font-size: 14px;
+            font-weight: 500;
+          }
         }
         .later-set {
           font-size: 12px;
@@ -569,6 +573,10 @@
           width: 100%;
           height: 36px;
           padding: 0;
+          span {
+            font-size: 14px;
+            font-weight: 500;
+          }
         }
       }
     }

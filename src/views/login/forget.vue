@@ -8,7 +8,10 @@
     </div>
     <div class="login-home">
       <div class="login-home-body flex-center">
-        <div class="login-home-left"></div>
+        <div
+          class="login-home-left"
+          ref="loginLeft"
+        ></div>
         <div class="login-home-right">
           <div class="forget-pwd-input-area flex-center">
             <ForgetPwd />
@@ -41,8 +44,13 @@
   </div>
 </template>
 <script setup lang="ts">
+  import { ref } from "vue"
   import ForgetPwd from "./components/ForgetPwd.vue"
+  import useBgPicSize from "@/hooks/bgPicSize"
   import { ICPBeianGov, PublicBeianGov } from "@/utils/jump"
+
+  const loginLeft = ref<HTMLElement>()
+  useBgPicSize(loginLeft, 770 / 900)
 
   const goBeianGov = (val: number) => {
     if (val === 1) {

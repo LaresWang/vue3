@@ -97,7 +97,7 @@
       </div>
 
       <div
-        v-if="['2', '3'].includes(from)"
+        v-if="['2', '3'].includes(props.from)"
         class="icons-group"
       >
         <span
@@ -185,14 +185,17 @@
     }
   )
 
-  watch(pwdInfos.value, (val) => {
-    if (okTimmer) {
-      clearTimeout(okTimmer)
+  watch(
+    () => pwdInfos.value,
+    (val) => {
+      if (okTimmer) {
+        clearTimeout(okTimmer)
+      }
+      okTimmer = setTimeout(() => {
+        data.iconOk = val.ok || false
+      }, 300)
     }
-    okTimmer = setTimeout(() => {
-      data.iconOk = val.ok || false
-    }, 300)
-  })
+  )
 
   const toggleShowType = () => {
     data.showOriginText = !data.showOriginText
