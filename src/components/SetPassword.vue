@@ -217,6 +217,7 @@
 
           .label {
             margin-bottom: 8px;
+            font-size: 14px;
             // width: 80px;
             // padding-right: 10px;
             // text-align: right;

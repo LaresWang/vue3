@@ -98,7 +98,7 @@
 
       <div
         v-if="['2', '3'].includes(props.from)"
-        class="icons-group"
+        class="icons-group flex-center"
       >
         <span
           v-show="data.errTipContent"
@@ -403,9 +403,11 @@
         }
       }
       .icons-group {
+        width: 25px;
+        height: 40px;
         position: absolute;
         right: -25px;
-        top: 8px;
+        top: 0;
       }
       &:hover {
         border-color: #adb1d4;

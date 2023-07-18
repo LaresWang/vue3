@@ -19,7 +19,7 @@
 
   import SetPassword from "@/components/SetPassword.vue"
 
-  const showSetPwdPanel = ref(true)
+  const showSetPwdPanel = ref(false)
   const { userInfo } = useGetUserInfo(true)
 
   watch(userInfo, (val) => {
