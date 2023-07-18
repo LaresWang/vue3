@@ -222,7 +222,7 @@
     msgcodeInfos: {},
     nextBtnDisabled: true,
     disabled: true,
-    step: 2,
+    step: 1,
     pwd: "",
     repwd: "",
     startNum: 3,
