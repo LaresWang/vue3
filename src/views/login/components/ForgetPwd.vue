@@ -25,7 +25,7 @@
             </div>
             <span
               v-if="rdata.mobileInfos.error"
-              class="err-msg"
+              class="err-msg fix-err-msg"
             >
               {{ rdata.mobileInfos.error }}
             </span>
@@ -63,7 +63,7 @@
 
             <span
               v-if="rdata.msgcodeInfos.error"
-              class="err-msg"
+              class="err-msg fix-err-msg"
             >
               {{ rdata.msgcodeInfos.error }}
             </span>
@@ -443,7 +443,7 @@
             .err-msg {
               position: absolute;
               left: 0;
-              top: calc(100% + 4px);
+              bottom: 4px;
               line-height: 1;
               font-size: 12px;
               color: var(--c-red-2);
