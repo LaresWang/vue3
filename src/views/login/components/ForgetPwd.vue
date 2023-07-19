@@ -438,7 +438,7 @@
           }
           &.is-error {
             .el-input__inner {
-              border-color: var(--c-red-1);
+              border-color: var(--c-red-1) !important;
             }
             .err-msg {
               position: absolute;
