@@ -102,6 +102,7 @@
           height: 28px;
           margin-left: 8px !important;
           color: var(--c-white-1);
+          border-radius: 4px !important;
           &.cancel-btn {
             background-color: var(--c-gray-4);
             border-color: var(--c-gray-4);

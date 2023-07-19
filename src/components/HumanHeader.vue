@@ -259,6 +259,7 @@
         .edit-save-btn {
           height: 28px;
           padding: 0;
+          border-radius: 4px !important;
         }
       }
     }
