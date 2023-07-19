@@ -10,7 +10,7 @@ export const formatPresetListsData = <T extends Required2Optional<TEmotionParams
       id: (info.actionId || info.faceId)!,
       previewUrl: info.previewUrl,
       name: info.name,
-      cmdCode: info.code // TODO 字段待定
+      cmdCode: info.cmdCode
     })
   })
   return res

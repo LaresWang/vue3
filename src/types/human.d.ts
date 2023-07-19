@@ -75,14 +75,14 @@ export type TEmotionParams = {
   faceId: string
   previewUrl: string
   name: string
-  code: string
+  cmdCode: string
 }
 
 export type TActionParams = {
   actionId: string
   previewUrl: string
   name: string
-  code: string
+  cmdCode: string
 }
 
 export type TModifyHumanNameReqParams = {
