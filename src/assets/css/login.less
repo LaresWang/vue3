@@ -104,8 +104,20 @@
   }
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 1150px) and (min-width: 1050px) {
   .fix-err-msg {
     bottom: 2px !important;
+  }
+}
+
+@media (max-width: 1050px) and (min-width: 950px) {
+  .fix-err-msg {
+    bottom: 1px !important;
+  }
+}
+
+@media (max-width: 950px) {
+  .fix-err-msg {
+    bottom: 0 !important;
   }
 }

@@ -29,11 +29,15 @@ const jump = async (path: string) => {
 }
 
 export const goLoginPage = () => {
-  jump("/login")
+  const url = location.origin + "/login" + location.search
+  openUrlWithAElement(url)
+  // jump("/login")
 }
 
 export const loginFinished = function () {
-  jump("/human/home")
+  const url = location.origin + "/human/home" + location.search
+  openUrlWithAElement(url)
+  // jump("/human/home")
 }
 
 export const goUserCenter = function () {

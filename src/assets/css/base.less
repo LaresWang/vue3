@@ -469,6 +469,10 @@ input,
   .el-input {
     .el-input__wrapper {
       padding: 0;
+      &:focus,
+      &.is-focus {
+        box-shadow: none !important;
+      }
     }
     input {
       height: 36px;
