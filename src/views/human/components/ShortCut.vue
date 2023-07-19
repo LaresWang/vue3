@@ -44,10 +44,10 @@
       label: "环绕",
       value: "长按鼠标右键"
     },
-    {
-      label: "平移/环绕",
-      value: "鼠标中键"
-    },
+    // {
+    //   label: "平移/环绕",
+    //   value: "鼠标中键"
+    // },
     {
       label: "平移",
       value: "ALT + 鼠标中键"
@@ -56,9 +56,17 @@
       label: "缩放",
       value: "ALT + 鼠标右键"
     },
+    // {
+    //   label: "移动雕刻点",
+    //   value: "鼠标左键"
+    // }
     {
-      label: "移动雕刻点",
-      value: "鼠标左键"
+      label: "面部镜头",
+      value: "1"
+    },
+    {
+      label: "全身镜头",
+      value: "2"
     }
   ]
 
