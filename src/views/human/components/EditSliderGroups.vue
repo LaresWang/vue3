@@ -9,7 +9,7 @@
         :class="needFix ? 'fix-fs-12' : ''"
       >
         <div
-          class="level-one-list pointer flex-between"
+          class="level-one-list fix-level-one-list pointer flex-between"
           @click="expandLists(item.code)"
         >
           <span>{{ item.name }}</span>
@@ -267,6 +267,9 @@
         background-clip: content-box;
       }
       .slider-group-item {
+        .fix-level-one-list {
+          max-height: 64px;
+        }
         .level-one-list {
           height: 64px;
           padding: 0 30px;
