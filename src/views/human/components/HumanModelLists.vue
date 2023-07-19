@@ -249,7 +249,7 @@
     background: var(--c-black-10);
     .fix-model-tab-area {
       width: 100%;
-      height: 78px;
+      max-height: 78px;
       background: var(--c-black-5);
       .fix-tab-wrapper {
         width: fit-content;
@@ -270,6 +270,7 @@
       }
     }
     .model-tab-area {
+      height: 78px;
       .tab-item {
         font-size: 12px;
         padding: 5px 20px;
@@ -313,7 +314,7 @@
         width: 72px;
         height: 28px;
         padding: 0;
-        border-radius: 4px;
+        border-radius: 4px !important;
       }
     }
   }
