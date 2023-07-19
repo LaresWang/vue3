@@ -203,7 +203,7 @@
     showModal.value = true
     modalInfo.value = {
       title: t("edit.t11"),
-      content: t("edit.t12", { value: selectedModelInfoStore.info.humanName }),
+      content: t("edit.t12", { value: submitNameRecord[selectedModelInfoStore.info.humanId] || selectedModelInfoStore.info.humanName }),
       type: 0
     }
   }
