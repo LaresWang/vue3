@@ -1,8 +1,8 @@
 <!-- 平台内置数字人模型/用户创建的数字人模型 -->
 <template>
   <div class="human-models flex-v">
-    <div class="model-tab-area flex-center">
-      <div class="fix-tab-wrapper flex-center">
+    <div class="fix-model-tab-area model-tab-area flex-center">
+      <div class="fix-tab-wrapper tab-wrapper flex-center">
         <div
           v-for="item in HumanModelCatgs"
           :key="item.value"
@@ -63,7 +63,7 @@
       </div>
       <div v-else></div>
       <el-button
-        class="operate-btn"
+        class="operate-btn fix-operate-btn"
         type="primary"
         @click="createModel"
       >
@@ -247,21 +247,19 @@
     // width: 100%;
     height: 100%;
     background: var(--c-black-10);
-    .model-tab-area {
+    .fix-model-tab-area {
       width: 100%;
       height: 78px;
       background: var(--c-black-5);
       .fix-tab-wrapper {
         width: fit-content;
-        min-width: 200px;
-        height: 30px;
-        min-height: 30px;
-        font-size: 12px;
+        // min-width: 200px;
+        // min-height: 30px;
         border: 2px solid var(--c-black-9);
         border-radius: 4px;
         background: var(--c-black-8);
         .tab-item {
-          width: 50%;
+          // width: 50%;
           min-width: 100px;
           height: 100%;
           border-radius: 4px;
@@ -269,6 +267,12 @@
             background: var(--c-black-6);
           }
         }
+      }
+    }
+    .model-tab-area {
+      .tab-item {
+        font-size: 12px;
+        padding: 5px 20px;
       }
     }
     .model-lists {
@@ -309,6 +313,7 @@
         width: 72px;
         height: 28px;
         padding: 0;
+        border-radius: 4px;
       }
     }
   }
