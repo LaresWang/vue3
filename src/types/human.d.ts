@@ -492,6 +492,9 @@ export type TOperateResult = {
   taskId: string
   result: boolean
   msg?: string
+  faceup_config?: {
+    [cmdcode: string]: string | number
+  }
 }
 
 export type TEditItem = {

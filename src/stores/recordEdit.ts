@@ -78,6 +78,22 @@ const useRecordEditStore = defineStore("recordEdit", () => {
     }
   }
 
+  const addBatchRawHeaderAdjustConfig = (humanNo: string, confs: TMicroAdjustItem[]) => {
+    if (!record.value[humanNo]) {
+      record.value[humanNo] = {}
+    }
+
+    if (!record.value[humanNo][EBodyParts.Header]) {
+      record.value[humanNo][EBodyParts.Header] = {}
+    }
+
+    if (!record.value[humanNo][EBodyParts.Header]!.microAdjust) {
+      record.value[humanNo][EBodyParts.Header]!.microAdjust = []
+    }
+
+    record.value[humanNo][EBodyParts.Header]!.microAdjust = record.value[humanNo][EBodyParts.Header]!.microAdjust!.concat(confs)
+  }
+
   const getValidWholeEditInfo = (humanNo: string): TWholeEditRecord => {
     if (!record.value[humanNo]) {
       return {}
@@ -124,6 +140,7 @@ const useRecordEditStore = defineStore("recordEdit", () => {
     addActionTask,
     addHeaderPresetTask,
     addHeaderAdjustTask,
+    addBatchRawHeaderAdjustConfig,
     updateStaticEmotionTask,
     updateDynamicEmotionTask,
     updateActionTask,

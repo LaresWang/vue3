@@ -44,10 +44,11 @@ export default () => {
     })
   }
   // 选择数字人切换数字人
-  const selectModel = (params: TSelectedHumanModelInfo) => {
+  const selectModel = (params: TSelectedHumanModelInfo & { taskId: string }) => {
     rtcHandlerStore.send({
       commandId: OPERATE_CMD_CODES.Show,
       humanNo: params.humanNo,
+      taskId: params.taskId,
       platform: params.humanCatg
     })
   }

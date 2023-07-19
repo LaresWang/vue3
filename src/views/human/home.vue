@@ -97,8 +97,10 @@
             humanNo: info.humanNo,
             gender: info.gender
           },
-          true,
-          true
+          {
+            forceUpdate: true,
+            noSendDirect: true
+          }
         )
 
         const res = await startLaunchHuman({

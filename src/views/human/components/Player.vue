@@ -32,6 +32,7 @@
   import { getBrowserUUID, getCiphertext } from "@/utils/tools"
   import { PLAYER_TYPE } from "@/utils/const"
   import { useLaunchInitInfosStore, useLaunchStatusStore } from "@/stores/player"
+  import { useSelectedModelInfoStore } from "@/stores/human"
   import { useIOMethodStore } from "@/stores/io"
   import useRtcHandlerStore from "@/stores/rtc"
   import useBgPicSize from "@/hooks/bgPicSize"
@@ -44,6 +45,7 @@
   // const bgImg = new URL("../../../assets/imgs/list_default_pic.png", import.meta.url).href
 
   const launchInitInfosStore = useLaunchInitInfosStore()
+  const selectedModelInfoStore = useSelectedModelInfoStore()
   const launchStatusStore = useLaunchStatusStore()
   const rtcHandlerStore = useRtcHandlerStore()
   const IOMethodStore = useIOMethodStore()
@@ -89,6 +91,19 @@
       // sdk.sendDataToApp(data)
       rtcHandlerStore.ready()
       launchStatusStore.ready()
+
+      selectedModelInfoStore.setSelectedModelInfo(
+        {
+          humanId: selectedModelInfoStore.info.humanId,
+          humanName: selectedModelInfoStore.info.humanName,
+          humanCatg: selectedModelInfoStore.info.humanCatg,
+          humanNo: selectedModelInfoStore.info.humanNo,
+          gender: selectedModelInfoStore.info.gender
+        },
+        {
+          sendDirect: true
+        }
+      )
     }
   })
 

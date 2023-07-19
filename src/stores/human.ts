@@ -64,19 +64,29 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
     gender: undefined
   })
 
+  const selectTaskIds = ref<string[]>([])
+
   const operate = useOperateModel()
   const selectedHumanModelId = computed(() => info.value.humanId)
 
-  const setSelectedModelInfo = (params: TSelectedHumanModelInfo, force?: boolean, noSendDirect?: boolean) => {
-    if (force) {
+  const setSelectedModelInfo = (
+    params: TSelectedHumanModelInfo,
+    options: { forceUpdate?: boolean; noSendDirect?: boolean; sendDirect?: boolean } = {}
+  ) => {
+    if (options.forceUpdate) {
       info.value = params
+    }
+    const taskId = genUUID()
+    selectTaskIds.value.push(taskId)
+    if (options.sendDirect) {
+      operate.selectModel({ ...params, taskId })
     }
 
     if (info.value.humanNo === params.humanNo) {
       return
     }
 
-    if (noSendDirect) {
+    if (options.noSendDirect) {
       return
     }
 
@@ -85,7 +95,7 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
     }
 
     info.value = params
-    operate.selectModel(params)
+    operate.selectModel({ ...params, taskId })
   }
 
   const clearSelectedModelInfo = () => {
@@ -98,7 +108,13 @@ const useSelectedModelInfoStore = defineStore("selectedModelInfo", () => {
     }
   }
 
-  return { info, selectedHumanModelId, setSelectedModelInfo, clearSelectedModelInfo }
+  const selectModelDone = (params: TOperateResult) => {
+    const i = selectTaskIds.value.indexOf(params.taskId)
+    selectTaskIds.value.splice(i, 1)
+    // 可以params.result 做一些其他处理  比如处理失败是否回推到之前的选择状态等
+  }
+
+  return { info, selectTaskIds, selectedHumanModelId, setSelectedModelInfo, clearSelectedModelInfo, selectModelDone }
 })
 
 // 点击选择表情

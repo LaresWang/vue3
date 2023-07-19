@@ -1,10 +1,11 @@
 // 此文件主要作用是避免 /stores/rtc 与 /stores/human循环引用
-import { useSaveHumanModelStore, useDeleteHumanModelStore, useCopyHumanModelStore } from "@/stores/human"
+import { useSaveHumanModelStore, useDeleteHumanModelStore, useCopyHumanModelStore, useSelectedModelInfoStore } from "@/stores/human"
 import useRecordEditStore from "@/stores/recordEdit"
-import type { TOperateResult } from "@/types/human"
+import type { TMicroAdjustItem, TOperateResult } from "@/types/human"
 import { EBodyParts } from "@/types/human.d"
 
 export default () => {
+  const selectedModelInfoStore = useSelectedModelInfoStore()
   const deleteHumanModelStore = useDeleteHumanModelStore()
   const copyHumanModelStore = useCopyHumanModelStore()
   const saveHumanModelStore = useSaveHumanModelStore()
@@ -30,6 +31,13 @@ export default () => {
   }
 
   const editorBodyTaskHandler = (params: TOperateResult) => {
+    // 先寻找是否是切换数字人回来的消息
+    if (selectedModelInfoStore.selectTaskIds.includes(params.taskId)) {
+      selectedModelInfoStore.selectModelDone(params)
+      setHumanConfig(params)
+      return
+    }
+
     const record = recordEditStore.record[params.humanNo]
     // 寻找对应的taskId
     if (!record) {
@@ -48,6 +56,21 @@ export default () => {
         break
       default:
         editorSubBodyTaskHandler(params)
+    }
+  }
+
+  const setHumanConfig = (params: TOperateResult) => {
+    if (params.faceup_config && params.faceup_config.length) {
+      const config: TMicroAdjustItem[] = []
+      for (const key in params.faceup_config) {
+        config.push({
+          taskId: "",
+          commandId: key,
+          commandValue: +params.faceup_config[key],
+          result: true
+        })
+      }
+      recordEditStore.addBatchRawHeaderAdjustConfig(params.humanNo, config)
     }
   }
 
