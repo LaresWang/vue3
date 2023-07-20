@@ -5,7 +5,7 @@ import { useLaunchInitInfosStore } from "./player"
 import useUserInfoStore from "./user"
 import { useIOMethodStore } from "./io"
 import useOperateRes from "@/hooks/human/operateRes"
-import type { TCMD, TKeyboardData, TKeyboardEvent, TMouseData, TRtcSDK } from "@/types/player"
+import type { TCMD, TKeyboardData, TKeyboardEvent, TMouseData, TMouseupdown, TRtcSDK } from "@/types/player"
 import { EIOMethod, EKeyboardType, EMouseType, EUESpecialKeyCode } from "@/types/player.d"
 import type { TObj } from "@/types"
 import { genUUID } from "@/utils/tools"
@@ -31,7 +31,9 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
   }
 
   const send = (data: TMouseData | TKeyboardData | TCMD, force?: boolean) => {
-    if (!canInteract.value && !force && (isTMouseData(data) || isTKeyboardData(data))) {
+    const isMousedata = isTMouseData(data)
+    const isKeyboardData = isTKeyboardData(data)
+    if (!canInteract.value && !force && (isMousedata || isKeyboardData)) {
       return
     }
 
@@ -43,7 +45,18 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
     if (IOMethodStore.method === EIOMethod.Rtc) {
       if (isReady.value) {
         console.log("webrtc send")
-        sendByChannel(msg)
+        if (isMousedata) {
+          const info = {
+            type: (data as TMouseupdown).button,
+            x: data.coord.x,
+            y: data.coord.y
+          }
+          rtc.value?.sendRawMouseData(data.type, info)
+        } else if (isKeyboardData) {
+          rtc.value?.sendRawKeyboardData(data.type, data.event)
+        } else {
+          sendByChannel(msg)
+        }
       }
     } else {
       console.log("api send")

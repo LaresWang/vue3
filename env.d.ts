@@ -19,5 +19,7 @@ interface Window {
     setPlayerInfo: (options: { info: string; timestamp: string }) => void
     sendDataToApp: (data: string, messageType?: number) => void
     setOperateAuth: (status: boolean) => void
+    sendRawKeyboardData: (type: string, options: any) => void
+    sendRawMouseData: (type: string, options: any) => void
   }
 }
