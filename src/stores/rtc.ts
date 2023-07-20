@@ -89,6 +89,7 @@ const resolveMessage = (data: number[]) => {
   if (view[0] === 1) {
     // 1 代表是response
     try {
+      console.log(new TextDecoder("utf-16").decode(view.slice(1)))
       const res = JSON.parse(new TextDecoder("utf-16").decode(view.slice(1)))
 
       console.log("onReceiveMessage res", res)
