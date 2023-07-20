@@ -1,4 +1,4 @@
-import { ref, onMounted } from "vue"
+import { ref } from "vue"
 import type { TConnectStatus, TKeyboardData, TMouseData, TStatsRTC } from "@/types/player"
 import { EIOMethod, EMouseType } from "@/types/player.d"
 import useRtcHandlerStore from "@/stores/rtc"
@@ -133,7 +133,7 @@ export const usePlayerInteractListen = () => {
   // human-player-area mouseenter 可以交互
   const rtcHandlerStore = useRtcHandlerStore()
 
-  onMounted(() => {
+  const registerListeners = () => {
     const editArea = document.querySelector(".human-edit-area")
     const headerArea = document.querySelector(".human-header")
     const playerArea = document.querySelector(".human-player-area")
@@ -150,5 +150,7 @@ export const usePlayerInteractListen = () => {
       playerArea.addEventListener(EMouseType.Mouseenter, () => {
         rtcHandlerStore.setInteractStatus(true)
       })
-  })
+  }
+
+  return { registerListeners }
 }

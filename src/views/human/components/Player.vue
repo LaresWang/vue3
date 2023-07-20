@@ -36,7 +36,7 @@
   import { useIOMethodStore } from "@/stores/io"
   import useRtcHandlerStore from "@/stores/rtc"
   import useBgPicSize from "@/hooks/bgPicSize"
-  import { usePlayerHandlers } from "@/hooks/human/player"
+  import { usePlayerHandlers, usePlayerInteractListen } from "@/hooks/human/player"
   import { ELaunchStatus, type TRtcSDK } from "@/types/player.d"
   import type { TObj } from "@/types"
 
@@ -49,6 +49,7 @@
   const launchStatusStore = useLaunchStatusStore()
   const rtcHandlerStore = useRtcHandlerStore()
   const IOMethodStore = useIOMethodStore()
+  const { registerListeners } = usePlayerInteractListen()
 
   const loadingBgPic = ref<HTMLElement>()
   const loadingBgStyle = ref<TObj>({})
@@ -104,6 +105,8 @@
           sendDirect: true
         }
       )
+
+      registerListeners()
     }
   })
 
