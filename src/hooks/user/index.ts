@@ -40,7 +40,8 @@ export const computedPosition = (selector: string) => {
       return
     }
     const position = loginEle.getBoundingClientRect()
-    const { top, left } = position
+    const marginTop = loginEle.offsetTop || 0
+    const { top, left, right, bottom } = position
     let geetestEles = document.querySelectorAll<HTMLElement>(".geetest_box_wrapV4")
     if (!geetestEles.length) {
       geetestEles = document.querySelectorAll<HTMLElement>(".geetest_box_wrap")
@@ -50,18 +51,24 @@ export const computedPosition = (selector: string) => {
     if (left + 340 + 50 < width) {
       geetestEles.forEach((ele) => {
         ele.style.right = "inherit"
-        ele.style.top = top + "px"
+        ele.style.top = top + marginTop + "px"
         ele.style.left = left + "px"
         ele.style.transform = "none"
+        ele.style.height = bottom-top +"px"
         ele.style.minHeight = "380px"
+        ele.style.width = right-left + "px"
+        ele.style.maxWidth = right-left + "px"
       })
     } else {
       geetestEles.forEach((ele) => {
         ele.style.left = "inherit"
-        ele.style.top = top + "px"
+        ele.style.top = top + marginTop + "px"
         ele.style.right = "50px"
         ele.style.transform = "none"
         ele.style.minHeight = "380px"
+        ele.style.width = right-left + "px"
+        ele.style.maxWidth = right-left + "px"
+
       })
     }
   } catch (e) {
