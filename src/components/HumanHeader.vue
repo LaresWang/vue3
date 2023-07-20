@@ -260,6 +260,7 @@
           height: 28px;
           padding: 0;
           border-radius: 4px !important;
+          max-width: 90px;
         }
       }
     }

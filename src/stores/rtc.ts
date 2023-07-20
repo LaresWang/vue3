@@ -30,8 +30,8 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
     rtc.value = sdk
   }
 
-  const send = (data: TMouseData | TKeyboardData | TCMD) => {
-    if (!canInteract.value && (isTMouseData(data) || isTKeyboardData(data))) {
+  const send = (data: TMouseData | TKeyboardData | TCMD, force?: boolean) => {
+    if (!canInteract.value && !force && (isTMouseData(data) || isTKeyboardData(data))) {
       return
     }
 

@@ -27,11 +27,12 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { watchEffect } from "vue"
+  import { watch, watchEffect } from "vue"
   import { getUserHumanLists, getPlatformHumanLists } from "@/api/human"
   import { startLaunchHuman } from "@/api/player"
   import { useBreadcrumbMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { HumanModelCatgs } from "@/utils/const"
+  import { switchToBodyCamera, switchToFaceCamera } from "@/utils/cmds"
   import { EEditCompName } from "@/types/menus.d"
   import type { THumanModelInfos, EModelCatg } from "@/types/human"
   import { EModelCatg as ModelCatg } from "@/types/human.d"
@@ -120,6 +121,20 @@
       }
     }
   })
+
+  watch(
+    () => selectedEditCompNameStore.selectedCompName,
+    (val) => {
+      if (val === EEditCompName.EditHeaderPart || val === EEditCompName.EditEmotions) {
+        switchToFaceCamera()
+      } else if (val === EEditCompName.EditActions) {
+        switchToBodyCamera()
+      }
+    },
+    {
+      immediate: true
+    }
+  )
 </script>
 <style lang="less">
   .human-home {

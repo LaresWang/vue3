@@ -96,7 +96,7 @@ export default () => {
   }
 
   const sendCmd = (params: TMouseData | TKeyboardData | TCMD) => {
-    rtcHandlerStore.send(params)
+    rtcHandlerStore.send(params, true)
   }
 
   return {
