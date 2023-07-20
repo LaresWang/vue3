@@ -77,7 +77,7 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
 
   const setInteractStatus = (status: boolean) => {
     canInteract.value = status
-    rtc.value?.setOperateAuth(status)
+    // rtc.value?.setOperateAuth(status)
   }
 
   return { rtc, ready, setRtc, send, receive, setInteractStatus }
