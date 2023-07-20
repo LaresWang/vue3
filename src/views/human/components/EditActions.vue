@@ -117,6 +117,11 @@
             width: 108px;
             height: 138px;
             margin-bottom: 15px;
+            .preset-pic-frame {
+              width: 107px;
+              height: 107px;
+              flex: none;
+            }
           }
         }
       }

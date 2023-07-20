@@ -62,6 +62,7 @@
       background: var(--c-gray-3);
       border-radius: 6px;
       border: 1px solid transparent;
+      overflow: hidden;
       img {
         height: 100%;
         width: 100%;
