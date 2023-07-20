@@ -13,6 +13,7 @@ import { genUUID } from "@/utils/tools"
 //
 const useRTCHandlersStore = defineStore("RTCHandlers", () => {
   const isReady = ref(false)
+  const canInteract = ref(true)
   const rtc = ref<TRtcSDK>()
   const launchInitInfosStore = useLaunchInitInfosStore()
   const userInfoStore = useUserInfoStore()
@@ -30,6 +31,10 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
   }
 
   const send = (data: TMouseData | TKeyboardData | TCMD) => {
+    if (!canInteract.value) {
+      return
+    }
+
     const msg = formatSendCommand(data, {
       taskId: genUUID(),
       userId: userId.value!
@@ -70,7 +75,12 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
     }
   }
 
-  return { rtc, ready, setRtc, send, receive }
+  const setInteractStatus = (status: boolean) => {
+    canInteract.value = status
+    rtc.value?.setOperateAuth(status)
+  }
+
+  return { rtc, ready, setRtc, send, receive, setInteractStatus }
 })
 
 const resolveMessage = (data: number[]) => {

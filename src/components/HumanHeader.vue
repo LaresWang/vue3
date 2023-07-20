@@ -1,5 +1,5 @@
 <template>
-  <div class="fix-human-header flex-start">
+  <div class="fix-human-header human-header flex-start">
     <div class="left-menus-area flex-start">
       <svg-icon
         name="logo"

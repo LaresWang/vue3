@@ -38,6 +38,7 @@
   import { useLaunchInitInfosStore } from "@/stores/player"
   import { useSelectedModelInfoStore } from "@/stores/human"
   import useAbnormalTipStore from "@/stores/abnormalTip"
+  import { usePlayerInteractListen } from "@/hooks/human/player"
 
   import HumanModelLists from "./components/HumanModelLists.vue"
   import BodySummaryParts from "./components/BodySummaryParts.vue"
@@ -53,6 +54,8 @@
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
   const launchInitInfosStore = useLaunchInitInfosStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
+
+  usePlayerInteractListen()
 
   const comps = {
     [EEditCompName.EditEmpty]: EditEmpty,

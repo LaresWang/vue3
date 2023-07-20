@@ -1,6 +1,6 @@
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 import type { TConnectStatus, TKeyboardData, TMouseData, TStatsRTC } from "@/types/player"
-import { EIOMethod } from "@/types/player.d"
+import { EIOMethod, EMouseType } from "@/types/player.d"
 import useRtcHandlerStore from "@/stores/rtc"
 import { useIOMethodStore } from "@/stores/io"
 import useAbnormalTipStore from "@/stores/abnormalTip"
@@ -125,4 +125,30 @@ export const usePlayerHandlers = () => {
     onRtcRecieveMessage,
     onRtcBeforeSendMessage
   }
+}
+
+export const usePlayerInteractListen = () => {
+  // human-edit-area mouseenter 不能交互
+  // human-header mouseenter 不能交互
+  // human-player-area mouseenter 可以交互
+  const rtcHandlerStore = useRtcHandlerStore()
+
+  onMounted(() => {
+    const editArea = document.querySelector(".human-edit-area")
+    const headerArea = document.querySelector(".human-header")
+    const playerArea = document.querySelector(".human-player-area")
+
+    editArea &&
+      editArea.addEventListener(EMouseType.Mouseenter, () => {
+        rtcHandlerStore.setInteractStatus(false)
+      })
+    headerArea &&
+      headerArea.addEventListener(EMouseType.Mouseenter, () => {
+        rtcHandlerStore.setInteractStatus(false)
+      })
+    playerArea &&
+      playerArea.addEventListener(EMouseType.Mouseenter, () => {
+        rtcHandlerStore.setInteractStatus(true)
+      })
+  })
 }
