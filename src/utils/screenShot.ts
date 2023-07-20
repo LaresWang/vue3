@@ -47,12 +47,19 @@ const getImgDataFromVideo = (videoId: string, containerId?: string): string => {
       }
     } else {
       // 视频宽度大于等于容器宽度
+      // 注 cheight=vheight
       if (crate > 1) {
         // 容器 宽大于高 canvasSize=vheight  canvasSize < cwidth
-        ctx?.drawImage(video.el, (vwidth - cwidth) / 2, 0, vheight, vheight, 0, 0, canvasSize, canvasSize)
+        ctx?.drawImage(video.el, (vwidth - vheight) / 2, 0, vheight, vheight, 0, 0, canvasSize, canvasSize)
       } else {
         // 容器 宽小于等于高 canvasSize=cwidth  canvasSize < cheight
-        ctx?.drawImage(video.el, (vwidth - cwidth) / 2, 0, cwidth, cwidth, 0, 0, canvasSize, canvasSize)
+        if (vrate > 1) {
+          // 视频宽大于高
+          ctx?.drawImage(video.el, (vwidth - vheight) / 2, 0, vheight, vheight, 0, 0, vheight, vheight)
+        } else {
+          // 视频宽小于高
+          ctx?.drawImage(video.el, 0, 0, vwidth, vwidth, 0, 0, vwidth, vwidth)
+        }
       }
       // const sh = canvasSize / vrate
       // if (sh < canvasSize) {
