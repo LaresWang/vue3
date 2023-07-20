@@ -26,7 +26,7 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, watchEffect } from "vue"
+  import { ref, watchEffect, watch } from "vue"
   import { Loading } from "@element-plus/icons-vue"
   import WEBRTCSDK from "webrtcsdk_new"
   import { getBrowserUUID, getCiphertext } from "@/utils/tools"
@@ -37,7 +37,8 @@
   import useRtcHandlerStore from "@/stores/rtc"
   import useBgPicSize from "@/hooks/bgPicSize"
   import { usePlayerHandlers, usePlayerInteractListen } from "@/hooks/human/player"
-  import { ELaunchStatus, type TRtcSDK } from "@/types/player.d"
+  import { ELaunchStatus } from "@/types/player.d"
+  import type { TConnectStatus, TRtcSDK } from "@/types/player"
   import type { TObj } from "@/types"
 
   import ShortCut from "./ShortCut.vue"
@@ -70,45 +71,57 @@
   let sdk: TRtcSDK
   const uuid = getBrowserUUID()
 
-  watchEffect(() => {
-    if (launchInitInfosStore.humanInstanceId) {
-      console.log("humanInstanceId======", launchInitInfosStore.humanInstanceId)
-      launchStatusStore.start()
+  watch(
+    [() => launchInitInfosStore.humanInstanceId, () => launchInitInfosStore.previewUrl],
+    ([id, url]) => {
+      if (id) {
+        console.log("humanInstanceId======", id)
+        launchStatusStore.start()
+      }
+      if (url) {
+        loadingBgStyle.value.backgroundImage = `url(${url})`
+        // loadingBgStyle.value.backgroundImage = `url(${bgImg})`
+      }
+    },
+    {
+      immediate: true
     }
-    if (launchInitInfosStore.previewUrl) {
-      loadingBgStyle.value.backgroundImage = `url(${launchInitInfosStore.previewUrl})`
-      // loadingBgStyle.value.backgroundImage = `url(${bgImg})`
-    }
-  })
+  )
 
-  watchEffect(() => {
-    const status = connectStatus.value
-    console.log(status)
-    if (status && ["done", "close", "error", "dcclosed"].includes(status)) {
-      launchStatusStore.stop()
-    }
-    if (status === "done") {
-      // 可以直接给UE发信息了
-      // sdk.sendDataToApp(data)
-      rtcHandlerStore.ready()
-      launchStatusStore.ready()
+  watch(
+    () => connectStatus.value,
+    (val: TConnectStatus | undefined) => {
+      // const status = connectStatus.value
+      console.log(val)
+      if (val && ["done", "close", "error", "dcclosed"].includes(val)) {
+        launchStatusStore.stop()
+      }
+      if (val === "done") {
+        // 可以直接给UE发信息了
+        // sdk.sendDataToApp(data)
+        rtcHandlerStore.ready()
+        launchStatusStore.ready()
 
-      selectedModelInfoStore.setSelectedModelInfo(
-        {
-          humanId: selectedModelInfoStore.info.humanId,
-          humanName: selectedModelInfoStore.info.humanName,
-          humanCatg: selectedModelInfoStore.info.humanCatg,
-          humanNo: selectedModelInfoStore.info.humanNo,
-          gender: selectedModelInfoStore.info.gender
-        },
-        {
-          sendDirect: true
-        }
-      )
+        selectedModelInfoStore.setSelectedModelInfo(
+          {
+            humanId: selectedModelInfoStore.info.humanId,
+            humanName: selectedModelInfoStore.info.humanName,
+            humanCatg: selectedModelInfoStore.info.humanCatg,
+            humanNo: selectedModelInfoStore.info.humanNo,
+            gender: selectedModelInfoStore.info.gender
+          },
+          {
+            sendDirect: true
+          }
+        )
 
-      registerListeners()
+        registerListeners()
+      }
+    },
+    {
+      immediate: true
     }
-  })
+  )
 
   watchEffect(() => {
     if (launchStatusStore.status === ELaunchStatus.Fail || launchStatusStore.status === ELaunchStatus.Close) {

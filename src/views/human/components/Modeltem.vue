@@ -58,7 +58,7 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, watchEffect, onMounted, onUpdated } from "vue"
+  import { ref, watch, onMounted, onUpdated } from "vue"
   import { Loading } from "@element-plus/icons-vue"
   import { modifyHumanName } from "@/api/human"
   import { useSelectedModelInfoStore } from "@/stores/human"
@@ -71,6 +71,7 @@
     infos: THumanModelInfos
     type: EModelCatg
     isEditName: boolean
+    newName?: string
   }
   const props = defineProps<TModelItemProps>()
   const emits = defineEmits(["select", "submitName", "editName"])
@@ -102,15 +103,21 @@
     img.src = src
   }
 
-  watchEffect(() => {
-    modelName.value = props.infos.humanName
-    if (props.infos.previewUrl) {
-      loadingPic(props.infos.previewUrl)
+  watch(
+    () => props,
+    () => {
+      modelName.value = props.newName || props.infos.humanName
+      if (props.infos.previewUrl) {
+        loadingPic(props.infos.previewUrl)
+      }
+      if (props.infos.humanName && !props.infos.previewUrl) {
+        isLoading.value = false
+      }
+    },
+    {
+      immediate: true
     }
-    if (props.infos.humanName && !props.infos.previewUrl) {
-      isLoading.value = false
-    }
-  })
+  )
 
   onMounted(() => {
     autoFocus()
@@ -148,7 +155,7 @@
   const onBlur = async () => {
     emits("editName", "")
     console.log("onblur", modelName.value)
-    if (props.infos.humanName === modelName.value) {
+    if (props.infos.humanName === modelName.value || props.newName === modelName.value) {
       console.log("没有变化")
       return
     }
@@ -162,7 +169,7 @@
       emits("submitName", false, props.infos, modelName.value)
     } catch (e) {
       console.log("修改名称失败", e)
-      modelName.value = props.infos.humanName
+      modelName.value = props.newName || props.infos.humanName
       emits("submitName", false, props.infos)
     }
   }

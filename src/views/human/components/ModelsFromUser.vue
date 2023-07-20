@@ -17,6 +17,7 @@
           :infos="model"
           :type="EModelCatg.User"
           :isEditName="editModelId === model.humanId"
+          :newName="modifiedNames[model.humanNo]"
           @editName="onEditName"
           @submitName="onSubmitName"
         />
@@ -34,6 +35,7 @@
 
   import Modeltem from "./Modeltem.vue"
   import NoMoreLists from "./NoMoreLists.vue"
+  import type { TObj } from "@/types"
 
   const props = defineProps<{
     show: boolean
@@ -48,6 +50,7 @@
   const loading = ref(false)
   const noMoreLists = ref(false)
   const userModels = ref<THumanModelInfos[]>([])
+  const modifiedNames = ref<TObj>({})
   console.log(0)
   watch(pageNo, () => {
     getLists()
@@ -141,6 +144,9 @@
 
   const onSubmitName = (isSubmiting: boolean, infos: THumanModelInfos, name?: string) => {
     emits("submitName", isSubmiting, infos, name)
+    if (name) {
+      modifiedNames.value[infos.humanNo] = name
+    }
   }
 </script>
 <style lang="less">
