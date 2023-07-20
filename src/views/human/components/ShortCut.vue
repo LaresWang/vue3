@@ -38,7 +38,7 @@
   const shortcuts = [
     {
       label: "聚焦点",
-      value: "单击鼠标右键"
+      value: "鼠标右键"
     },
     {
       label: "环绕",
@@ -50,11 +50,11 @@
     // },
     {
       label: "平移",
-      value: "ALT + 鼠标中键"
+      value: "长按鼠标中键"
     },
     {
       label: "缩放",
-      value: "ALT + 鼠标右键"
+      value: "鼠标中键滚动"
     },
     // {
     //   label: "移动雕刻点",
