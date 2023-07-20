@@ -835,7 +835,7 @@
             }
             .msg-code-btn {
               position: absolute;
-              right: 1px;
+              right: 0;
               top: 0;
               min-width: 86px;
               height: 36px;

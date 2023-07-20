@@ -137,6 +137,7 @@
     }
     .emotion-lists-wrapper {
       flex: 1;
+      width: 100%;
       min-height: 0;
       overflow: hidden;
       .emotion-lists-inner-wrapper {

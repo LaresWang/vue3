@@ -406,13 +406,13 @@
             .pwd-input-inner {
               height: 40px;
               .input-ele {
-                height: 38px;
+                height: 32px;
               }
             }
           }
           .msg-code-btn {
             position: absolute;
-            right: 1px;
+            right: 0;
             top: 0;
             min-width: 86px;
             height: 40px;
