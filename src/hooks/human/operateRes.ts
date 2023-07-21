@@ -60,7 +60,7 @@ export default () => {
   }
 
   const setHumanConfig = (params: TOperateResult) => {
-    if (params.faceup_config && params.faceup_config.length) {
+    if (params.faceup_config && Object.keys(params.faceup_config).length) {
       const config: TMicroAdjustItem[] = []
       for (const key in params.faceup_config) {
         config.push({
