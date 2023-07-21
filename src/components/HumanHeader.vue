@@ -163,9 +163,9 @@
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
   const saveHumanModelStore = useSaveHumanModelStore()
 
-  watch(editMenus, () => {
-    selectedEditCompNameStore.initSelectCompName()
-  })
+  // watch(editMenus, () => {
+  //   selectedEditCompNameStore.initSelectCompName()
+  // })
 
   const goToUserCenter = () => {
     goUserCenter()

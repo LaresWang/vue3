@@ -89,6 +89,7 @@ const useRecordEditStore = defineStore("recordEdit", () => {
 
     if (!record.value[humanNo][EBodyParts.Header]!.microAdjust) {
       record.value[humanNo][EBodyParts.Header]!.microAdjust = []
+      record.value[humanNo][EBodyParts.Header]!.microAdjustTaskIds = []
     }
 
     record.value[humanNo][EBodyParts.Header]!.microAdjust = record.value[humanNo][EBodyParts.Header]!.microAdjust!.concat(confs)

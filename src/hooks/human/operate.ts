@@ -61,6 +61,15 @@ export default () => {
       platform: params.platform
     })
   }
+  // 移除动作表情
+  const removeModelEmotionAction = (params: { humanNo: string; taskId: string; platform: EModelCatg }) => {
+    rtcHandlerStore.send({
+      commandId: OPERATE_CMD_CODES.RemoveEmotionAction,
+      humanNo: params.humanNo,
+      taskId: params.taskId,
+      platform: params.platform
+    })
+  }
   // 选择表情
   const selectEmotion = (params: TSelectedPresetInfo & { humanNo: string }) => {
     rtcHandlerStore.send({
@@ -105,6 +114,7 @@ export default () => {
     deleteModel,
     selectModel,
     resetModel,
+    removeModelEmotionAction,
     selectEmotion,
     selectAction,
     presetHeader,

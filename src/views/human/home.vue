@@ -33,6 +33,7 @@
   import { useBreadcrumbMenusStore, useSelectedEditCompNameStore } from "@/stores/menus"
   import { HumanModelCatgs } from "@/utils/const"
   import { switchToBodyCamera, switchToFaceCamera } from "@/utils/cmds"
+  import useOperate from "@/hooks/human/operate"
   import { EEditCompName } from "@/types/menus.d"
   import type { THumanModelInfos, EModelCatg } from "@/types/human"
   import { EModelCatg as ModelCatg } from "@/types/human.d"
@@ -54,6 +55,7 @@
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
   const launchInitInfosStore = useLaunchInitInfosStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
+  const operate = useOperate()
 
   const comps = {
     [EEditCompName.EditEmpty]: EditEmpty,
@@ -130,6 +132,11 @@
       } else if (val === EEditCompName.EditActions) {
         switchToBodyCamera()
       }
+      operate.removeModelEmotionAction({
+        humanNo: selectedModelInfoStore.info.humanNo,
+        platform: selectedModelInfoStore.info.humanCatg!,
+        taskId: "-1"
+      })
     },
     {
       immediate: true

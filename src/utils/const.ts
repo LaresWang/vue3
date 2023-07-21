@@ -80,5 +80,6 @@ export const OPERATE_CMD_CODES = {
   Copy: "CMD00002", // 复制数字人
   Delete: "CMD00003", // 删除数字人
   Save: "CMD00004", // 保存数字人
-  Reset: "CMD00005" // 恢复数字人
+  Reset: "CMD00005", // 恢复数字人, 数字人编辑后不保存  回退后需要恢复
+  RemoveEmotionAction: "CMD00006" // 移除表情和动作
 }
