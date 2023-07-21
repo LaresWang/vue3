@@ -31,7 +31,7 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, watchEffect } from "vue"
+  import { ref } from "vue"
   import { getHumanActionLists } from "@/api/human"
   import { useSelectedActionInfoStore, useSelectedModelInfoStore } from "@/stores/human"
 
@@ -52,9 +52,7 @@
     actionLists.value = formatPresetListsData<TActionParams>(res)
   }
 
-  watchEffect(() => {
-    getActionLists()
-  })
+  getActionLists()
 
   const onSelectAction = (info: TPresetListInfo) => {
     selectedActionInfoStore.setSelectedActionInfo({

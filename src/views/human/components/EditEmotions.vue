@@ -54,7 +54,7 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, watchEffect } from "vue"
+  import { ref } from "vue"
   import { getHumanEmotionLists } from "@/api/human"
   import { useSelectedEmotionInfoStore, useSelectedModelInfoStore } from "@/stores/human"
   import { EEmotionCatg } from "@/types/human.d"
@@ -79,10 +79,8 @@
     }
   }
 
-  watchEffect(() => {
-    getEmotionsLists(EEmotionCatg.Static)
-    getEmotionsLists(EEmotionCatg.Dynamic)
-  })
+  getEmotionsLists(EEmotionCatg.Static)
+  getEmotionsLists(EEmotionCatg.Dynamic)
 
   const clickTab = (value: EEmotionCatg) => {
     if (activeTabValue.value === value) {
