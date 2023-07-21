@@ -261,6 +261,7 @@
           padding: 0;
           border-radius: 4px !important;
           max-width: 90px;
+          margin: 0 10px;
         }
       }
     }
@@ -314,7 +315,6 @@
   }
   .header-save-menu {
     .edit-save-btn {
-      margin: 0 10px;
       width: 72px;
     }
   }

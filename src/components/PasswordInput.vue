@@ -70,7 +70,12 @@
               class="icon-success"
             ></span>
             <!-- 密码长度8到32位 -->
-            <span :class="{ active: pwdInfos.value.lengthOk }"> {{ $t("user.t17") }} </span>
+            <span
+              class="fix-tip-text"
+              :class="{ active: pwdInfos.value.lengthOk }"
+            >
+              {{ $t("user.t17") }}
+            </span>
           </div>
           <div class="flex-start">
             <span
@@ -82,7 +87,12 @@
               class="icon-success"
             ></span>
             <!-- 必须包含数字字母 -->
-            <span :class="{ active: pwdInfos.value.numberLetterOk }"> {{ $t("user.t16") }} </span>
+            <span
+              class="fix-tip-text"
+              :class="{ active: pwdInfos.value.numberLetterOk }"
+            >
+              {{ $t("user.t16") }}
+            </span>
           </div>
         </div>
         <div
@@ -415,6 +425,9 @@
       }
       &:focus-within {
         border: 1px solid var(--c-blue-1);
+      }
+      .fix-tip-text {
+        margin-left: 5px;
       }
     }
   }
