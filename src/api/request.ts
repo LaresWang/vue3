@@ -176,7 +176,7 @@ export class Request {
   // 默认配置
   private _defaultConfig: ExpandAxiosRequestConfig = {
     // baseURL: '',
-    timeout: 3000,
+    timeout: 30000,
     headers: {
       "Source-Client": "sincere.web"
       // "Source-Site": "sincere.realtime", // 走nginx配置的时候不需要这个头  走本地需要加上这个头
