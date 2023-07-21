@@ -406,18 +406,14 @@
         color: #999999;
         letter-spacing: 0;
         .login-type-btn {
-          font-family: PingFangSC-Regular;
-          font-weight: 400;
-          font-size: 16px;
-          color: var(--c-gray-1);
           margin-right: 28px;
           padding-bottom: 4px;
           border-bottom: 2px solid var(--c-blue-1);
           .title {
             font-family: PingFangSC-Regular;
-            font-weight: 400;
+            font-weight: 500;
             font-size: 16px;
-            color: var(--c-black-2);
+            color: var(--c-blue-1);
           }
         }
       }

@@ -65,6 +65,7 @@
   .text-wrapper {
     // width: fit-content;
     // max-width: 100%;
+    padding-right: 4px;
     display: inline-block;
     position: relative;
     .tip-text {

@@ -304,9 +304,13 @@
           width: 28px;
           height: 28px;
           background: var(--c-gray-5);
+          border-radius: 4px;
           .svg-icon {
             width: 20px;
             height: 20px;
+          }
+          &:active {
+            background: var(--c-black-1);
           }
         }
       }

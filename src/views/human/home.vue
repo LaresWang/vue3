@@ -132,11 +132,15 @@
       } else if (val === EEditCompName.EditActions) {
         switchToBodyCamera()
       }
-      operate.removeModelEmotionAction({
-        humanNo: selectedModelInfoStore.info.humanNo,
-        platform: selectedModelInfoStore.info.humanCatg!,
-        taskId: "-1"
-      })
+
+      if (val === EEditCompName.EditHeaderPart) {
+        // 切到捏脸是还原
+        operate.removeModelEmotionAction({
+          humanNo: selectedModelInfoStore.info.humanNo,
+          platform: selectedModelInfoStore.info.humanCatg!,
+          taskId: "-1"
+        })
+      }
     },
     {
       immediate: true

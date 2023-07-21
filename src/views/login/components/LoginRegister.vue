@@ -352,12 +352,13 @@
       color: #333;
       .login-type-btns-group {
         font-size: 16px;
-        color: var(--c-gray-1);
         letter-spacing: 0;
         .login-type-btn {
           margin-right: 28px;
+          font-weight: 500;
+          color: var(--c-black-2);
           &.active {
-            color: var(--c-black-2);
+            color: var(--c-blue-1);
             border-bottom: 2px solid var(--c-blue-1);
           }
         }

@@ -84,7 +84,7 @@
       }
       .body {
         height: 96px;
-        padding: 5px 10px;
+        padding: 5px 24px;
         margin: 1px 0;
         background: var(--c-black-4);
         .svg-icon {
