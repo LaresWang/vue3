@@ -84,6 +84,8 @@
   const currentAdjustValues = ref<TAdjustValue>({})
   // 输入框手动输入有问题的时候恢复输入前的值
   let prevAdjustValues: TAdjustValue = {}
+
+  console.log("sliderGroups")
   // 初始化数值
   watch(
     () => props.data,

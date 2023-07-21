@@ -3,8 +3,10 @@ import { ref } from "vue"
 import { defineStore } from "pinia"
 import type { TEditItem, TEditRecords, TMicroAdjustItem, TOperateResult, TWholeEditRecord } from "@/types/human"
 import { EBodyParts } from "@/types/human.d"
+import type { TObjGeneric } from "@/types"
 
 const useRecordEditStore = defineStore("recordEdit", () => {
+  const originHeaderMicroAdjustRecord: TObjGeneric<TMicroAdjustItem[]> = {}
   const record = ref<TEditRecords>({})
 
   const addStaticEmotionTask = () => {}
@@ -78,53 +80,50 @@ const useRecordEditStore = defineStore("recordEdit", () => {
     }
   }
 
-  const addBatchRawHeaderAdjustConfig = (humanNo: string, confs: TMicroAdjustItem[]) => {
-    if (!record.value[humanNo]) {
-      record.value[humanNo] = {}
-    }
-
-    if (!record.value[humanNo][EBodyParts.Header]) {
-      record.value[humanNo][EBodyParts.Header] = {}
-    }
-
-    if (!record.value[humanNo][EBodyParts.Header]!.microAdjust) {
-      record.value[humanNo][EBodyParts.Header]!.microAdjust = []
-      record.value[humanNo][EBodyParts.Header]!.microAdjustTaskIds = []
-    }
-
-    record.value[humanNo][EBodyParts.Header]!.microAdjust = record.value[humanNo][EBodyParts.Header]!.microAdjust!.concat(confs)
+  const setOriginHeaderEditConfig = (humanNo: string, params: { microAdjust: TMicroAdjustItem[] }) => {
+    originHeaderMicroAdjustRecord[humanNo] = params.microAdjust || []
   }
 
   const getValidWholeEditInfo = (humanNo: string): TWholeEditRecord => {
-    if (!record.value[humanNo]) {
-      return {}
-    }
+    // if (!record.value[humanNo]) {
+    //   return {}
+    // }
     const res: TWholeEditRecord = {}
     const info = record.value[humanNo]
-    // 剔除result不为true的任务
-    // 重复的指令需要去重，保留最后一个
-    if (info.action?.result) {
-      res.action = info.action
-    }
-    if (info.staticEmotion?.result) {
-      res.staticEmotion = info.staticEmotion
-    }
-    if (info.dynamicEmotion?.result) {
-      res.dynamicEmotion = info.dynamicEmotion
-    }
-
-    const header = info[EBodyParts.Header]
-    if (header) {
-      res[EBodyParts.Header] = {}
-      if (header.presets) {
-        const infos = removeInvalidItem(header.presets)
-        res[EBodyParts.Header].presets = infos
+    if (info) {
+      // 剔除result不为true的任务
+      // 重复的指令需要去重，保留最后一个
+      if (info.action?.result) {
+        res.action = info.action
+      }
+      if (info.staticEmotion?.result) {
+        res.staticEmotion = info.staticEmotion
+      }
+      if (info.dynamicEmotion?.result) {
+        res.dynamicEmotion = info.dynamicEmotion
       }
 
-      if (header.microAdjust) {
-        const infos = removeInvalidItem(header.microAdjust)
-        res[EBodyParts.Header].microAdjust = infos
+      const header = info[EBodyParts.Header]
+      if (header) {
+        res[EBodyParts.Header] = {}
+        if (header.presets) {
+          const infos = removeInvalidItem(header.presets)
+          res[EBodyParts.Header].presets = infos
+        }
+
+        if (header.microAdjust) {
+          const infos = removeInvalidItem(header.microAdjust)
+          res[EBodyParts.Header].microAdjust = infos
+        }
       }
+    }
+
+    console.log("mergeMicroAdjust")
+    if (originHeaderMicroAdjustRecord[humanNo]?.length) {
+      if (!res[EBodyParts.Header]) {
+        res[EBodyParts.Header] = {}
+      }
+      res[EBodyParts.Header].microAdjust = mergeMicroAdjust(res[EBodyParts.Header].microAdjust, originHeaderMicroAdjustRecord[humanNo])
     }
 
     return res
@@ -141,7 +140,7 @@ const useRecordEditStore = defineStore("recordEdit", () => {
     addActionTask,
     addHeaderPresetTask,
     addHeaderAdjustTask,
-    addBatchRawHeaderAdjustConfig,
+    setOriginHeaderEditConfig,
     updateStaticEmotionTask,
     updateDynamicEmotionTask,
     updateActionTask,
@@ -165,6 +164,35 @@ const removeInvalidItem = <T extends TEditItem | TMicroAdjustItem>(data: T[]): T
     }
   }
   return infos
+}
+
+const mergeMicroAdjust = (current: TMicroAdjustItem[] | undefined, origin: TMicroAdjustItem[] | undefined): TMicroAdjustItem[] | undefined => {
+  if (!current || !current.length) {
+    return origin
+  }
+
+  if (!origin || !origin.length) {
+    return current
+  }
+
+  const res = [...current]
+  // 开始合并， 如果current与origin同时存在则取current
+  const currentCmds: TObjGeneric<number> = {}
+  const originCmds: TObjGeneric<number> = {}
+  for (let i = 0; i < current.length; i++) {
+    currentCmds[current[i].commandId] = i
+  }
+  for (let j = 0; j < origin.length; j++) {
+    originCmds[origin[j].commandId] = j
+  }
+
+  for (const cmd in originCmds) {
+    if (typeof currentCmds[cmd] === "undefined") {
+      res.push(origin[originCmds[cmd]])
+    }
+  }
+
+  return res
 }
 
 export default useRecordEditStore

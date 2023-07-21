@@ -61,16 +61,16 @@ export default () => {
 
   const setHumanConfig = (params: TOperateResult) => {
     if (params.faceup_config && Object.keys(params.faceup_config).length) {
-      const config: TMicroAdjustItem[] = []
+      const microAdjust: TMicroAdjustItem[] = []
       for (const key in params.faceup_config) {
-        config.push({
+        microAdjust.push({
           taskId: "",
           commandId: key,
           commandValue: +params.faceup_config[key],
           result: true
         })
       }
-      recordEditStore.addBatchRawHeaderAdjustConfig(params.humanNo, config)
+      recordEditStore.setOriginHeaderEditConfig(params.humanNo, { microAdjust })
     }
   }
 
