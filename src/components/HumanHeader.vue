@@ -237,6 +237,7 @@
       height: 100%;
       flex: 1;
       overflow: hidden;
+      position: relative;
       .human-header-logo {
         height: 40px;
         width: 80px;
@@ -256,6 +257,8 @@
       }
       .header-save-menu {
         height: 100%;
+        position: absolute;
+        right: 0;
         .edit-save-btn {
           height: 28px;
           padding: 0;
