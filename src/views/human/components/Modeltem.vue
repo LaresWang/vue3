@@ -135,11 +135,11 @@
   const autoFocus = () => {
     if (props.isEditName) {
       input.value?.focus()
-      // 正对聚焦后不显示光标
-      if (typeof window.getSelection !== "undefined") {
-        const selection = window.getSelection()
-        selection?.selectAllChildren(input.value)
-      }
+      // // 正对聚焦后不显示光标
+      // if (typeof window.getSelection !== "undefined") {
+      //   const selection = window.getSelection()
+      //   selection?.selectAllChildren(input.value)
+      // }
     }
   }
 
