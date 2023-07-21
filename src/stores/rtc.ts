@@ -34,6 +34,7 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
     const isMousedata = isTMouseData(data)
     const isKeyboardData = isTKeyboardData(data)
     if (!canInteract.value && !force && (isMousedata || isKeyboardData)) {
+      // 拦截走http指令时的鼠标/键盘事件，其他不拦截
       return
     }
 
@@ -45,6 +46,8 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
     if (IOMethodStore.method === EIOMethod.Rtc) {
       if (isReady.value) {
         console.log("webrtc send")
+        // 放行，等消息发完后再根据情况进行设置
+        rtc.value?.setOperateAuth(true)
         if (isMousedata) {
           const info = {
             type: (data as TMouseupdown).button,
@@ -56,6 +59,10 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
           rtc.value?.sendRawKeyboardData(data.type, data.event)
         } else {
           sendByChannel(msg)
+        }
+        // 消息发完后，如果之前是不能交互状态，设置拦截状态
+        if (!canInteract.value) {
+          rtc.value?.setOperateAuth(false)
         }
       }
     } else {
@@ -90,7 +97,10 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
 
   const setInteractStatus = (status: boolean) => {
     canInteract.value = status
-    // rtc.value?.setOperateAuth(status)
+    if (IOMethodStore.method === EIOMethod.Rtc) {
+      // 只针对webrtc的channel，因为走webrtc的时候 鼠标，键盘事件在sdk里实现，只能通过这里去实现拦截
+      rtc.value?.setOperateAuth(status)
+    }
   }
 
   return { rtc, ready, setRtc, send, receive, setInteractStatus }
