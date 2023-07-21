@@ -1,7 +1,7 @@
 import { reactive, ref, computed } from "vue"
 import { defineStore } from "pinia"
 import useOperateModel from "@/hooks/human/operate"
-import { useSelectedModelInfoStore } from "./human"
+import { useSelectedModelInfoStore, useSelectedEmotionInfoStore, useSelectedActionInfoStore } from "./human"
 import type { TBreadcrumbMenu, TEditHumanMenu, EEditCompName } from "../types/menus"
 import { EEditCompName as EditCompName } from "../types/menus.d"
 import { v4 as uuid } from "uuid"
@@ -13,6 +13,8 @@ const useBreadcrumbMenusStore = defineStore("breadcrumbMenus", () => {
 
   const selectedEditCompNameStore = useSelectedEditCompNameStore()
   const selectedModelInfoStore = useSelectedModelInfoStore()
+  const selectedEmotionInfoStore = useSelectedEmotionInfoStore()
+  const selectedActionInfoStore = useSelectedActionInfoStore()
   const operate = useOperateModel()
 
   const addBreadMenu = (menu: TBreadcrumbMenu) => {
@@ -60,6 +62,9 @@ const useBreadcrumbMenusStore = defineStore("breadcrumbMenus", () => {
   const extralInfoHandler = (needResetModel?: boolean) => {
     // 清除编辑记录
     operate.deleteEditRecord(selectedModelInfoStore.info.humanNo)
+    // 清除表情/动作的选中状态
+    selectedEmotionInfoStore.clearSelectedEmotionInfo()
+    selectedActionInfoStore.clearSelectedActionInfo()
 
     // 发送恢复指令
     needResetModel &&
