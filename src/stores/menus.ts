@@ -32,13 +32,14 @@ const useBreadcrumbMenusStore = defineStore("breadcrumbMenus", () => {
   }
   const updateRootMenu = (menu: TBreadcrumbMenu) => {
     clearBreadMenus()
-    // 清除编辑前选中的模型，加载列表后再发送指令显示 第一个模型
-    selectedModelInfoStore.clearSelectedModelInfo()
 
     addBreadMenu(menu)
 
     // 理论上只有保存后自动回到数字人列表的时候需要清除编辑配置等信息，这里不区分，只要显示数字人列表都做清除动作
     extralInfoHandler()
+
+    // 清除编辑前选中的模型，加载列表后再发送指令显示 第一个模型
+    selectedModelInfoStore.clearSelectedModelInfo()
   }
   const clearBreadMenus = () => {
     breadMenus.value.length = 0
