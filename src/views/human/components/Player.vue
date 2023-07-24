@@ -79,7 +79,7 @@
         launchStatusStore.start()
       }
       if (url) {
-        loadingBgStyle.value.backgroundImage = `url(${url})`
+        loadingBgStyle.value.backgroundImage = `url(${url}?t=${Date.now()})`
         // loadingBgStyle.value.backgroundImage = `url(${bgImg})`
       }
     },

@@ -71,6 +71,10 @@
     })
     console.log(res)
     if (res.pageNo === pageNoLoading && res.rows.length) {
+      if (pageNoLoading === 1) {
+        res.rows[0].previewUrl += `?t=${Date.now()}`
+      }
+
       userModels.value = userModels.value.concat(res.rows)
 
       if (!selectedModelInfoStore.info.humanId) {
