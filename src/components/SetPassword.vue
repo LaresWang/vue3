@@ -3,7 +3,6 @@
     v-model="rdata.showDialog"
     width="334px"
     :show-close="false"
-    :modal-append-to-body="false"
     :close-on-click-modal="false"
     :close-on-press-escape="false"
     class="set-password"

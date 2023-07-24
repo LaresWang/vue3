@@ -101,7 +101,7 @@
         >
           <div class="flex-start">
             <span class="icon-error"></span>
-            <span> {{ $t("user.t27") }} </span>
+            <span class="fix-tip-text"> {{ $t("user.t27") }} </span>
           </div>
         </div>
       </div>

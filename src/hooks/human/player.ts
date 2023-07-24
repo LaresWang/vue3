@@ -137,6 +137,7 @@ export const usePlayerInteractListen = () => {
     const editArea = document.querySelector(".human-edit-area")
     const headerArea = document.querySelector(".human-header")
     const playerArea = document.querySelector(".human-player-area")
+    const setPwdArea = document.querySelector(".set-password-inner")
 
     editArea &&
       editArea.addEventListener(EMouseType.Mouseenter, () => {
@@ -146,6 +147,11 @@ export const usePlayerInteractListen = () => {
       headerArea.addEventListener(EMouseType.Mouseenter, () => {
         rtcHandlerStore.setInteractStatus(false)
       })
+    setPwdArea &&
+      setPwdArea.addEventListener(EMouseType.Mouseenter, () => {
+        rtcHandlerStore.setInteractStatus(false)
+      })
+
     playerArea &&
       playerArea.addEventListener(EMouseType.Mouseenter, () => {
         rtcHandlerStore.setInteractStatus(true)
