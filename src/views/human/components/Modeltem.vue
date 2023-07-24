@@ -175,7 +175,7 @@
     } catch (e: any) {
       console.log("修改名称失败", e)
       if (e.code === "60006") {
-        input.value?.focus()
+        onEditName(props.infos.humanId)
       }
       modelName.value = props.newName || props.infos.humanName
       emits("submitName", false, props.infos)
