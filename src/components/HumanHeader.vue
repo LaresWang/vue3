@@ -303,6 +303,8 @@
             margin-left: 8px;
             font-size: 14px;
             max-width: 100px;
+            height: 24px;
+            line-height: 24px;
             color: var(--c-white-1);
           }
         }

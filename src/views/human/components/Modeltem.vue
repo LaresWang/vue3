@@ -172,8 +172,11 @@
         name: modelName.value
       })
       emits("submitName", false, props.infos, modelName.value)
-    } catch (e) {
+    } catch (e: any) {
       console.log("修改名称失败", e)
+      if (e.code === "60006") {
+        input.value?.focus()
+      }
       modelName.value = props.newName || props.infos.humanName
       emits("submitName", false, props.infos)
     }
