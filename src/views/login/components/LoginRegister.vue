@@ -244,6 +244,7 @@
         .then((data) => {
           loginDone(data)
           setLogingStatus(false)
+          rdata.loginInfo = {}
         })
         .catch((e) => {
           console.log(e)
@@ -252,10 +253,17 @@
       // this.loginJump({});
     } else {
       // 密码登录时点击登录先弹出图形验证码
-      loginByPwd({
-        mobile: rdata.loginInfo.mobile!,
-        password: rdata.loginInfo.pwd!
-      })
+      loginByPwd(
+        {
+          mobile: rdata.loginInfo.mobile!,
+          password: rdata.loginInfo.pwd!
+        },
+        (res: boolean) => {
+          if (res) {
+            rdata.loginInfo = {}
+          }
+        }
+      )
     }
   }
 

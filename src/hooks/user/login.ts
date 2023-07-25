@@ -64,13 +64,17 @@ export const useCaptchaInitSMS = () => {
 export const useCaptchaInitPWD = () => {
   let captchaObj: any
   const isLoging = ref(false)
+  let loginCb: Function | null = null
 
   let pwdLoginPartialParams: TPWDInputValues
 
-  const loginByPwd = (options: TPWDInputValues) => {
+  const loginByPwd = (options: TPWDInputValues, cb?: Function) => {
     pwdLoginPartialParams = options
     captchaObj.showCaptcha()
     computedPosition(".login-register")
+    if (cb) {
+      loginCb = cb
+    }
   }
 
   const setLogingStatus = (status: boolean) => {
@@ -104,10 +108,14 @@ export const useCaptchaInitPWD = () => {
               .then((data) => {
                 loginDone(data)
                 isLoging.value = false
+                if (typeof loginCb === "function") {
+                  loginCb(true)
+                }
               })
               .catch((e) => {
                 console.log(e)
                 isLoging.value = false
+                loginCb = null
               })
           })
           .onError(() => {

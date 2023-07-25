@@ -46,7 +46,7 @@ export const goUserCenter = function () {
 
 export const loginDone = (data: TLoginPWDResParams) => {
   if (data.token) {
-    message(t("user.t25"))
+    // message(t("user.t25"))
     localStorage.setItem("token", data.token)
     localStorage.setItem("userkey", data.userKey)
     localStorage.setItem("userId", data.userId)
