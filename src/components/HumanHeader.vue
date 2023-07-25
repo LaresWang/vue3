@@ -83,7 +83,7 @@
         class="user-nav-body"
         popper-class="fix-user-nav-popper-body"
       >
-        <div class="user-info-title flex-center">
+        <div class="user-info-title flex-center pointer">
           <Avatar
             class="nav-avatar"
             :url="userInfoStore.userInfo?.userAvatar"
@@ -91,7 +91,7 @@
           <span class="user-name single-line-text-ellipsis">{{ userInfoStore.userInfo?.userName }}</span>
         </div>
         <template #dropdown>
-          <el-dropdown-menu class="user-nav-items-wrapper pointer">
+          <el-dropdown-menu class="user-nav-items-wrapper">
             <el-dropdown-item class="user-nav-item first">
               <div class="user-nav-item-inner flex-center">
                 <div class="left-icon flex-center">
