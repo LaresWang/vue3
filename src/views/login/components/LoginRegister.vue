@@ -245,6 +245,10 @@
           loginDone(data)
           setLogingStatus(false)
           rdata.loginInfo = {}
+          rdata.msgcodeInfos = {}
+          rdata.pwdInfos = {}
+          rdata.mobileInfos = {}
+          updateLoginBtnStatus()
         })
         .catch((e) => {
           console.log(e)
@@ -261,6 +265,10 @@
         (res: boolean) => {
           if (res) {
             rdata.loginInfo = {}
+            rdata.msgcodeInfos = {}
+            rdata.pwdInfos = {}
+            rdata.mobileInfos = {}
+            updateLoginBtnStatus()
           }
         }
       )
