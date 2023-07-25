@@ -1,6 +1,6 @@
 <template>
   <div
-    class="preset-item flex-v"
+    class="preset-item flex-v pointer"
     @click="onSelect(props.infos)"
   >
     <div

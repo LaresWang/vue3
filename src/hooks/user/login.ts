@@ -103,6 +103,7 @@ export const useCaptchaInitPWD = () => {
             })
               .then((data) => {
                 loginDone(data)
+                isLoging.value = false
               })
               .catch((e) => {
                 console.log(e)

@@ -20,7 +20,7 @@
       </div>
     </div>
     <div
-      class="toggle-icon"
+      class="toggle-icon pointer"
       @click="toggle"
     >
       <svg-icon

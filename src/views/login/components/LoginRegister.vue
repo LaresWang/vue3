@@ -243,6 +243,7 @@
       })
         .then((data) => {
           loginDone(data)
+          setLogingStatus(false)
         })
         .catch((e) => {
           console.log(e)

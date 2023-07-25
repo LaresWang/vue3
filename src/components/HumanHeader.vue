@@ -91,7 +91,7 @@
           <span class="user-name single-line-text-ellipsis">{{ userInfoStore.userInfo?.userName }}</span>
         </div>
         <template #dropdown>
-          <el-dropdown-menu class="user-nav-items-wrapper">
+          <el-dropdown-menu class="user-nav-items-wrapper pointer">
             <el-dropdown-item class="user-nav-item first">
               <div class="user-nav-item-inner flex-center">
                 <div class="left-icon flex-center">

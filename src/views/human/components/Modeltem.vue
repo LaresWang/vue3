@@ -4,7 +4,7 @@
     @click="onSelect(props.infos)"
   >
     <div
-      class="model-pic-frame flex-center"
+      class="model-pic-frame flex-center pointer"
       :class="selectedModelInfoStore.selectedHumanModelId === props.infos.humanId ? 'selected' : ''"
     >
       <!-- <img
