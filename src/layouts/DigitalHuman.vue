@@ -13,7 +13,7 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, watch, onMounted } from "vue"
+  import { ref, watch, onMounted, onUpdated } from "vue"
   import { usePlayerInteractListen } from "@/hooks/human/player"
 
   import { useGetUserInfo } from "../hooks/user"
@@ -28,6 +28,12 @@
     if (val) {
       console.log("watch UserInfo1", val)
       showSetPwdPanel.value = val.passwordStatus === 0
+    }
+  })
+
+  onUpdated(() => {
+    if (showSetPwdPanel.value) {
+      registerListeners(".set-password-inner", false)
     }
   })
 

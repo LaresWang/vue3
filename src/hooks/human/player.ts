@@ -133,11 +133,19 @@ export const usePlayerInteractListen = () => {
   // human-player-area mouseenter 可以交互
   const rtcHandlerStore = useRtcHandlerStore()
 
-  const registerListeners = () => {
+  const registerListeners = (selector?: string, status?: boolean) => {
+    if (selector) {
+      const specialArea = document.querySelector(selector)
+      specialArea &&
+        specialArea.addEventListener(EMouseType.Mouseenter, () => {
+          rtcHandlerStore.setInteractStatus(status || false)
+        })
+      return
+    }
+
     const editArea = document.querySelector(".human-edit-area")
     const headerArea = document.querySelector(".human-header")
     const playerArea = document.querySelector(".human-player-area")
-    const setPwdArea = document.querySelector(".set-password-inner")
 
     editArea &&
       editArea.addEventListener(EMouseType.Mouseenter, () => {
@@ -145,10 +153,6 @@ export const usePlayerInteractListen = () => {
       })
     headerArea &&
       headerArea.addEventListener(EMouseType.Mouseenter, () => {
-        rtcHandlerStore.setInteractStatus(false)
-      })
-    setPwdArea &&
-      setPwdArea.addEventListener(EMouseType.Mouseenter, () => {
         rtcHandlerStore.setInteractStatus(false)
       })
 
