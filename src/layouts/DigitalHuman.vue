@@ -13,7 +13,8 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, watch } from "vue"
+  import { ref, watch, onMounted } from "vue"
+  import { usePlayerInteractListen } from "@/hooks/human/player"
 
   import { useGetUserInfo } from "../hooks/user"
 
@@ -21,12 +22,17 @@
 
   const showSetPwdPanel = ref(false)
   const { userInfo } = useGetUserInfo(true)
+  const { registerListeners } = usePlayerInteractListen()
 
   watch(userInfo, (val) => {
     if (val) {
       console.log("watch UserInfo1", val)
       showSetPwdPanel.value = val.passwordStatus === 0
     }
+  })
+
+  onMounted(() => {
+    registerListeners()
   })
 </script>
 <style lang="less">

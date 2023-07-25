@@ -36,7 +36,7 @@
   import { useIOMethodStore } from "@/stores/io"
   import useRtcHandlerStore from "@/stores/rtc"
   import useBgPicSize from "@/hooks/bgPicSize"
-  import { usePlayerHandlers, usePlayerInteractListen } from "@/hooks/human/player"
+  import { usePlayerHandlers } from "@/hooks/human/player"
   import { ELaunchStatus } from "@/types/player.d"
   import type { TConnectStatus, TRtcSDK } from "@/types/player"
   import type { TObj } from "@/types"
@@ -50,7 +50,6 @@
   const launchStatusStore = useLaunchStatusStore()
   const rtcHandlerStore = useRtcHandlerStore()
   const IOMethodStore = useIOMethodStore()
-  const { registerListeners } = usePlayerInteractListen()
 
   const loadingBgPic = ref<HTMLElement>()
   const loadingBgStyle = ref<TObj>({})
@@ -120,10 +119,6 @@
       immediate: true
     }
   )
-
-  onMounted(() => {
-    registerListeners()
-  })
 
   watchEffect(() => {
     if (launchStatusStore.status === ELaunchStatus.Fail || launchStatusStore.status === ELaunchStatus.Close) {
