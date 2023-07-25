@@ -19,11 +19,17 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
   const userInfoStore = useUserInfoStore()
   const IOMethodStore = useIOMethodStore()
   const operateRes = useOperateRes()
+  let interactStatusSetted = true
 
   const userId = computed(() => userInfoStore.userInfo?.userId)
 
   const ready = () => {
     isReady.value = true
+
+    if (!interactStatusSetted) {
+      rtc.value?.setOperateAuth(false)
+      interactStatusSetted = true
+    }
   }
 
   const setRtc = (sdk: TRtcSDK) => {
@@ -99,7 +105,11 @@ const useRTCHandlersStore = defineStore("RTCHandlers", () => {
     canInteract.value = status
     if (IOMethodStore.method === EIOMethod.Rtc) {
       // 只针对webrtc的channel，因为走webrtc的时候 鼠标，键盘事件在sdk里实现，只能通过这里去实现拦截
-      rtc.value?.setOperateAuth(status)
+      if (rtc.value) {
+        rtc.value.setOperateAuth(status)
+      } else {
+        interactStatusSetted = status
+      }
     }
   }
 

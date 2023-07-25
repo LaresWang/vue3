@@ -26,7 +26,7 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { ref, watchEffect, watch } from "vue"
+  import { ref, watchEffect, watch, onMounted } from "vue"
   import { Loading } from "@element-plus/icons-vue"
   import WEBRTCSDK from "webrtcsdk_new"
   import { getBrowserUUID, getCiphertext } from "@/utils/tools"
@@ -114,14 +114,16 @@
             sendDirect: true
           }
         )
-
-        registerListeners()
       }
     },
     {
       immediate: true
     }
   )
+
+  onMounted(() => {
+    registerListeners()
+  })
 
   watchEffect(() => {
     if (launchStatusStore.status === ELaunchStatus.Fail || launchStatusStore.status === ELaunchStatus.Close) {
