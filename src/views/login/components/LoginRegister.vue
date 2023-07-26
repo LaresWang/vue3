@@ -92,6 +92,7 @@
           class="input-item without-status-icon without-pb"
         >
           <PasswordInput
+            :clear="clearPwd"
             @validate="validatePwd"
             @enterPress="login"
           />
@@ -133,7 +134,7 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { watch, reactive, onMounted } from "vue"
+  import { ref, watch, reactive, onMounted } from "vue"
   import { useRouter } from "vue-router"
   import { loginBySMSCode } from "@/api/user"
   import { useCaptchaInitPWD, useCaptchaInitSMS } from "@/hooks/user/login"
@@ -184,6 +185,8 @@
     msgcodeInfos: {},
     loginBtnDisabled: true
   })
+
+  const clearPwd = ref(false)
 
   const uRouter = useRouter()
   const { captchaId } = useGetCaptchaId(0)
@@ -268,6 +271,10 @@
             rdata.msgcodeInfos = {}
             rdata.pwdInfos = {}
             rdata.mobileInfos = {}
+            clearPwd.value = true
+            setTimeout(() => {
+              clearPwd.value = false
+            }, 300)
             updateLoginBtnStatus()
           }
         }

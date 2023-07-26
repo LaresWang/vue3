@@ -135,6 +135,7 @@
       placeholder?: string // 定义组建接收绑定的传参
       comparedValue?: string
       from?: string
+      clear?: boolean
       // @from
       // 1-实时校验，不符合密码规则的不让输入 登录场景
       // 2-实时校验规则，给出浮层提示 设置密码 填写密码场景
@@ -179,6 +180,15 @@
           data.iconOk = false
           data.errText = ""
         }
+      }
+    }
+  )
+
+  watch(
+    () => props.clear,
+    (val) => {
+      if (val) {
+        data.value = ""
       }
     }
   )
